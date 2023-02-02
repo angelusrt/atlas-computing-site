@@ -1,3 +1,4 @@
+import { Button } from "../components/buttons/Buttons";
 import { Text } from "../components/texts/Texts";
 
 const classes: string[] = [
@@ -8,7 +9,21 @@ const classes: string[] = [
 function Intro() : JSX.Element{
   return(
     <section>
-      <Text type='h1'>Atcom</Text>
+      <Button
+        type='h1'
+        name='button-white'
+        text='AtCom'
+      />
+      <Button
+        type='h2'
+        name='button-white'
+        text='Indíce'
+      />
+      <Button
+        type='h2'
+        name='button-black'
+        text='Entre'
+      />
       <Text type='h1' name={classes[0]}>
         Atlas
       </Text>

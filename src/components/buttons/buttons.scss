@@ -1,0 +1,28 @@
+button{
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 10px;
+  border-style: none;
+  padding: 10px 20px;
+  transition: all .4s;
+
+  &:hover{
+    background-color: var(--blue);
+    color: var(--black);
+    transition: all .4s;
+  }
+}
+
+.button-black{
+  background-color: var(--black);
+  color: var(--white);
+  transition: all .4s;
+
+  .text-button-white{
+    transition: all .4s;
+  }
+  &:hover .text-button-white{
+    color: var(--black);
+    transition: all .4s;
+  }
+}
