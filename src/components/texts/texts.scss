@@ -1,0 +1,91 @@
+p{
+  line-height: 150%;
+}
+
+h1, h2, p{
+  font-family: 'Roboto Condensed';
+  font-weight: 400;
+  color: var(--black);
+  margin: 0;
+
+  &::selection{
+    background-color: var(--blue);
+  }
+}
+
+
+.text-project-body{
+  line-height: normal;
+}
+
+.text-intro-title,
+.text-menu-title{
+  font-family: 'Roboto';
+  font-weight: 100;
+  color: var(--black); 
+}
+.text-intro-subtitle,
+.text-menu-subtitle,
+.text-info-subtitle,
+.text-project-title,
+.text-footer-body{
+  font-family: 'Poppins';
+  font-weight: 800;
+  color: var(--black);
+}
+.text-button-white,
+.text-menu-title,
+.text-menu-subtitle{
+  color: var(--white);
+}
+
+@media (min-width: 0px) {
+  h1{
+    font-size: 35px;
+  }
+
+  h2, p, 
+  .text-info-title,
+  .text-project-title,
+  .text-intro-subtitle{
+    font-size: 25px;
+  }
+
+  .text-intro-title,
+  .text-menu-title{
+    font-size: 120px;
+  }
+  .text-intro-subtitle,
+  .text-menu-subtitle{
+    margin-top: 30px;
+  }
+  .text-info-subtitle{
+    font-size: 40px;
+    margin-top: 5px;
+  }
+  .text-project-body{
+    margin-top: 10px;
+  }
+  .text-footer-body{
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 725px) {
+  p, .text-info-title{
+    font-size: 35px;
+  }
+  
+  .text-intro-title{
+    font-size: 150px;
+  }
+  .text-intro-subtitle{
+    font-size: 70px;
+  }
+  .text-info-subtitle{
+    font-size: 50px;
+  }
+  .text-footer-body{
+    font-size: 25px;
+  }
+}
