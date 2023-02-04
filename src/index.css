@@ -15,5 +15,27 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
+}
+
+footer{
+  background-color: var(--black);
+  text-align: center;
+  padding: 40px;
+  margin-top: 100px;
+}
+
+#discover{
+  background-color: var(--black);
+}
+
+@media (min-width: 0px) {
+  section{
+    padding: 20px;
+  }
+}
+@media (min-width: 725px) {
+  section{
+    padding: 40px 80px;
+  }
 }
