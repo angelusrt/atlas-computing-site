@@ -1,25 +1,40 @@
-import { useState } from "react"
-import { Style } from "util"
+import { useEffect, useRef, useState } from "react"
+import { transition, useAnimateOnScroll } from "../../functions/transition"
 import { Button, Link } from "../buttons/Buttons"
 import { Icon } from "../icons/Icons"
 import { Text } from "../texts/Texts"
+import data from "../../data.json"
 import "./blocks.css"
 
 type blockProps = {
   name: string,
   children?: any,
-  style ?: any
+  style ?: React.CSSProperties,
+  blockRef ?: React.LegacyRef<HTMLDivElement>
 }
 
-function Block(props: blockProps): JSX.Element{
+function Block(props: blockProps){
+  useAnimateOnScroll(
+    '.block-info', 
+    {...transition, start: 800, delayPerItem: 200}
+  )
+  useAnimateOnScroll(
+    '.block-project', 
+    {...transition, start: 400, delayPerItem: 200}
+  )
+  useAnimateOnScroll(
+    '.block-horizontal .block-wrapper', 
+    {...transition, start: 400, delayPerItem: 200}
+  )
+
   return(
-    <div className={props.name} style={props.style}>
+    <div ref={props.blockRef} className={props.name} style={props.style}>
       {props.children}
     </div>
   )
 }
 
-function Nav(): JSX.Element{
+function Nav(){
   const [isToggle, setToggle] = useState(false)
 
   return(
@@ -27,13 +42,13 @@ function Nav(): JSX.Element{
       <Button
         type='h1'
         color='white'
-        text='AtCom'
+        text={data.nav.buttonNames[0]}
       />
       <Block name="block-wrapper">
         <Button
           type='h2'
           color='white'
-          text='Indíce'
+          text={data.nav.buttonNames[1]}
           func={{ 
             onTouchStart: () => setToggle(true),
             onTouchEnd: () => setToggle(false),
@@ -42,30 +57,22 @@ function Nav(): JSX.Element{
           }}
         >
           <Icon name="Dropdown"/>
-          <DropdownBlock 
-            style={{display: !isToggle ? 'none' : 'flex'}}
-          >
-            <Link
-              color="white"
-              href="#"
-              text="Introdução"
-            />
-            <Link
-              color="white"
-              href="#"
-              text="Descubra"
-            />
-            <Link
-              color="white"
-              href="#"
-              text="Projetos"
-            />
+          <DropdownBlock toggle={isToggle}>
+            {data.index.map((item, index) => 
+              <Link
+                key={index}
+                isNewTab={false}
+                color="white"
+                href={item.href}
+                text={item.text}
+              />
+            )}
           </DropdownBlock>
         </Button>
         <Button
           type='h2'
           color='black'
-          text='Entre'
+          text={data.nav.buttonNames[2]}
         >
           <Icon name="Arrow"/>
         </Button>
@@ -103,6 +110,7 @@ function InfoBlock(props: infoBlockProps): JSX.Element{
 }
 
 type projectBlockProps = {
+  iconName: 'ReadingFlow' | 'Database' | 'Network'
   title: string,
   subtitle: string
 }
@@ -110,7 +118,9 @@ type projectBlockProps = {
 function ProjectBlock(props: projectBlockProps): JSX.Element{
   return(
     <Block name="block-project">
-      <Block name="block-project-image"/>
+      <Block name="block-project-image">
+        <Icon name={props.iconName}/>
+      </Block>
       <Block name="block-wrapper">
         <Text 
           type="h1" 
@@ -129,12 +139,36 @@ function ProjectBlock(props: projectBlockProps): JSX.Element{
 
 type dropdownProps = {
   children: any,
-  style: any
+  toggle: boolean
 }
 
-function DropdownBlock(props: dropdownProps): JSX.Element{
-  return(
-    <Block name="block-dropdown" style={props.style}>
+const dropdownClass = [
+  "block-dropdown--show", 
+  "block-dropdown--none"
+]
+
+function DropdownBlock(props: dropdownProps): JSX.Element {
+  const [time , setTime] = useState<NodeJS.Timeout>()
+  const ref = useRef<HTMLDivElement>(null!)
+  
+  useEffect(() => {
+    const classList = ref.current.classList
+    const removeClass = (i: number) => classList.remove(dropdownClass[i]) 
+    const addClass = (i: number) => classList.add(dropdownClass[i])
+
+    if(time !== undefined) clearTimeout(time)
+
+    if(!props.toggle){
+      removeClass(0)
+      setTime(setTimeout(() => addClass(1), 1000))
+    } else if(props.toggle){
+      removeClass(1)
+      setTime(setTimeout(() => addClass(0), 10))
+    }
+  },[props.toggle, ref.current])
+
+  return (
+    <Block blockRef={ref} name="block-dropdown">
       {props.children}
     </Block>
   )

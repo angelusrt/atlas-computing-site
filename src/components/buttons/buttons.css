@@ -1,6 +1,7 @@
 button, a {
   position: relative;
   display: inline-block;
+  z-index: 4;
   background-color: var(--white);
   text-decoration: none;
   color: var(--black);
@@ -23,20 +24,12 @@ button .icon, a .icon {
 button .block-dropdown, a .block-dropdown {
   top: 45px;
   left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  height: 0px;
   transition: all 0.4s 0.2s;
 }
 button:hover, a:hover {
   background-color: var(--blue);
   color: var(--black);
   transition: all 0.4s;
-}
-button:hover .block-dropdown, a:hover .block-dropdown {
-  opacity: 1;
-  height: 153px;
-  transition: all 0.4s 0.2s;
 }
 
 .button-white {
@@ -66,4 +59,19 @@ button:hover .block-dropdown, a:hover .block-dropdown {
 .button-title {
   margin-bottom: 40px;
   margin-left: -20px;
+}
+
+.button-title,
+.button-subtitle,
+.button-link {
+  opacity: 0;
+  transform: translateY(-20%);
+  transition: all 1s;
+}
+.button-title--show,
+.button-subtitle--show,
+.button-link--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
 }/*# sourceMappingURL=buttons.css.map */

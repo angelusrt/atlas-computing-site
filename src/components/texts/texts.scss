@@ -4,7 +4,7 @@ p{
 
 h1, h2, p{
   font-family: 'Roboto Condensed';
-  font-weight: 600;
+  font-weight: 300;
   color: var(--black);
   margin: 0;
 
@@ -13,8 +13,23 @@ h1, h2, p{
   }
 }
 
+.text-intro-title{
+  z-index: -1;
+  position: relative;
+}
 .text-project-body{
   line-height: normal;
+}
+.text-footer-body{
+  opacity: 0;
+  transform: translateY(20%);
+  transition: all 1s;
+
+  &--show{
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s;
+  }
 }
 
 .text-intro-title,
@@ -38,6 +53,20 @@ h1, h2, p{
 .text-menu-subtitle,
 .text-footer-body{
   color: var(--white);
+}
+
+
+.text-intro-title, 
+.text-intro-subtitle{
+  opacity: 0;
+  transform: translateX(-20%);
+  transition: all 1s;
+
+  &--show{
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s;
+  }
 }
 
 @media (min-width: 0px) {

@@ -1,6 +1,7 @@
 button, a{
   position: relative;
   display: inline-block;
+  z-index: 4;
   background-color: var(--white);
   text-decoration: none;
   color: var(--black);
@@ -23,9 +24,9 @@ button, a{
   .block-dropdown{
     top: 45px;
     left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    height: 0px;
+    // transform: translateX(-50%);
+    // opacity: 0;
+    // height: 0px;
     transition: all .4s .2s;
   }
   &:hover{
@@ -33,11 +34,11 @@ button, a{
     color: var(--black);
     transition: all .4s;
 
-    .block-dropdown{
-      opacity: 1;
-      height: 153px;
-      transition: all .4s .2s;
-    }
+    // .block-dropdown{
+    //   opacity: 1;
+    //   height: 203px;
+    //   transition: all .4s .2s;
+    // }
   }
 }
 
@@ -70,4 +71,19 @@ button, a{
 .button-title{
   margin-bottom: 40px;
   margin-left: -20px;
+  
+}
+
+.button-title,
+.button-subtitle,
+.button-link{
+  opacity: 0;
+  transform: translateY(-20%);
+  transition: all 1s;
+  
+  &--show{
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 1s;
+  }
 }

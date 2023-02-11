@@ -15,17 +15,60 @@ nav .block-wrapper {
   border: 3px solid var(--black);
   border-radius: 20px;
   padding: 20px;
+  opacity: 0;
+  height: 0px;
+  transform: translateX(-50%) translateY(-20%);
+  transition: all 1s;
 }
 .block-dropdown .button-white {
   margin: 0;
+}
+.block-dropdown .button-link {
+  opacity: 0;
+  transform: translateY(-5%);
+  transition: all 1s;
+}
+.block-dropdown--none {
+  display: none;
+}
+.block-dropdown--show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  height: 203px;
+  transition: all 1s;
+}
+.block-dropdown--show .button-link {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+}
+
+.block-project {
+  box-shadow: 0px 0px var(--white);
+  transition: all 1s;
+}
+.block-project:hover {
+  box-shadow: 12px 12px var(--blue);
+  transition: all 1s;
 }
 
 .block-horizontal {
   display: flex;
 }
+.block-horizontal .block-wrapper {
+  opacity: 0;
+  transform: translateX(20%);
+  transition: all 1s;
+}
+.block-horizontal .block-wrapper--show {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 1s;
+}
 
 .block-info {
   margin: 40px 0;
+  padding: 0 20px;
 }
 
 .block-grid {
@@ -38,6 +81,19 @@ nav .block-wrapper {
   border: 3px solid var(--black);
 }
 
+.block-info,
+.block-project {
+  opacity: 0;
+  transform: translateX(20%);
+  transition: all 1s;
+}
+.block-info--show,
+.block-project--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+}
+
 @media (min-width: 0px) {
   nav .block-wrapper .button-white {
     display: none;
@@ -45,15 +101,36 @@ nav .block-wrapper {
   .block-horizontal {
     flex-direction: column;
   }
-  .block-horizontal .block-wrapper:first-of-type {
+  .block-horizontal .block-wrapper :first-of-type {
     margin-bottom: 40px;
   }
   .block-grid {
     gap: 40px 0;
   }
+  .block-discover {
+    height: 500px;
+  }
+  .block-discover .block-info {
+    position: absolute;
+  }
+  .block-discover:first-of-type .block-info {
+    left: 40vw;
+    top: 30%;
+  }
+  .block-discover:last-of-type .block-info {
+    bottom: 25%;
+    left: 10vw;
+    transform: translateX(-20%);
+    transition: all 1s;
+  }
+  .block-discover:last-of-type .block-info--show {
+    transform: translateX(0);
+    transition: all 1s;
+  }
   .block-project-image {
-    width: 100%;
     height: 130px;
+    text-align: center;
+    overflow: hidden;
   }
   .block-project .block-wrapper {
     padding: 20px;
@@ -77,6 +154,20 @@ nav .block-wrapper {
   }
   .block-grid {
     gap: 60px;
+  }
+  .block-discover {
+    height: 600px;
+  }
+  .block-discover .block-info {
+    position: absolute;
+  }
+  .block-discover:first-of-type .block-info {
+    left: 40vw;
+    top: 30%;
+  }
+  .block-discover:last-of-type .block-info {
+    bottom: 25%;
+    left: 10vw;
   }
   .block-project .block-wrapper {
     padding: 40px;
