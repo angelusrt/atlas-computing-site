@@ -1,0 +1,76 @@
+.canvas-globe{
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 90px;
+
+  opacity: 0;
+  transform: translateY(-20%);
+  transition: all 1s;
+
+  &--show{
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 1s;
+  }
+}
+
+.react-dat-gui{
+  background-color: var(--white);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25%;
+
+  ul{
+    list-style: none;
+
+    label{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      
+      span{
+        display: flex !important;
+        flex: 2;
+        width: auto !important;
+        margin: 5px;
+
+        .slider{
+          width: 100% !important;
+        
+          &::-webkit-slider-runnable-track, 
+          &::-moz-range-track{
+            background-color: var(--black);
+            height: 5px;
+          }
+           
+          &::-webkit-slider-thumb,
+          &::-moz-range-thumb {
+            appearance: none;
+            height: 15px;
+            width: 15px;
+            background-color: var(--white);
+            margin-top: -5px;
+            border-radius: 50%;
+          }
+        }
+         
+      }
+      .label-text{
+        flex: 1;
+      }
+    }
+  }
+}
+
+@media (min-width: 0) {
+  .canvas-globe{
+    right: -200px;
+  } 
+}
+@media (min-width: 725px) {
+  .canvas-globe{
+    left: calc(50vw - 200px);
+  }
+}

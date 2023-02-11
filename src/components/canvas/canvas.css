@@ -1,0 +1,66 @@
+.canvas-globe {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 90px;
+  opacity: 0;
+  transform: translateY(-20%);
+  transition: all 1s;
+}
+.canvas-globe--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+}
+
+.react-dat-gui {
+  background-color: var(--white);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25%;
+}
+.react-dat-gui ul {
+  list-style: none;
+}
+.react-dat-gui ul label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.react-dat-gui ul label span {
+  display: flex !important;
+  flex: 2;
+  width: auto !important;
+  margin: 5px;
+}
+.react-dat-gui ul label span .slider {
+  width: 100% !important;
+}
+.react-dat-gui ul label span .slider::-webkit-slider-runnable-track, .react-dat-gui ul label span .slider::-moz-range-track {
+  background-color: var(--black);
+  height: 5px;
+}
+.react-dat-gui ul label span .slider::-webkit-slider-thumb, .react-dat-gui ul label span .slider::-moz-range-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: var(--white);
+  margin-top: -5px;
+  border-radius: 50%;
+}
+.react-dat-gui ul label .label-text {
+  flex: 1;
+}
+
+@media (min-width: 0) {
+  .canvas-globe {
+    right: -200px;
+  }
+}
+@media (min-width: 725px) {
+  .canvas-globe {
+    left: calc(50vw - 200px);
+  }
+}/*# sourceMappingURL=canvas.css.map */
