@@ -1,5 +1,7 @@
-import { InfoBlock } from "../components/blocks/Blocks"
+import { Block, InfoBlock } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
+import { Icon } from "../components/icons/Icons"
+import data from "../data.json"
 
 function Discover(){
   return(
@@ -7,18 +9,24 @@ function Discover(){
       <Button
         type="h1"
         color="black"
-        text="Descubra"
+        text={data.discover.tag}
       />
-      <InfoBlock
-        title="Localização"
-        subtitle="Recife"
-        color="white"
-      />
-      <InfoBlock
-        title="Email"
-        subtitle="angelusrt@gmail.com"
-        color="white"
-      />
+      <Block name="block-discover">
+        <Icon name="Recife"/>
+        <InfoBlock
+          title={data.discover.info[0].title}
+          subtitle={data.discover.info[0].subtitle}
+          color="white"
+        />
+      </Block>
+      <Block name="block-discover">
+        <Icon name="Cables"/>
+        <InfoBlock
+          title={data.discover.info[1].title}
+          subtitle={data.discover.info[1].subtitle}
+          color="white"
+        />
+      </Block>
     </section>
   )
 }

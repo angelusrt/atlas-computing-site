@@ -1,28 +1,30 @@
 import { Block, ProjectBlock } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
+import data from "../data.json"
 
 function Projects(): JSX.Element{
   return(
-    <section>
+    <section id="projects">
       <Button 
         type='h1'
         color='white'
-        text='Projetos'
+        text={data.projects.tag}
       />
-      <Block 
-        name="block-grid"
-      >
+      <Block name="block-grid">
         <ProjectBlock
-          title="Placeholder"
-          subtitle="Placeholder"
+          iconName="ReadingFlow"
+          title={data.projects.itens[0].title}
+          subtitle={data.projects.itens[0].subtitle}
         />
         <ProjectBlock
-          title="Placeholder"
-          subtitle="Placeholder"
+          iconName="Database"
+          title={data.projects.itens[1].title}
+          subtitle={data.projects.itens[1].subtitle}
         />
         <ProjectBlock
-          title="Placeholder"
-          subtitle="Placeholder"
+          iconName="Network"
+          title={data.projects.itens[2].title}
+          subtitle={data.projects.itens[2].subtitle}
         />
       </Block>
     </section>

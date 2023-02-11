@@ -1,5 +1,7 @@
-import { Nav } from "../components/blocks/Blocks";
-import { Text } from "../components/texts/Texts";
+import { Nav } from "../components/blocks/Blocks"
+import { Globe } from "../components/canvas/Canvas"
+import { Text } from "../components/texts/Texts"
+import data from "../data.json"
 
 const classes: string[] = [
   "text-intro-title", 
@@ -8,17 +10,17 @@ const classes: string[] = [
 
 function Intro() : JSX.Element{
   return(
-    <section>
+    <section id="intro">
       <Nav/>
+      <Globe/>
       <Text type='h1' name={classes[0]}>
-        Atlas
+        {data.intro.title[0]}
       </Text>
       <Text type='h1' name={classes[0]}>
-        Computing
+        {data.intro.title[1]}
       </Text>
       <Text type='h2' name={classes[1]}>
-        DESCUBRA PROJETOS CAPAZES DE 
-        MELHORAR O SEU MUNDO.
+        {data.intro.subtitle}
       </Text>
     </section>
   )
