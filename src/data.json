@@ -1,0 +1,61 @@
+{
+  "index": [
+    {"text": "Introdução", "href": "#intro"},
+    {"text": "Descubra", "href": "#discover"},
+    {"text": "Projetos", "href": "#projects"},
+    {"text": "Seu", "href": "#about"}
+  ],
+  "nav": {
+    "buttonNames": ["AtCom", "Indíce", "Entre"]
+  },
+  "intro": {
+    "tag": "Intro",
+    "title": ["Atlas", "Computing"],
+    "subtitle": "DESCUBRA PROJETOS CAPAZES DE MELHORAR O SEU MUNDO."
+  },
+  "discover": {
+    "tag": "Descubra",
+    "info": [
+      {"title": "Localização", "subtitle": "Recife"},
+      {"title": "Email", "subtitle": "angelusrt@gmail.com"}
+    ]
+  },
+  "projects": {
+    "tag": "Projetos",
+    "itens": [
+      {"title": "Estética", "subtitle": "Interfaces visuais, artes gráficas e experiências reais"},
+      {"title": "Função", "subtitle": "Serviços, desenvolvimento e forma"},
+      {"title": "Estrutura", "subtitle": "Distribuição, rede e razão"}
+    ]
+  },
+  "about": {
+    "tag": "Seu",
+    "title": "Idealização",
+    "body": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+    ]
+  },
+  "footer": {
+    "tag": "Footer",
+    "buttons": [
+      {
+        "title": "Blog",
+        "href": "https://www.atlascomputing.com.br/"
+      },
+      {
+        "title": "Portfólio",
+        "href": "https://angelus.atlascomputing.com.br/"
+      },
+      {
+        "title": "Github",
+        "href": "https://github.com/angelusrt"
+      },
+      {
+        "title": "LinkedIn",
+        "href": "https://www.linkedin.com/in/angelus-t-a7659b141"
+      }
+    ],
+    "body": "Todos os direitos reservados a AtlasComputing"
+  }
+}
