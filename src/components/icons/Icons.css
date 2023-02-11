@@ -1,0 +1,50 @@
+.svg-recife {
+  position: absolute;
+  stroke: var(--white);
+  top: -100px;
+}
+
+.svg-cables {
+  position: absolute;
+  stroke: var(--white);
+}
+
+.svg-project {
+  stroke: var(--black);
+  margin: 20px 40px;
+  width: calc(80% - 80px);
+}
+
+.svg-recife,
+.svg-cables {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.svg-recife--show,
+.svg-cables--show {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+@media (min-width: 0px) {
+  .svg-recife {
+    height: 800px;
+    left: -80vw;
+  }
+  .svg-cables {
+    height: 800px;
+    right: -100px;
+    bottom: -200px;
+  }
+}
+@media (min-width: 725px) {
+  .svg-recife {
+    height: 1000px;
+    left: -15vw;
+  }
+  .svg-cables {
+    height: 1500px;
+    right: -300px;
+    bottom: -500px;
+  }
+}/*# sourceMappingURL=Icons.css.map */
