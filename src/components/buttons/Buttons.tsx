@@ -17,14 +17,18 @@ const buttonName = {
 type buttonProps = {
   color: 'white' | 'black',
   type: 'h1' | 'h2',
-  text: string,
+  text ?: string,
   children ?: any,
-  func ?: any
+  func ?: any,
+  name ?: 'button-nav'
 } 
 
 function Button(props: buttonProps): JSX.Element{
   const ref = useRef<HTMLButtonElement>(null!)
-  const name = (buttonName[props.color] + " " + buttonName[props.type])
+  const name = `
+    ${props.name ? props.name : buttonName[props.type]} 
+    ${buttonName[props.color]} 
+  `
   
   useAnimateOnScroll(
     '.button-title', 
@@ -34,13 +38,21 @@ function Button(props: buttonProps): JSX.Element{
     '.button-subtitle', 
     {...transition, delayPerItem: 200}
   )
+  useAnimateOnScroll(
+    '.button-nav', 
+    {...transition, start: 1500}
+  )
 
   useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      window.scrollTo({behavior: "smooth", top: e.pageY - 60})
+    }
+
     if(buttonName[props.type] === "button-title")
-      ref.current.addEventListener("click", (e) => {
-        window.scrollTo({behavior: "smooth", top: e.pageY - 60})
-      })
-  }, [])
+      ref.current.addEventListener("click", onClick)
+
+    return () => ref.current.removeEventListener("click", onClick)
+  }, [props.type])
 
   return(
     <button 
@@ -48,12 +60,15 @@ function Button(props: buttonProps): JSX.Element{
       className={name} 
       {...props.func}
     >
-      <Text 
-        name={textName[props.color]}
-        type={props.type}
-      >
-        {props.text}
-      </Text>
+      {
+        props.text &&
+        <Text 
+          name={textName[props.color]}
+          type={props.type}
+        >
+          {props.text}
+        </Text>
+      }
       {props.children}
     </button>
   )

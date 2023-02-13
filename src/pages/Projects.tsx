@@ -15,16 +15,19 @@ function Projects(): JSX.Element{
           iconName="ReadingFlow"
           title={data.projects.itens[0].title}
           subtitle={data.projects.itens[0].subtitle}
+          body={data.projects.itens[0].body}
         />
         <ProjectBlock
           iconName="Database"
           title={data.projects.itens[1].title}
           subtitle={data.projects.itens[1].subtitle}
+          body={data.projects.itens[1].body}
         />
         <ProjectBlock
           iconName="Network"
           title={data.projects.itens[2].title}
           subtitle={data.projects.itens[2].subtitle}
+          body={data.projects.itens[2].body}
         />
       </Block>
     </section>

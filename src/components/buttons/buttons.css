@@ -22,8 +22,8 @@ button .icon, a .icon {
   transition: fill 0.4s;
 }
 button .block-dropdown, a .block-dropdown {
-  top: 45px;
-  left: 50%;
+  bottom: 70px;
+  left: calc(50% + 40px);
   transition: all 0.4s 0.2s;
 }
 button:hover, a:hover {
@@ -54,6 +54,32 @@ button:hover, a:hover {
 .button-black:hover .icon {
   fill: var(--black);
   transition: fill 0.4s;
+}
+
+.button-nav {
+  z-index: 5;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 20px;
+  margin-left: 0;
+  padding-left: 20px;
+  border: solid 3px var(--black);
+  border-left: none 0px;
+  border-start-start-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--transparent-white);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateX(-20%);
+  transition: all 1s;
+}
+.button-nav--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
 }
 
 .button-title {

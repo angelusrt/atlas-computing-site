@@ -2,6 +2,8 @@
   --black: black;
   --white: white;
   --blue: #B3E4E1;
+
+  --transparent-white: rgba(255, 255, 255, 0.75);
 }
 
 html {

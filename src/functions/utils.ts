@@ -47,6 +47,29 @@ function rotateWhenMouseMove(
       current.rotation.y += e.movementX/sensibility
   })
 }
+type animateWithClassProps = {
+  ref: React.MutableRefObject<HTMLDivElement>,
+  classArray: [string, string],
+  time: NodeJS.Timeout | undefined,
+  setTime: React.Dispatch<React.SetStateAction<NodeJS.Timeout | undefined>>,
+  isToggle: boolean
+}
 
+function animateWithClass(props: animateWithClassProps){
+  const classList = props.ref.current.classList
+  const removeClass = (i: number) => classList.remove(props.classArray[i]) 
+  const addClass = (i: number) => classList.add(props.classArray[i])
 
-export{createPointsOfCircle, rotateWhenMouseMove, setGeometry}
+  if(props.time !== undefined) clearTimeout(props.time)
+
+  if(!props.isToggle){
+    removeClass(0)
+    props.setTime(setTimeout(() => addClass(1), 1000))
+  } else if(props.isToggle){
+    removeClass(1)
+    props.setTime(setTimeout(() => addClass(0), 10))
+  }
+}
+
+export{createPointsOfCircle, rotateWhenMouseMove, setGeometry, animateWithClass}
+export type {animateWithClassProps}

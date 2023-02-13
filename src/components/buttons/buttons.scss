@@ -22,23 +22,14 @@ button, a{
     transition: fill .4s;
   }
   .block-dropdown{
-    top: 45px;
-    left: 50%;
-    // transform: translateX(-50%);
-    // opacity: 0;
-    // height: 0px;
+    bottom: 70px;
+    left: calc(50% + 40px);
     transition: all .4s .2s;
   }
   &:hover{
     background-color: var(--blue);
     color: var(--black);
     transition: all .4s;
-
-    // .block-dropdown{
-    //   opacity: 1;
-    //   height: 203px;
-    //   transition: all .4s .2s;
-    // }
   }
 }
 
@@ -68,10 +59,37 @@ button, a{
   } 
 }
 
+.button-nav{
+  z-index: 5;
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  
+  margin: 20px;
+  margin-left: 0;
+  padding-left: 20px;
+
+  border: solid 3px var(--black);
+  border-left: none 0px;
+  border-start-start-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--transparent-white);
+  backdrop-filter: blur(6px);
+
+  opacity: 0;
+  transform: translateX(-20%);
+  transition: all 1s;
+  
+  &--show{
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 1s;
+  }
+}
 .button-title{
   margin-bottom: 40px;
   margin-left: -20px;
-  
 }
 
 .button-title,
