@@ -19,7 +19,7 @@ function Text(props: textProps) {
   )
   useAnimateOnScroll(
     '.text-footer-body', 
-    {...transition, start: 1800}
+    {...transition, start: 200}
   )
 
   return (

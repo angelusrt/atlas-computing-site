@@ -86,7 +86,13 @@ const transitionDefault: transitionType = {
   index: 0
 }
 
-function useAnimateOnScroll(query: string, transition = transitionDefault){
+function useAnimateOnScroll(
+  query: string, 
+  transition = transitionDefault,
+  transition2?: transitionType,  
+  dependency?: boolean,
+  conditional?: boolean,
+){
   useEffect(() => {  
     const queryArray = query.split(" ")
     const lastQuery = queryArray[queryArray.length - 1]
@@ -95,12 +101,18 @@ function useAnimateOnScroll(query: string, transition = transitionDefault){
   
     const itemsToAnimate = document.querySelectorAll(query)
     
-    itemsToAnimate.forEach(
-      (item, index) => observe(item, classNameToToggle, {...transition, index})
-    )
+    if(conditional === false && transition2 !== undefined){
+      itemsToAnimate.forEach(
+        (item, index) => observe(item, classNameToToggle, {...transition2, index})
+      ) 
+    } else {
+      itemsToAnimate.forEach(
+        (item, index) => observe(item, classNameToToggle, {...transition, index})
+      )
+    }
     //eslint-disable-next-line
-  }, [])
+  }, [dependency])
 }
-  
+
 export {useAnimateOnScroll, transition}
 export type {transitionType}
