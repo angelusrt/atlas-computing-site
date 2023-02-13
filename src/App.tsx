@@ -1,10 +1,9 @@
-import React from 'react';
-import './App.css';
-import { About } from './pages/About';
-import { Discover } from './pages/Discover';
-import { Footer } from './pages/Footer';
-import { Intro } from './pages/Intro';
-import { Projects } from './pages/Projects';
+import React from 'react'
+import { About } from './pages/About'
+import { Discover } from './pages/Discover'
+import { Footer } from './pages/Footer'
+import { Intro } from './pages/Intro'
+import { Projects } from './pages/Projects'
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
       <About/>
       <Footer/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

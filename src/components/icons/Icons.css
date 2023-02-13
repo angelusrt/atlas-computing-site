@@ -1,3 +1,7 @@
+.svg-arrow {
+  transform: rotate(180deg);
+}
+
 .svg-recife {
   position: absolute;
   stroke: var(--white);
@@ -32,9 +36,9 @@
     left: -80vw;
   }
   .svg-cables {
-    height: 800px;
-    right: -100px;
-    bottom: -200px;
+    height: 400px;
+    right: -200px;
+    bottom: -25px;
   }
 }
 @media (min-width: 725px) {
@@ -43,8 +47,8 @@
     left: -15vw;
   }
   .svg-cables {
-    height: 1500px;
-    right: -300px;
-    bottom: -500px;
+    height: 700px;
+    right: -100px;
+    bottom: -175px;
   }
 }/*# sourceMappingURL=Icons.css.map */
