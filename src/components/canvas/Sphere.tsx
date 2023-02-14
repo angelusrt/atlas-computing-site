@@ -1,72 +1,123 @@
-import React from 'react'
-import { DashedLine, Line } from './Line'
+import React, { useMemo, useRef } from 'react'
 
-type sphereProps = {
-  radius: number,
-  width: number,
-  height: number
-  sphereScale: number,
-  lineScale: number,
-  dashedLineScale: number
-}
-type sphereLineProps = {
-  sensibility: number,
-  width: number, 
-  radius: number,
-  scale: number
-}
+import { useFrame } from '@react-three/fiber'
+import { BufferGeometry } from 'three'
 
-const sensibility = 1500
-const quantityOfSteps = 8
-const piStep = Math.PI/quantityOfSteps
-const rotationSteps: number[] = []
+import { 
+  iDashedLine, 
+  iLine, 
+  iSphere, 
+  iSphereLine 
+} from './Canvas.types'
+import { 
+  createPointsOfCircle,
+  useRotateWhenMouseMove,
+  useSetGeometry
+} from '../../functions/utils'
 
-for (let i = 0; i < quantityOfSteps; i++)
-  rotationSteps.push(i * piStep)
 
-function SphereLine(props: sphereLineProps) {
+const Line = (props: iLine) => {
+  const {scale, radius, width} = props
+
+  const ref = useRef<BufferGeometry>(null!)
+
+  const points = createPointsOfCircle(width, radius)
+  const obj = {ref, points, scale, rotation: 0}
+
+  useSetGeometry(obj)
+
   return(
-    <React.Fragment>
-      {rotationSteps.map((rotation, index) =>
-        <DashedLine
-          key={index}
-          sensibility={props.sensibility}
-          width={props.width}
-          radius={props.radius}
-          scale={props.scale}
-          rotation={rotation}
-        />
-      )}
-    </React.Fragment>
+    <line>
+      <bufferGeometry ref={ref}/>
+      <lineBasicMaterial
+        color="#000000"
+        linewidth={3}
+      />
+    </line>
   )
 }
 
-function Sphere(props: sphereProps) {
+const DashedLine = (props: iDashedLine) => {
   const {
-    height, width, radius, 
-    lineScale, dashedLineScale, 
-    sphereScale
+    scale, rotation, radius, width, sensibility, isVisible
   } = props
 
-  return (
-    <React.Fragment>
-      <Line
-        width={width}
-        radius={radius}
-        scale={lineScale}
+  const points = useMemo(
+    () => createPointsOfCircle(width, radius), 
+  [width, radius])
+  
+  const lineRef = useRef<THREE.LineSegments>(null!)
+  const geometryRef = useRef<BufferGeometry>(null!)
+  
+  const obj = useMemo(() => {
+    return {ref: geometryRef, points, scale, rotation}},
+  [geometryRef, points, scale, rotation])
+  
+  useSetGeometry(obj)
+  useRotateWhenMouseMove({ref: lineRef, sensibility, isVisible})
+  useFrame(
+    () => lineRef.current.rotation.y += 0.005, 
+    isVisible ? 0 : 1
+  )
+
+  return(
+    <lineSegments ref={lineRef}>
+      <bufferGeometry ref={geometryRef}/>
+      <lineDashedMaterial
+        color="#000000"
+        linewidth={3}
+        dashSize={3}
+        gapSize={3}
+        scale={2}
       />
-      <SphereLine
-        width={width}
-        radius={radius}
-        scale={dashedLineScale}
-        sensibility={sensibility}
-      /> 
-      <mesh scale={sphereScale}>
-        <sphereGeometry args={[radius, width, height]}/>
-        <meshStandardMaterial/>
-      </mesh>
-    </React.Fragment>
+    </lineSegments>
   )
 }
+
+const SphereLine = (prop: iSphereLine) => {
+  const piStep = Math.PI/prop.lineQuantity
+  const steps: number[] = []
+  
+  for (let i = 0; i < prop.lineQuantity; i++)
+    steps.push(i * piStep)
+  
+  return <React.Fragment children={ 
+    steps.map((rotation, index) =>
+      <DashedLine
+        key={index}
+        isVisible={prop.isVisible}
+        sensibility={prop.sensibility}
+        width={prop.width}
+        radius={prop.radius}
+        scale={prop.scale}
+        rotation={rotation}
+      />
+    )
+  }/>
+}
+
+const Sphere = (prop: iSphere) => (
+  <React.Fragment>
+    <Line
+      width={prop.width}
+      radius={prop.radius}
+      scale={prop.lineScale}
+    />
+    <SphereLine
+      isVisible={prop.isVisible}
+      width={prop.width}
+      radius={prop.radius}
+      scale={prop.dashedLineScale}
+      lineQuantity={prop.lineQuantity}
+      sensibility={prop.sensibility}
+    /> 
+    <mesh scale={prop.scale}>
+      <sphereGeometry 
+        args={[prop.radius, prop.width, prop.height]}
+      />
+      <meshStandardMaterial/>
+    </mesh>
+  </React.Fragment>
+)
 
 export {Sphere}

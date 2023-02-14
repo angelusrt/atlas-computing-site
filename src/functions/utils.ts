@@ -1,5 +1,6 @@
-import * as THREE from "three"
-import { BufferGeometry, Vector3 } from "three"
+import { useEffect } from "react"
+import { Vector3 } from "three"
+import { ClassAnimation, LineRotation, RefGeometry } from "./function.types"
 
 const z = 0
 const circumference = 2 * Math.PI
@@ -18,14 +19,7 @@ function createPointsOfCircle(subdivisions: number, radius: number){
   return points
 }
 
-type setGeometryProps = {
-  ref: React.MutableRefObject<BufferGeometry>,
-  points: Vector3[],
-  scale: number,
-  rotation: number
-}
-
-function setGeometry(props: setGeometryProps){
+function setGeometry(props: RefGeometry){
   const current = props.ref.current
 
   if(current != null){
@@ -36,40 +30,67 @@ function setGeometry(props: setGeometryProps){
   }
 }
 
-function rotateWhenMouseMove(
-  ref: React.MutableRefObject<THREE.LineSegments>,
-  sensibility: number
-){
-  window.addEventListener('mousemove', (e) => {
-    const current = ref.current 
+function rotateWhenMouseMove(prop: LineRotation){
+  const onMouseMove = (e: MouseEvent) => {
+    const current = prop.ref.current 
 
     if(current !== null)
-      current.rotation.y += e.movementX/sensibility
-  })
-}
-type animateWithClassProps = {
-  ref: React.MutableRefObject<HTMLDivElement>,
-  classArray: [string, string],
-  time: NodeJS.Timeout | undefined,
-  setTime: React.Dispatch<React.SetStateAction<NodeJS.Timeout | undefined>>,
-  isToggle: boolean
+      current.rotation.y += e.movementX/prop.sensibility
+  }
+
+  if(prop.isVisible)
+    window.addEventListener('mousemove', onMouseMove)
+  else  
+    window.removeEventListener('mousemove', onMouseMove)
 }
 
-function animateWithClass(props: animateWithClassProps){
-  const classList = props.ref.current.classList
-  const removeClass = (i: number) => classList.remove(props.classArray[i]) 
-  const addClass = (i: number) => classList.add(props.classArray[i])
+function animateWithClass(prop: ClassAnimation){
+  const classList = prop.ref.current.classList
+  const removeClass = (i: number) => classList.remove(prop.classArray[i]) 
+  const addClass = (i: number) => classList.add(prop.classArray[i])
 
-  if(props.time !== undefined) clearTimeout(props.time)
+  if(prop.time !== undefined) clearTimeout(prop.time)
 
-  if(!props.isToggle){
+  if(!prop.isToggle){
     removeClass(0)
-    props.setTime(setTimeout(() => addClass(1), 1000))
-  } else if(props.isToggle){
+    prop.setTime(setTimeout(() => addClass(1), 1000))
+  } else if(prop.isToggle){
     removeClass(1)
-    props.setTime(setTimeout(() => addClass(0), 10))
+    prop.setTime(setTimeout(() => addClass(0), 10))
   }
 }
 
-export{createPointsOfCircle, rotateWhenMouseMove, setGeometry, animateWithClass}
-export type {animateWithClassProps}
+function useSetGeometry(prop: RefGeometry){
+  useEffect(() => 
+    //eslint-disable-next-line
+    setGeometry(prop),[]
+  )
+}
+function useRotateWhenMouseMove(prop: LineRotation){
+  useEffect(() => 
+    rotateWhenMouseMove(prop),[prop.sensibility, prop.isVisible, prop]
+  )
+}
+function useAnimateWithClass(prop: ClassAnimation){
+  //eslint-disable-next-line
+  useEffect(() => animateWithClass({...prop}),[prop.isToggle])
+}
+
+function animateQuery(query: string): string {
+  const queryArray = query.split(" ")
+  const lastQuery = queryArray[queryArray.length - 1]
+  const className = lastQuery.substring(1)
+  
+  return className + '--show'
+}
+
+export{
+  createPointsOfCircle, 
+  rotateWhenMouseMove, 
+  setGeometry, 
+  animateWithClass,
+  useSetGeometry,
+  useRotateWhenMouseMove,
+  useAnimateWithClass,
+  animateQuery
+}

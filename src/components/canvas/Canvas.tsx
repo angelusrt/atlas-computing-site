@@ -1,73 +1,55 @@
-import * as THREE from "three"
+import React, {useEffect, useMemo, useState } from 'react'
+
+import { Vector3 } from "three"
 import { Canvas } from "@react-three/fiber"
-import React, {useEffect, useRef, useState } from 'react'
-import { Helper, stateType } from "./Helper"
+
+import { useAnimateOnScroll } from "../../functions/transition"
+import { trans } from "../../functions/function.types"
+
 import { Sphere } from "./Sphere"
+import { canvasState, canvasStyle } from './Canvas.types'
+
 import "./canvas.css"
-import { transition, useAnimateOnScroll } from "../../functions/transition"
 
-const canvasStyle: React.CSSProperties = {
-  position: 'absolute', 
-  height: '400px', 
-  width: '400px'
-}
+const Globe = () => {
+  // const [isNeverChanged, setIsNeverChanged] = useState(true)
+  const [isVisible, setIsVisible] = useState(true)
+  const [state] = useState(canvasState)
 
-function Globe(){
-  const [isNeverChanged, setIsNeverChanged] = useState(true)
-  const [isToggle, setIsToggle] = useState(true)
-  const [state] = useState<stateType>({
-    lightIntensity: 8,
-    lightPosX: -50,
-    lightPosY: 60,
-    lightPosZ: 100,
-    sphereScale: 2.5,
-    sphereRadius: 1,
-    sphereWidth: 100,
-    sphereHeight: 100,
-    lineScale: 2.9,
-    dashedLineScale: 2.51,
-    isHelpers: false
-  })
+  // const ref = useRef<HTMLCanvasElement>(null!)
 
-  const ref = useRef<HTMLCanvasElement>(null!)
-
-  const position = new THREE.Vector3(
+  const position = useMemo( () => new Vector3(
     state.lightPosX,
     state.lightPosY,
     state.lightPosZ
-  )
+  ), [state.lightPosX, state.lightPosY, state.lightPosZ])
 
   useAnimateOnScroll(
     '.canvas-globe', 
-    {...transition, start: 2000},
-    {...transition, start: 200},
-    isToggle,
-    isNeverChanged
+    {...trans, start: 2000}
   )
 
   useEffect(() => {
-    const onScroll = () => {
+    const onCanvasScroll = () => {
       const isScrollAfterGlobe = window.scrollY > 490
-      
-      if(!isScrollAfterGlobe)
-        setIsToggle(true)
-      else {
-        setIsToggle(false)
-        setIsNeverChanged(false)
-      }
+
+      if(!isScrollAfterGlobe && !isVisible)
+        setIsVisible(true)
+      else if(isScrollAfterGlobe && isVisible)
+        setIsVisible(false)
     }
     
-    window.addEventListener("scroll", onScroll)
+    window.addEventListener("scroll", onCanvasScroll)
 
-    // return window.removeEventListener("scroll", onScroll)
-  },[])
+    return () => window.removeEventListener("scroll", onCanvasScroll)
+  },[isVisible])
 
   return(
     <React.Fragment>
       {
-        isToggle &&
+        // isToggle &&
         <Canvas
-          ref={ref}
+          // ref={ref}
           className="canvas-globe"
           style={canvasStyle} 
         >
@@ -75,16 +57,15 @@ function Globe(){
             position={position} 
             intensity={state.lightIntensity}
           />
-          {
-            state.isHelpers &&
-            <Helper/>
-          }
           <Sphere 
+            isVisible={isVisible}
             radius={state.sphereRadius}
-            sphereScale={state.sphereScale}
+            scale={state.sphereScale}
             width={state.sphereWidth}
             height={state.sphereHeight}
+            sensibility={state.sphereSensibility}
             lineScale={state.lineScale}
+            lineQuantity={state.lineQuantity}
             dashedLineScale={state.dashedLineScale}
           />
         </Canvas>

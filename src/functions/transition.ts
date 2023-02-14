@@ -1,63 +1,53 @@
 import { useEffect } from "react"
+import {  
+  Transition,
+  EntryTransition, 
+  ElTransition
+} from "./function.types"
+import { animateQuery } from "./utils"
 
-type transitionType = {
-  isTransition: boolean,
-  timeout: number,
-  delayPerItem: number,
-  isDelayChild: boolean,
-  start: number,
-  index: number
-}
-
-const transition: transitionType = {
-  isTransition: true,
-  delayPerItem: 0,
-  isDelayChild: false,
-  index: 0,
-  start: 0,
-  timeout: 200
-}
-
-function setAttribute(item: Element, transition: transitionType){
-  item.setAttribute(
+function setAttribute(trans: ElTransition){
+  trans.el.setAttribute(
     'style', 
     `transition-delay: ${
-      transition.start + 
-      transition.delayPerItem * 
-      transition.index
+      trans.start + 
+      trans.delayPerItem * 
+      trans.index
     }ms`
   ) 
 }
-function removeAttribute(item: Element, transition: transitionType){
+
+function removeAttribute(trans: ElTransition){
   const duration = (
-    transition.timeout + 
-    transition.start + 
-    transition.delayPerItem * 
-    transition.index
+    trans.timeout + 
+    trans.start + 
+    trans.delayPerItem * 
+    trans.index
   )
 
   setTimeout(() => {
-    item.removeAttribute('style')
+    trans.el.removeAttribute('style')
   }, duration)
 }
 
-function delayItem(item: Element, transition: transitionType) {
-  setAttribute(item, transition)
-  removeAttribute(item, transition)
-}
-function delayChildren(entry: IntersectionObserverEntry, transition: transitionType) {
-  Array(...entry.target.children).forEach((item, index) => {
-    delayItem(item, {...transition, index})
-  }) 
-}
-function delay(entry: IntersectionObserverEntry, transition: transitionType){
-  if(transition.isDelayChild)
-    delayChildren(entry, transition)
-  else
-    delayItem(entry.target, transition)
+function delayItem(trans: ElTransition) {
+  setAttribute(trans)
+  removeAttribute(trans)
 }
 
-function observe (item: Element, className: string, transition: transitionType) {
+function delayChildren(prop: EntryTransition) {
+  Array(...prop.entry.target.children).forEach((item, index) => 
+    delayItem({...prop, index, el: item})
+  ) 
+}
+function delay(prop: EntryTransition){
+  if(prop.isDelayChild)
+    delayChildren({...prop, entry: prop.entry})
+  else
+    delayItem({...prop, el: prop.entry.target})
+}
+
+function observe (className: string, trans: ElTransition) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const isNotAlreadyAnimated = !entry.target.classList.contains(className)
@@ -65,54 +55,31 @@ function observe (item: Element, className: string, transition: transitionType) 
       if(entry.isIntersecting && isNotAlreadyAnimated){
         entry.target.classList.add(className)
 
-        if(transition.isTransition)
-          delay(entry, transition)
+        if(trans.isTransition)
+          delay({...trans, entry})
       } 
       else if(!isNotAlreadyAnimated){
-        observer.unobserve(item)
+        observer.unobserve(trans.el)
       }
     })}
   )
 
-  observer.observe(item)
-}
-  
-const transitionDefault: transitionType = {
-  isTransition: false,
-  timeout: 0,
-  delayPerItem: 0,
-  isDelayChild: false,
-  start: 0,
-  index: 0
+  observer.observe(trans.el)
 }
 
 function useAnimateOnScroll(
-  query: string, 
-  transition = transitionDefault,
-  transition2?: transitionType,  
-  dependency?: boolean,
-  conditional?: boolean,
+  query: string, trans: Transition
 ){
   useEffect(() => {  
-    const queryArray = query.split(" ")
-    const lastQuery = queryArray[queryArray.length - 1]
-    const className = lastQuery.substring(1)
-    const classNameToToggle = className + '--show' 
-  
     const itemsToAnimate = document.querySelectorAll(query)
     
-    if(conditional === false && transition2 !== undefined){
-      itemsToAnimate.forEach(
-        (item, index) => observe(item, classNameToToggle, {...transition2, index})
-      ) 
-    } else {
-      itemsToAnimate.forEach(
-        (item, index) => observe(item, classNameToToggle, {...transition, index})
+    itemsToAnimate.forEach(
+      (el, index) => observe(
+        animateQuery(query), {...trans, index, el}
       )
-    }
+    )
     //eslint-disable-next-line
-  }, [dependency])
+  }, [])
 }
 
-export {useAnimateOnScroll, transition}
-export type {transitionType}
+export {useAnimateOnScroll}
