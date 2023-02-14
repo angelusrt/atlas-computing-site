@@ -1,46 +1,42 @@
-import { transition, useAnimateOnScroll } from "../../functions/transition"
+import { useAnimateOnScroll } from "../../functions/transition"
+import { trans } from "../../functions/function.types"
+import { iIcon, iSVGIcon } from "./Icons.types"
 import "./Icons.css"
 
-function Arrow(){
-  return(
-    <svg
-      viewBox="0 0 24 24"
-      className="icon svg-arrow"
-    >
-      <path 
-        d="M19,11H9l3.29-3.29a1,1,0,0,0,
-        0-1.42,1,1,0,0,0-1.41,0l-4.29,4.3A2,2,0,
-        0,0,6,12H6a2,2,0,0,0,.59,1.4l4.29,4.3a1,
-        1,0,1,0,1.41-1.42L9,13H19a1,1,0,0,0,0-2Z"
-      />
-    </svg>
-  )
-}
+const Arrow = () => (
+  <svg
+    viewBox="0 0 24 24"
+    className="icon svg-arrow"
+  >
+    <path 
+      d="M19,11H9l3.29-3.29a1,1,0,0,0,
+      0-1.42,1,1,0,0,0-1.41,0l-4.29,4.3A2,2,0,
+      0,0,6,12H6a2,2,0,0,0,.59,1.4l4.29,4.3a1,
+      1,0,1,0,1.41-1.42L9,13H19a1,1,0,0,0,0-2Z"
+    />
+  </svg>
+)
 
-function Dropdown() {
-  return(
-    <svg
-      viewBox="0 0 24 24"
-      className="icon"
-    >
-      <path
-        d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,
-        4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,
-        0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,
-        3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z"
-      />
-    </svg>
-  )
-}
+const Dropdown = () => (
+  <svg
+    viewBox="0 0 24 24"
+    className="icon"
+  >
+    <path
+      d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,
+      4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,
+      0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,
+      3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z"
+    />
+  </svg>
+)
 
-function Recife(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined}) {
-  useAnimateOnScroll(
-    '.svg-recife', transition
-  )
+const Recife = (prop: iSVGIcon) => {
+  useAnimateOnScroll('.svg-recife', trans)
   
   return(
     <svg 
-      ref={props.elRef}
+      ref={prop.elRef}
       className="svg-recife"
       viewBox="0 0 3875 4646" 
       style={{
@@ -183,14 +179,12 @@ function Recife(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined
   )
 }
 
-function Cables(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined}) {
-  useAnimateOnScroll(
-    '.svg-cables', transition
-  )
+const Cables = (prop: iSVGIcon) => {
+  useAnimateOnScroll('.svg-cables', trans)
 
   return (
     <svg
-      ref={props.elRef}
+      ref={prop.elRef}
       className="svg-cables"
       viewBox="0 0 5186 3148"
       style={{
@@ -205,7 +199,6 @@ function Cables(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined
         d="m5178.27 485.839-421.266 949.576-1107.62 1295-611.918-38.328-704.005 343.181-832.984-.136-529.089-342.856-28.353-429.09m0 0 317.448 327.562m-317.448-327.562-318.179 435.671L7.79 3141.496m5170.48-2655.66L4461.385 8.131l-459.05 796.394-606.498 532.561-571.91 136.948m-1880.89 789.151 410.183 218.261m-92.735 109.301 797.224 144.448 913.252-452.554 839.794-258.893 773.7-1193.53 593.813-344.387m-2354.34 988.198-865.394 893.063-335.209 60.271L943.04 2263.18M5178.27 485.83l-708.606-107.564-283.381 667.779-532.571 522.164-686.902 255.148-968.879 719.428-407.275-32.028-237.434-29.317"
         style={{
           fill: "none",
-          // stroke: "#000",
           strokeWidth: "12.5px",
         }}
       />
@@ -214,434 +207,358 @@ function Cables(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined
         cy={2272.58}
         r={29.42}
         style={{
-          // fill: "#fff",
-          // stroke: "#000",
           strokeWidth: "12.5px",
         }}
       />
     </svg>
-
-    // <svg
-    //   ref={props.elRef}
-    //   className="svg-cables"
-    //   viewBox="6.982 6.996 6455.323 5918.37"
-    //   style={{
-    //     fillRule: "evenodd",
-    //     clipRule: "evenodd",
-    //     strokeLinecap: "round",
-    //     strokeLinejoin: "round",
-    //     strokeMiterlimit: 1.5,
-    //   }}
-    // >
-    //   <path
-    //     style={{
-    //       fill: "none",
-    //       strokeWidth: "12.5px",
-    //     }}
-    //     d="m2428.1 3162.07 57.309 154.984 152.047 145.613 500.109 114.108 
-    //     938.074-414.659 555.102-442.634 533.092-477.989 
-    //     138.183-630.407-204.424-376.54-195.789-193.325-381.968-140.243m0 0 
-    //     559.535-193.211 499.231 835.536-65.203 909.968-383.224 547.394-598.672 
-    //     429.713-1325.89 403.099-543.419 3.922-601.445-341.716-122.919-418.717m0 0 
-    //     160.256 143.2 211.159 17.34 118.854-75.436m-490.269-85.104-72.984 
-    //     130.856-245.322 391.354L6.993 4500.99m4512.84-3600.01 307.505 257.106 
-    //     136.319 188.04-16.342 302.289-137.857 242.686-762.088 484.41m-2109.54 
-    //     701.457 141.871 106.465 229.731 17.469 118.667-38.83m-490.269-85.104-29.423 
-    //     138.995-181.575 459.471L6.992 4500.992m4512.84-3600.01L5007.105 6.996l1455.2 
-    //     1328.89-92.871 2419.48-1998.53 2170L6.984 4500.996m1930.84-1424.02 129.501 
-    //     283.779 391.658 267.276 741.342 160.053 1204.92-412.012 591.019-452.707 
-    //     422.076-534.409 93.68-843.207-455.656-723.658-537.97 74.433m-2580.57 2180.45 
-    //     161.804 74.165 220.964 17.617 107.501-6.678m-490.269-85.104-4.768 
-    //     173.348-95.061 494.082L6.985 4500.998m4512.84-3600.01 360.592 171.925 
-    //     183.475 228.802 172.709 327.746-176.322 562.875-1107.98 901.154-829.194 
-    //     413.226-473.106-71.246-155.209-139.756-66.698-133.634m-490.269-85.104 
-    //     143.463 259.595 406.68 267.042 708.245 121.846 1105.59-421.862 598.981-435.355 
-    //     432.055-527.847 108.002-780.153-405.478-632.007-516.972-31.711m-2580.57 
-    //     2180.45 14.963 734.741-1945.8 689.283m4512.84-3600.01 328.683 226.136 
-    //     163.856 253.9-15.841 307.305-138.168 243.023-689.563 521.439m351.033-1551.8 
-    //     578.077-292.149 587.708 910.229-105.75 1151.34-490.369 618.25-735.734 
-    //     475.535-1135.17 
-    //     290.825-832.181-111.509-361.542-358.527-87.039-508.008m2230.97-624.185-456.8 
-    //     503.606-622.988 
-    //     422.845-409.082-14.002-169.43-99.649-82.402-103.511m2091.74-2261.09 
-    //     607.295-623.784 902.071 1037.23 26.87 1841.22m-1536.24-2254.67 611.281-380.101 
-    //     615.28 890.353 9.565 1407.81m-3648.04 471.409-170.087-213.483m2582-2175.99 
-    //     643.181-488.173 699.17 924.196-5.852 1657.83m-1336.5-2093.85 569.257-771.509 
-    //     1212.84 1259.06-126.414 2184.83-1894.81 1848.21L6.987 4501.001m2421.11-1338.92 
-    //     42.235 168.863 138.293 157.874 563.7 160.708 1014.52-416.775 574.113-438.076 
-    //     476.355-509.306 134.746-714.81-343.558-528.635-510.104-145.399m-471.027 
-    //     1479-449.411 510.325-525.014 
-    //     420.148-373.711 9.375-139.477-77.329-131.659-75.958-107.392 113.656-212.79 
-    //     14.723m2410.48-2393.93 349.403 206.383 180.209 242.927 111.907 306.594-188.766 
-    //     501.366-1064.55 831.263-800.562 
-    //     457.275-441.541-37.621-169.699-108.997-66.698-133.634m3327.86-343.03-577.132 
-    //     735.868-837.013 482.858-1166.15 
-    //     285.263-886.319-225.679-282.483-372.746-69.035-647.638m3918.5-82.134-839.057 
-    //     887.725-1400.56 737.674L6.99 4501.011m6049.08-1345.34-858.044 991.76-1360.36 
-    //     870.066L6.986 4501.014"
-    //   />
-    // </svg>
   )
 } 
 
-function ColumnFirst(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined}) {
-  return(
-    <svg
-      ref={props.elRef}
-      className="svg-column-first"
-      viewBox="0 0 725 2571"
+const ColumnFirst = (prop: iSVGIcon) => (
+  <svg
+    ref={prop.elRef}
+    className="svg-column-first"
+    viewBox="0 0 725 2571"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 2,
+    }}
+  >
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
       style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinejoin: "round",
-        strokeMiterlimit: 2,
+        fill: "#fff",
       }}
-    >
-      <path
-        d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
+    />
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
+      style={{
+        fill: "none",
+        stroke: "#fff",
+        strokeWidth: "62.5px",
+      }}
+    />
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Zm660.8 374.893H629.34M108.518 362.63l-77.161-86.744"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="m31.357 275.886.686-238.2 583.336-6.25m77.464 377.034V183.841L615.379 31.436M106.515 363.563c26.782-72.976 122.478-118.355 220.685-127.136"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="M368.087 419.026c-121.552 7.922-220.779 51.221-241.662 101.577-3.071 7.407-4.448 14.966-3.951 22.589l.011.159-.017 40.892c-9.85-10.429-14.795-21.97-15.801-34.373-5.009-61.788 113.933-125.758 262.089-137.769l-.669 6.925Z"
+      style={{
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="m106.757 544.104.453-180.541-.095 32.097m18.566 2138.86-3.138-1982.03-.079-42.975M277.487 2535.56l-4.75-2102.25m-104.321 2101.5.427-2045.83.007-16.223M631.658 2467.07l-2.89-2053.5"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+  </svg>
+)
+
+const ColumnSecond = (prop: iSVGIcon) => (
+  <svg
+    ref={prop.elRef}
+    className="svg-column-second"
+    viewBox="0 0 544 2021"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      d="m7.497 12.16-.729 197.675 60.852 68.409-.349 139.072s-.919 8.836 3.112 17.842c4.269 9.539 9.454 14.271 9.454 14.271l2.574 1560.3 404.6 2.786-1.651-1624.74 50.874-.079-.069-48.78V230.501L421.369 7.727 7.497 12.162Z"
+      style={{
+        fill: "#fff",
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="M67.077 272.875c21.427-58.384 97.988-94.689 176.558-101.714"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="M276.346 317.248c-97.247 6.338-176.632 40.979-193.339 81.266-2.458 5.926-3.559 11.974-3.162 18.072l.009.128-.013 32.715c-7.88-8.344-11.837-17.577-12.642-27.5-4.007-49.433 91.151-100.611 209.682-110.221l-.535 5.54Z"
+      style={{
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="m67.271 417.316.362-144.44-.076 25.678M82.411 2009.73l-2.51-1585.7-.064-34.382M203.863 2010.62l-3.801-1681.94m-82.816 1679.33-.512-1634.81-.005-12.964M487.214 1955.77 485.05 417.8"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+      }}
+    />
+  </svg>
+)
+
+const ReadingFlow = () => (
+  <svg
+    className="svg-project"
+    viewBox="0 0 1269 603"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit:1.5,
+    }}
+  >
+    <g>
+      <rect
+        x="7.683"
+        y="7.286"
+        width="1253.68"
+        height="250"
         style={{
-          fill: "#fff",
+          fill: "none",
+          strokeWidth: "12.7px",
+        }}
+      />
+      <rect
+        x="7.683"
+        y="457"
+        width="549.886"
+        height="137.786"
+        style={{
+          fill: "none",
+          strokeWidth: "12.7px",
         }}
       />
       <path
-        d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
+        d="M138.949,132.286l997.41,
+        -4.122l-997.41,404.122l300,-0"
         style={{
           fill: "none",
           stroke: "#fff",
-          strokeWidth: "62.5px",
+          strokeWidth: "37.5px",
         }}
       />
       <path
-        d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Zm660.8 374.893H629.34M108.518 362.63l-77.161-86.744"
+        d="M138.949,132.286l997.41,
+        -4.122l-997.41,404.122l300,-0"
         style={{
           fill: "none",
           strokeWidth: "12.5px",
-          strokeLinecap: "round",
-          strokeMiterlimit: 1.5,
+          strokeLinecap: "butt",
+          strokeMiterlimit:2,
         }}
       />
-      <path
-        d="m31.357 275.886.686-238.2 583.336-6.25m77.464 377.034V183.841L615.379 31.436M106.515 363.563c26.782-72.976 122.478-118.355 220.685-127.136"
-        style={{
-          fill: "none",
-          strokeWidth: "12.5px",
-          strokeLinecap: "round",
-          strokeMiterlimit: 1.5,
-        }}
-      />
-      <path
-        d="M368.087 419.026c-121.552 7.922-220.779 51.221-241.662 101.577-3.071 7.407-4.448 14.966-3.951 22.589l.011.159-.017 40.892c-9.85-10.429-14.795-21.97-15.801-34.373-5.009-61.788 113.933-125.758 262.089-137.769l-.669 6.925Z"
-        style={{
-          strokeWidth: "12.5px",
-          strokeLinecap: "round",
-          strokeMiterlimit: 1.5,
-        }}
-      />
-      <path
-        d="m106.757 544.104.453-180.541-.095 32.097m18.566 2138.86-3.138-1982.03-.079-42.975M277.487 2535.56l-4.75-2102.25m-104.321 2101.5.427-2045.83.007-16.223M631.658 2467.07l-2.89-2053.5"
-        style={{
-          fill: "none",
-          strokeWidth: "12.5px",
-          strokeLinecap: "round",
-          strokeMiterlimit: 1.5,
-        }}
-      />
-    </svg>
-  )
-}
-
-function ColumnSecond(props: {elRef: React.MutableRefObject<SVGSVGElement> | undefined}) {
-  return(
-    <svg
-      ref={props.elRef}
-      className="svg-column-second"
-      viewBox="0 0 544 2021"
-      style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    >
-      <path
-        d="m7.497 12.16-.729 197.675 60.852 68.409-.349 139.072s-.919 8.836 3.112 17.842c4.269 9.539 9.454 14.271 9.454 14.271l2.574 1560.3 404.6 2.786-1.651-1624.74 50.874-.079-.069-48.78V230.501L421.369 7.727 7.497 12.162Z"
+      <circle
+        cx="1136.11"
+        cy="128.373"
+        r="29.42"
         style={{
           fill: "#fff",
           strokeWidth: "12.5px",
         }}
       />
-      <path
-        d="M67.077 272.875c21.427-58.384 97.988-94.689 176.558-101.714"
+      <circle
+        cx="140.272"
+        cy="132.539"
+        r="29.42"
         style={{
-          fill: "none",
+          fill: "#fff",
           strokeWidth: "12.5px",
         }}
       />
-      <path
-        d="M276.346 317.248c-97.247 6.338-176.632 40.979-193.339 81.266-2.458 5.926-3.559 11.974-3.162 18.072l.009.128-.013 32.715c-7.88-8.344-11.837-17.577-12.642-27.5-4.007-49.433 91.151-100.611 209.682-110.221l-.535 5.54Z"
+      <circle
+        cx="138.949"
+        cy="532.032"
+        r="29.42"
         style={{
+          fill: "#fff",
           strokeWidth: "12.5px",
         }}
       />
-      <path
-        d="m67.271 417.316.362-144.44-.076 25.678M82.411 2009.73l-2.51-1585.7-.064-34.382M203.863 2010.62l-3.801-1681.94m-82.816 1679.33-.512-1634.81-.005-12.964M487.214 1955.77 485.05 417.8"
+      <circle
+        cx="436.612"
+        cy="532.286"
+        r="29.42"
         style={{
-          fill: "none",
+          fill: "#fff",
           strokeWidth: "12.5px",
         }}
       />
-    </svg>
-  )
-}
+    </g>
+  </svg>
+)
 
-function ReadingFlow() {
-  return(
-    <svg
-      className="svg-project"
-      viewBox="0 0 1269 603"
-      style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        strokeMiterlimit:1.5,
-      }}
-    >
+const Database = () => (
+  <svg
+    className="svg-project"
+    viewBox="0 0 1267 590"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit:1.5,
+    }}
+  >
+    <g>
       <g>
         <rect
-          x="7.683"
-          y="7.286"
-          width="1253.68"
-          height="250"
+          x="7.829"
+          y="132.286"
+          width="500.981"
+          height="450.022"
           style={{
             fill: "none",
             strokeWidth: "12.7px",
           }}
         />
+        <path
+          d="M7.829,277.191l500.982,-0"
+          style={{
+            fill: "none",
+            strokeWidth: "12.5px",
+          }}
+        />
+      </g>
+      <g>
         <rect
-          x="7.683"
-          y="457"
-          width="549.886"
-          height="137.786"
+          x="757.829"
+          y="7.302"
+          width="500.981"
+          height="450.022"
           style={{
             fill: "none",
             strokeWidth: "12.7px",
           }}
         />
         <path
-          d="M138.949,132.286l997.41,
-          -4.122l-997.41,404.122l300,-0"
-          style={{
-            fill: "none",
-            stroke: "#fff",
-            strokeWidth: "37.5px",
-          }}
-        />
-        <path
-          d="M138.949,132.286l997.41,
-          -4.122l-997.41,404.122l300,-0"
-          style={{
-            fill: "none",
-            strokeWidth: "12.5px",
-            strokeLinecap: "butt",
-            strokeMiterlimit:2,
-          }}
-        />
-        <circle
-          cx="1136.11"
-          cy="128.373"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="140.272"
-          cy="132.539"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="138.949"
-          cy="532.032"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="436.612"
-          cy="532.286"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-      </g>
-    </svg>
-  )
-}
-
-function Database() {
-  return (
-    <svg
-      className="svg-project"
-      viewBox="0 0 1267 590"
-      style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        strokeMiterlimit:1.5,
-      }}
-    >
-      <g>
-        <g>
-          <rect
-            x="7.829"
-            y="132.286"
-            width="500.981"
-            height="450.022"
-            style={{
-              fill: "none",
-              strokeWidth: "12.7px",
-            }}
-          />
-          <path
-            d="M7.829,277.191l500.982,-0"
-            style={{
-              fill: "none",
-              strokeWidth: "12.5px",
-            }}
-          />
-        </g>
-        <g>
-          <rect
-            x="757.829"
-            y="7.302"
-            width="500.981"
-            height="450.022"
-            style={{
-              fill: "none",
-              strokeWidth: "12.7px",
-            }}
-          />
-          <path
-            d="M757.829,152.207l500.982,0"
-            style={{
-              fill: "none",
-              strokeWidth: "12.5px",
-            }}
-          />
-        </g>
-        <path
-          d="M508.811,382.308l125,
-          -0l-0.491,-149.995l124.509,0"
+          d="M757.829,152.207l500.982,0"
           style={{
             fill: "none",
             strokeWidth: "12.5px",
           }}
         />
       </g>
-    </svg>
-  )
-}
+      <path
+        d="M508.811,382.308l125,
+        -0l-0.491,-149.995l124.509,0"
+        style={{
+          fill: "none",
+          strokeWidth: "12.5px",
+        }}
+      />
+    </g>
+  </svg>
+)
 
-function Network() {
-  return (
-    <svg
-      className="svg-project"
-      viewBox="0 0 1186 490"
-      style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    >
-      <g>
-        <path
-          d="M36.066,453.315l169.142,-336.55l697.506,
-          286.398l245.899,-366.526"
-          style={{
-            fill: "none",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="902.669"
-          cy="403.163"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="206.021"
-          cy="122.003"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="36.066"
-          cy="453.315"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-        <circle
-          cx="1148.61"
-          cy="36.637"
-          r="29.42"
-          style={{
-            fill: "#fff",
-            strokeWidth: "12.5px",
-          }}
-        />
-      </g>
-    </svg>
-  )
-}
+const Network = () => (
+  <svg
+    className="svg-project"
+    viewBox="0 0 1186 490"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <g>
+      <path
+        d="M36.066,453.315l169.142,-336.55l697.506,
+        286.398l245.899,-366.526"
+        style={{
+          fill: "none",
+          strokeWidth: "12.5px",
+        }}
+      />
+      <circle
+        cx="902.669"
+        cy="403.163"
+        r="29.42"
+        style={{
+          fill: "#fff",
+          strokeWidth: "12.5px",
+        }}
+      />
+      <circle
+        cx="206.021"
+        cy="122.003"
+        r="29.42"
+        style={{
+          fill: "#fff",
+          strokeWidth: "12.5px",
+        }}
+      />
+      <circle
+        cx="36.066"
+        cy="453.315"
+        r="29.42"
+        style={{
+          fill: "#fff",
+          strokeWidth: "12.5px",
+        }}
+      />
+      <circle
+        cx="1148.61"
+        cy="36.637"
+        r="29.42"
+        style={{
+          fill: "#fff",
+          strokeWidth: "12.5px",
+        }}
+      />
+    </g>
+  </svg>
+)
 
-const iconComponent = {
-  'Arrow': <Arrow/>,
-  'Dropdown': <Dropdown/>,
-  'ReadingFlow': <ReadingFlow/>,
-  'Database': <Database/>,
-  'Network': <Network/>
-}
-type iconProps = {
-  name: 'Arrow' | 'Dropdown' | 'Recife' | 
-  'Cables' | 'ReadingFlow' | 'Database' | 
-  'Network' | 'ColumnFirst' | 'ColumnSecond',
-  elRef?: React.MutableRefObject<SVGSVGElement>
-}
-
-const Icon = (props: iconProps) => {
-  if(props.name === 'Recife')
-    return <Recife elRef={props.elRef}/>
-  else if(props.name === 'Cables')
-    return <Cables elRef={props.elRef}/>
-    else if(props.name === 'ColumnFirst')
-  return <ColumnFirst elRef={props.elRef}/>
-    else if(props.name === 'ColumnSecond')
-  return <ColumnSecond elRef={props.elRef}/>
-  else
-    return iconComponent[props.name]
+const Icon = (props: iIcon) => {
+  switch (props.name) {
+    case 'Recife':
+      return <Recife elRef={props.elRef}/>
+    case 'Cables':
+      return <Cables elRef={props.elRef}/>
+    case 'ColumnFirst':
+      return <ColumnFirst elRef={props.elRef}/>
+    case 'ColumnSecond':
+      return <ColumnSecond elRef={props.elRef}/>
+    case 'Dropdown':
+      return <Dropdown/>
+    case 'ReadingFlow':
+      return <ReadingFlow/>
+    case 'Database':
+      return <Database/>
+    case 'Network':
+      return <Network/>
+    default:
+    case 'Arrow':
+      return <Arrow/>
+  }
 } 
 
 export {Icon}

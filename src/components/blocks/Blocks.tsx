@@ -1,202 +1,172 @@
 import React, { useEffect, useRef, useState } from "react"
-import { transition, useAnimateOnScroll } from "../../functions/transition"
-import { Button, Link } from "../buttons/Buttons"
+
+import { useAnimateOnScroll } from "../../functions/transition"
+import { useAnimateWithClass } from "../../functions/utils"
+import { trans } from "../../functions/function.types"
+
+import { Button, NavButton } from "../buttons/Buttons"
 import { Icon } from "../icons/Icons"
 import { Text } from "../texts/Texts"
+
+import { 
+  dropdownNames, 
+  iBlock,
+  iDroprown,
+  iInfoBlock,
+  iProject,
+  iProjectModal,
+  iProjectWrapper,
+  projectModalNames,
+} from "./Blocks.types"
+
 import data from "../../data.json"
 import "./blocks.css"
-import { animateWithClass, animateWithClassProps } from "../../functions/utils"
 
-type blockProps = {
-  name: string,
-  children?: any,
-  style ?: React.CSSProperties,
-  blockRef ?: React.LegacyRef<HTMLDivElement>
-}
-
-function Block(props: blockProps){
+const Block = (prop: iBlock) => {
   useAnimateOnScroll(
     '.block-info', 
-    {...transition, start: 800, delayPerItem: 200}
+    {...trans, start: 800, delayPerItem: 200}
   )
   useAnimateOnScroll(
     '.block-project', 
-    {...transition, start: 400, delayPerItem: 200}
+    {...trans, start: 400, delayPerItem: 200}
   )
   useAnimateOnScroll(
     '.block-horizontal .block-wrapper', 
-    {...transition, start: 400, delayPerItem: 200}
+    {...trans, start: 400, delayPerItem: 200}
   )
 
   return(
-    <div ref={props.blockRef} className={props.name} style={props.style}>
-      {props.children}
+    <div 
+      ref={prop.blockRef} 
+      className={prop.name} 
+      style={prop.style}
+    >
+      {prop.children}
     </div>
   )
 }
 
-function Nav(){
-  const [isToggle, setToggle] = useState(false)
-
-  return(
-    <nav>
+const Nav = () => (
+  <nav>
+    <Button
+      type='h1'
+      name='button-title button-white'
+      textName="text-button-black"
+      text={data.nav.buttonNames[0]}
+    />
+    <Block name="block-wrapper">
+      <NavButton/>
       <Button
-        type='h1'
-        color='white'
-        text={data.nav.buttonNames[0]}
-      />
-      <Block name="block-wrapper">
-        <Button
-          type='h2'
-          color='white'
-          name="button-nav"
-          text={data.nav.buttonNames[1]}
-          func={{ 
-            onTouchStart: () => setToggle(true),
-            onTouchEnd: () => setToggle(false),
-            onMouseEnter: () => setToggle(true),
-            onMouseLeave: () => setToggle(false)
-          }}
-        >
-          <Icon name="Dropdown"/>
-          <DropdownBlock toggle={isToggle}>
-            {data.index.map((item, index) => 
-              <Link
-                key={index}
-                isNewTab={false}
-                color="white"
-                href={item.href}
-                text={item.text}
-              />
-            )}
-          </DropdownBlock>
-        </Button>
-        <Button
-          type='h2'
-          color='black'
-          text={data.nav.buttonNames[2]}
-        >
-          <Icon name="Arrow"/>
-        </Button>
-      </Block>
-    </nav>
-  )
-}
-
-const textColor = {
-  'white': 'text-white',
-  'black': 'text-black'
-}
-
-type infoBlockProps = {
-  title: string,
-  subtitle: string,
-  color: 'white' | 'black'
-}
-
-function InfoBlock(props: infoBlockProps): JSX.Element{
-  return(
-    <Block name="block-info">
-      <Text 
-        type="h2" 
-        name={`text-info-title ${textColor[props.color]}`}
-        children={props.title}
-      />
-      <Text 
-        type="h1" 
-        name={`text-info-subtitle ${textColor[props.color]}`}
-        children={props.subtitle}
-      />
+        type='h2'
+        name="button-subtitle button-black"
+        textName="text-button-white"
+        text={data.nav.buttonNames[2]}
+      >
+        <Icon name="Arrow"/>
+      </Button>
     </Block>
-  )
-}
+  </nav>
+)
 
-type projectModalBlockProps = {
-  iconName: 'ReadingFlow' | 'Database' | 'Network'
-  title: string,
-  subtitle: string,
-  body: string,
-  isModal: boolean,
-  setIsModal: React.Dispatch<React.SetStateAction<boolean>>
-}
+const InfoBlock = (prop: iInfoBlock) => (
+  <Block name="block-info">
+    <Text 
+      type="h2" 
+      name={prop.titleName}
+      children={prop.title}
+    />
+    <Text 
+      type="h1" 
+      name={prop.subtitleName}
+      children={prop.subtitle}
+    />
+  </Block>
+)
 
-const projectModalClass: [string, string] = [
-  "block-modal-wrapper--show", 
-  "block-modal-wrapper--none"
-]
+const ProjectWrapperBlock = (prop: iProjectWrapper) => (
+  <Block name="block-wrapper">
+    {
+      prop.isButton &&
+      <Button 
+        type="h2" 
+        name="button-subtitle button-white"
+        textName="text-button-black"
+        func={{
+          onClick: prop.onFunc
+        }}
+      >
+        <Icon name="Arrow"/>
+      </Button>
+    }
+    <Text 
+      type="h1" 
+      name="text-project-title"
+      children={prop.title}
+    />
+    <Text 
+      type="p" 
+      name="text-project-subtitle"
+      children={prop.subtitle}
+    />
+    {
+      prop.body &&
+      <Text 
+        type="p" 
+        name="text-project-body"
+        children={prop.body}
+      />
+    }
+  </Block>  
+)
 
-function ProjectModalBlock(props: projectModalBlockProps){
+const ProjectModalBlock = (prop: iProjectModal) => {
   const [time , setTime] = useState<NodeJS.Timeout>()
+
   const ref = useRef<HTMLDivElement>(null!)
   
-  
-  useEffect(() => {
-    const animProps: animateWithClassProps = {
-      classArray: projectModalClass,
-      isToggle: props.isModal, 
-      ref, setTime, time
-    }
-    
-    animateWithClass(animProps)
-  },[props.isModal])
+  useAnimateWithClass({
+    classArray: projectModalNames,
+    isToggle: prop.isModal,
+    ref, setTime, time
+  })
 
   useEffect(() => {
     const offset = document.getElementById("projects")?.offsetTop
     const bodyStyle = document.body.style
 
-    if(props.isModal){
+    if(prop.isModal){
       bodyStyle.overflow = "hidden"
       bodyStyle.height = "100%"  
 
       window.scrollTo({behavior: "smooth", top: offset})
     } else {
       bodyStyle.overflow = "auto"
-      bodyStyle.height = "auto%"   
+      bodyStyle.height = "auto"   
     }
-  },[props.isModal])
+  },[prop.isModal])
 
   return(
     <Block blockRef={ref} name="block-modal-wrapper">
       <Block name="block-project-modal">
         <Block name="block-project-image">
-          <Icon name={props.iconName}/>
+          <Icon name={prop.iconName}/>
         </Block>
-        <Block name="block-wrapper">
-          <Button color="white" type="h2" func={{
-            onClick: () => props.setIsModal(false)
-          }}>
-            <Icon name="Arrow"/>
-          </Button>
-          <Text 
-            type="h1" 
-            name="text-project-title"
-            children={props.title}
-          />
-          <Text 
-            type="p" 
-            name="text-project-subtitle"
-            children={props.subtitle}
-          />
-          <Text 
-            type="p" 
-            name="text-project-body"
-            children={props.body}
-          />
-        </Block>
+        <ProjectWrapperBlock
+          title={prop.title}
+          subtitle={prop.subtitle}
+          body={prop.body}
+          isButton={true}
+          onFunc={() => prop.setIsModal(false)}
+        />
       </Block>
     </Block>
   ) 
 }
 
-type projectBlockProps = {
-  iconName: 'ReadingFlow' | 'Database' | 'Network'
-  title: string,
-  subtitle: string,
-  body: string
-}
-
-function ProjectBlock(props: projectBlockProps){
+const ProjectBlock = (prop: iProject) => {
   const[isModal, setIsModal] = useState(false)
+
   const ref = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
@@ -205,41 +175,35 @@ function ProjectBlock(props: projectBlockProps){
       setIsModal(true)
     }
     
-    if(ref.current)
-      ref.current.addEventListener("click", onClick)
+    const current = ref.current
+
+    if(current)
+      current.addEventListener("click", onClick)
     
-    return () => ref.current.removeEventListener("click", onClick)
+    return () => current.removeEventListener("click", onClick)
   },[])
 
   useEffect(() => {
-    if(ref.current && !isModal)
-        ref.current.classList.add("block-project--show") 
+    if(ref.current && isModal)
+      ref.current.classList.add("block-project--show") 
   },[isModal])
 
   return(
     <React.Fragment>
       <Block blockRef={ref} name="block-project">
         <Block name="block-project-image">
-          <Icon name={props.iconName}/>
+          <Icon name={prop.iconName}/>
         </Block>
-        <Block name="block-wrapper">
-          <Text 
-            type="h1" 
-            name="text-project-title"
-            children={props.title}
-          />
-          <Text 
-            type="p" 
-            name="text-project-subtitle"
-            children={props.subtitle}
-          />
-        </Block>
+        <ProjectWrapperBlock
+          title={prop.title}
+          subtitle={prop.subtitle}
+        />
       </Block>
       <ProjectModalBlock
-        title={props.title}
-        subtitle={props.subtitle}
-        body={props.body}
-        iconName={props.iconName}
+        title={prop.title}
+        subtitle={prop.subtitle}
+        body={prop.body}
+        iconName={prop.iconName}
         isModal={isModal}
         setIsModal={setIsModal}
       />
@@ -247,34 +211,22 @@ function ProjectBlock(props: projectBlockProps){
   )
 }
 
-type dropdownProps = {
-  children: any,
-  toggle: boolean
-}
-
-const dropdownClass: [string, string] = [
-  "block-dropdown--show", 
-  "block-dropdown--none"
-]
-
-function DropdownBlock(props: dropdownProps): JSX.Element {
+const DropdownBlock = (prop: iDroprown) => {
   const [time , setTime] = useState<NodeJS.Timeout>()
-  const ref = useRef<HTMLDivElement>(null!)
-  
-  useEffect(() => {
-    const animProps: animateWithClassProps = {
-      classArray: dropdownClass,
-      isToggle: props.toggle, 
-      ref, setTime, time
-    }
 
-    animateWithClass(animProps)
-  },[props.toggle])
+  const ref = useRef<HTMLDivElement>(null!)
+
+  useAnimateWithClass({
+    classArray: dropdownNames,
+    isToggle: prop.toggle,
+    ref, setTime, time
+  })
 
   return (
     <Block blockRef={ref} name="block-dropdown">
-      {props.children}
+      {prop.children}
     </Block>
   )
 }
+
 export {Block, Nav, InfoBlock, ProjectBlock, DropdownBlock}

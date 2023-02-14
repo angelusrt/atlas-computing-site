@@ -80,7 +80,11 @@ button, a{
   opacity: 0;
   transform: translateX(-20%);
   transition: all 1s;
-  
+ 
+  .button-white{
+    margin-right: 0px;
+  }
+
   &--show{
     opacity: 1;
     transform: translateY(0);

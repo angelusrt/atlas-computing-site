@@ -1,25 +1,19 @@
-import React from "react"
-import { transition, useAnimateOnScroll } from "../../functions/transition"
+import { useAnimateOnScroll } from "../../functions/transition"
+import { trans } from "../../functions/function.types"
+import { iText } from "./Texts.types"
+
 import "./texts.css"
 
-type textProps = {
-  type: 'p' | 'h1' | 'h2',
-  name ?: string,
-  children: string
-}
-
-function Text(props: textProps) {
+const Text = (props: iText) => {
   useAnimateOnScroll(
     '.text-intro-title', 
-    {...transition, start: 1000, delayPerItem: 200}
+    {...trans, start: 1000, delayPerItem: 200}
   )
   useAnimateOnScroll(
-    '.text-intro-subtitle', 
-    {...transition, start: 1500}
+    '.text-intro-subtitle', {...trans, start: 1500}
   )
   useAnimateOnScroll(
-    '.text-footer-body', 
-    {...transition, start: 200}
+    '.text-footer-body', {...trans, start: 200}
   )
 
   return (

@@ -76,6 +76,9 @@ button:hover, a:hover {
   transform: translateX(-20%);
   transition: all 1s;
 }
+.button-nav .button-white {
+  margin-right: 0px;
+}
 .button-nav--show {
   opacity: 1;
   transform: translateY(0);

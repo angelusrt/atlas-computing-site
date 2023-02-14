@@ -1,46 +1,26 @@
-import { useEffect, useRef } from "react"
-import { transition, useAnimateOnScroll } from "../../functions/transition"
+import { useEffect, useRef, useState } from "react"
+
+import { useAnimateOnScroll } from "../../functions/transition"
+import { trans } from "../../functions/function.types"
+
+import { buttonTitles, iButton, iLink } from "./Buttons.types"
+
 import { Text } from "../texts/Texts"
+import { DropdownBlock } from "../blocks/Blocks"
+import { Icon } from "../icons/Icons"
+
+import data from "../../data.json"
 import "./buttons.css"
 
-const textName = {
-  'black':'text-button-white', 
-  'white':'text-button-black'
-}
-const buttonName = {
-  'white':'button-white', 
-  'black':'button-black',
-  'h1': 'button-title',
-  'h2': 'button-subtitle'
-}
-
-type buttonProps = {
-  color: 'white' | 'black',
-  type: 'h1' | 'h2',
-  text ?: string,
-  children ?: any,
-  func ?: any,
-  name ?: 'button-nav'
-} 
-
-function Button(props: buttonProps): JSX.Element{
+const Button = (prop: iButton) => {
   const ref = useRef<HTMLButtonElement>(null!)
-  const name = `
-    ${props.name ? props.name : buttonName[props.type]} 
-    ${buttonName[props.color]} 
-  `
   
+  useAnimateOnScroll('.button-title', trans)
   useAnimateOnScroll(
-    '.button-title', 
-    transition
+    '.button-subtitle', {...trans, start: 400}
   )
   useAnimateOnScroll(
-    '.button-subtitle', 
-    {...transition, delayPerItem: 200}
-  )
-  useAnimateOnScroll(
-    '.button-nav', 
-    {...transition, start: 1500}
+    '.button-nav', {...trans, start: 1500}
   )
 
   useEffect(() => {
@@ -48,62 +28,91 @@ function Button(props: buttonProps): JSX.Element{
       window.scrollTo({behavior: "smooth", top: e.pageY - 60})
     }
 
-    if(buttonName[props.type] === "button-title")
-      ref.current.addEventListener("click", onClick)
+    const current = ref.current
 
-    return () => ref.current.removeEventListener("click", onClick)
-  }, [props.type])
+    if(buttonTitles.includes(prop.name))
+      current.addEventListener("click", onClick)
+
+    return () => current.removeEventListener("click", onClick)
+  }, [prop.type, prop.name])
 
   return(
     <button 
       ref={ref}
-      className={name} 
-      {...props.func}
+      className={prop.name} 
+      {...prop.func}
     >
       {
-        props.text &&
+        prop.text &&
         <Text 
-          name={textName[props.color]}
-          type={props.type}
+          name={prop.textName}
+          type={prop.type}
         >
-          {props.text}
+          {prop.text}
         </Text>
       }
-      {props.children}
+      {prop.children}
     </button>
   )
 }
 
-type linkProps = {
-  color: 'white' | 'black',
-  text: string,
-  href: string,
-  isNewTab: boolean
-} 
-
-function Link(props:linkProps): JSX.Element{
-  const name = buttonName[props.color] + " button-link"
-
+const Link = (prop: iLink) => {
   useAnimateOnScroll(
     '#footer .button-link', 
-    {...transition, delayPerItem: 200}
+    {...trans, delayPerItem: 200}
   )
 
   return(
     <a 
-      className={name} 
-      href={props.href} 
-      target={props.isNewTab ? "_blank" : "_self"}
+      className={prop.name} 
+      href={prop.href} 
+      target={prop.isNewTab ? "_blank" : "_self"}
       rel="noreferrer"
     >
       <Text 
-        name={textName[props.color]}
+        name={prop.textName}
         type='h2'
       >
-        {props.text}
+        {prop.text}
       </Text>
     </a>
   )
 }
 
-export{Button, Link}
+const NavButton = () => {
+  const [isToggle, setToggle] = useState(false)
+
+  return (
+    <Button
+      type='h2'
+      name="button-nav"
+      textName="text-button-black"
+      text={data.nav.buttonNames[1]}
+      func={{ 
+        onTouchStart: () => setToggle(true),
+        onTouchEnd: () => setToggle(false),
+        onMouseEnter: () => setToggle(true),
+        onMouseLeave: () => setToggle(false)
+      }}
+    >
+      <Icon name="Dropdown"/>
+      <DropdownBlock 
+        toggle={isToggle}
+        children={ data.index.map(
+          (item, index) => 
+          <Link
+            key={index}
+            isNewTab={false}
+            name="button-link button-white"
+            textName="text-button-black"
+            href={item.href}
+            text={item.text}
+          />
+        )}
+      />
+    </Button>
+
+  )
+}
+
+export{Button, Link, NavButton}
