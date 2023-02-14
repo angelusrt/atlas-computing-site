@@ -2,36 +2,28 @@ import { Block, ProjectBlock } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
 import data from "../data.json"
 
-function Projects(): JSX.Element{
-  return(
-    <section id="projects">
-      <Button 
-        type='h1'
-        color='white'
-        text={data.projects.tag}
-      />
-      <Block name="block-grid">
+const Projects = () => (
+  <section id="projects">
+    <Button
+      type='h1'
+      name="button-title button-white" 
+      textName="text-button-black"
+      text={data.projects.tag}
+    />
+    <Block 
+      name="block-grid"
+      children={ data.projects.itens.map(
+        (item, id) => 
         <ProjectBlock
-          iconName="ReadingFlow"
-          title={data.projects.itens[0].title}
-          subtitle={data.projects.itens[0].subtitle}
-          body={data.projects.itens[0].body}
+          key={id}
+          iconName={item.icon}
+          title={item.title}
+          subtitle={item.subtitle}
+          body={item.body}
         />
-        <ProjectBlock
-          iconName="Database"
-          title={data.projects.itens[1].title}
-          subtitle={data.projects.itens[1].subtitle}
-          body={data.projects.itens[1].body}
-        />
-        <ProjectBlock
-          iconName="Network"
-          title={data.projects.itens[2].title}
-          subtitle={data.projects.itens[2].subtitle}
-          body={data.projects.itens[2].body}
-        />
-      </Block>
-    </section>
-  )
-}
+      )}
+    />
+  </section>
+)
 
-export {Projects}
+export default Projects

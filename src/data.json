@@ -23,9 +23,24 @@
   "projects": {
     "tag": "Projetos",
     "itens": [
-      {"title": "Estética", "subtitle": "Interfaces visuais, artes gráficas e experiências reais", "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."},
-      {"title": "Função", "subtitle": "Serviços, desenvolvimento e forma", "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."},
-      {"title": "Estrutura", "subtitle": "Distribuição, rede e razão", "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."}
+      {
+        "icon": "ReadingFlow", 
+        "title": "Estética", 
+        "subtitle": "Interfaces visuais, artes gráficas e experiências reais", 
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+      },
+      {
+        "icon": "Database", 
+        "title": "Função", 
+        "subtitle": "Serviços, desenvolvimento e forma", 
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+      },
+      {
+        "icon": "Network", 
+        "title": "Estrutura", 
+        "subtitle": "Distribuição, rede e razão", 
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+      }
     ]
   },
   "about": {
