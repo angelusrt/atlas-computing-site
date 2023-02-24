@@ -1,26 +1,34 @@
 type TextType = 'p' | 'h1' | 'h2' 
 
-type TextColorName = 'text-button-white' | 'text-button-black' 
+type TextNav = 'text-nav'
 type TextTitleInfoName = 
   'text-info-title text-white' | 
   'text-info-title text-black' 
 type TextSubtitleInfoName =
   'text-info-subtitle text-white' | 
-  'text-info-subtitle text-black' 
+  'text-info-subtitle text-black'
+type TextBodyButtonName = 'text-body-button'
 type TextName = 
   'text-intro-title' | 
   'text-intro-subtitle' | 
-  'text-footer-body' |
   'text-project-title' |
   'text-project-subtitle' |
   'text-project-body' |
-  'text-footer-body' 
+  'text-footer-body' |
+  'text-enter-title' | 
+  'text-enter-subtitle' |
+  'text-title'
 
 const textType = ['p', 'h1', 'h2']
 
 interface iText {
   type: TextType,
-  name ?: TextName | TextColorName | TextTitleInfoName | TextSubtitleInfoName,
+  name ?: 
+    TextName | 
+    TextTitleInfoName | 
+    TextSubtitleInfoName | 
+    TextNav |
+    TextBodyButtonName,
   children: string
 }
 
@@ -30,6 +38,7 @@ export type {
   TextName, 
   TextTitleInfoName, 
   TextSubtitleInfoName, 
-  TextColorName, 
-  TextType
+  TextBodyButtonName,
+  TextType,
+  TextNav
 }

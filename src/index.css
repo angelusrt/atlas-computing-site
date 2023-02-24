@@ -4,6 +4,7 @@
   --blue: #B3E4E1;
 
   --transparent-white: rgba(255, 255, 255, 0.75);
+  --transparent-black: rgba(0, 0, 0, 0.75);
 }
 
 html {
@@ -31,8 +32,17 @@ footer{
   margin-top: 100px;
 }
 
-#discover{
+#discover,
+#enter {
   background-color: var(--black);
+}
+
+footer .button-link{
+  margin: 0 10px;
+}
+
+#discover .text-title{
+  color: var(--white);
 }
 
 @media (min-width: 0px) {
@@ -41,9 +51,30 @@ footer{
     overflow: hidden;
     position: relative;
   }
+
+  #intro{
+    padding: 80px 20px 40px 20px;
+  }
+  #projects{
+    padding: 20px 0 40px 0;
+    overflow: unset;
+  }
+  #projects .text-title{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 @media (min-width: 725px) {
-  section{
+  section, 
+  #projects{
     padding: 40px 80px;
+  }
+
+  #intro{
+    padding: 100px 80px 60px 80px;
+  }
+  #projects .text-title{
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }

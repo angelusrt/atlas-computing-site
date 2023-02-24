@@ -4,7 +4,7 @@ import { useAnimateOnScroll } from "../../functions/transition"
 import { useAnimateWithClass } from "../../functions/utils"
 import { trans } from "../../functions/function.types"
 
-import { Button, NavButton } from "../buttons/Buttons"
+import { Button } from "../buttons/Buttons"
 import { Icon } from "../icons/Icons"
 import { Text } from "../texts/Texts"
 
@@ -15,11 +15,8 @@ import {
   iInfoBlock,
   iProject,
   iProjectModal,
-  iProjectWrapper,
   projectModalNames,
 } from "./Blocks.types"
-
-import data from "../../data.json"
 import "./blocks.css"
 
 const Block = (prop: iBlock) => {
@@ -47,30 +44,8 @@ const Block = (prop: iBlock) => {
   )
 }
 
-const Nav = () => (
-  <nav>
-    <Button
-      type='h1'
-      name='button-title button-white'
-      textName="text-button-black"
-      text={data.nav.buttonNames[0]}
-    />
-    <Block name="block-wrapper">
-      <NavButton/>
-      <Button
-        type='h2'
-        name="button-subtitle button-black"
-        textName="text-button-white"
-        text={data.nav.buttonNames[2]}
-      >
-        <Icon name="Arrow"/>
-      </Button>
-    </Block>
-  </nav>
-)
-
 const InfoBlock = (prop: iInfoBlock) => (
-  <Block name="block-info">
+  <Block name="block-info" blockRef={prop.blockRef}>
     <Text 
       type="h2" 
       name={prop.titleName}
@@ -82,42 +57,6 @@ const InfoBlock = (prop: iInfoBlock) => (
       children={prop.subtitle}
     />
   </Block>
-)
-
-const ProjectWrapperBlock = (prop: iProjectWrapper) => (
-  <Block name="block-wrapper">
-    {
-      prop.isButton &&
-      <Button 
-        type="h2" 
-        name="button-subtitle button-white"
-        textName="text-button-black"
-        func={{
-          onClick: prop.onFunc
-        }}
-      >
-        <Icon name="Arrow"/>
-      </Button>
-    }
-    <Text 
-      type="h1" 
-      name="text-project-title"
-      children={prop.title}
-    />
-    <Text 
-      type="p" 
-      name="text-project-subtitle"
-      children={prop.subtitle}
-    />
-    {
-      prop.body &&
-      <Text 
-        type="p" 
-        name="text-project-body"
-        children={prop.body}
-      />
-    }
-  </Block>  
 )
 
 const ProjectModalBlock = (prop: iProjectModal) => {
@@ -147,56 +86,76 @@ const ProjectModalBlock = (prop: iProjectModal) => {
   },[prop.isModal])
 
   return(
-    <Block blockRef={ref} name="block-modal-wrapper">
-      <Block name="block-project-modal">
-        <Block name="block-project-image">
-          <Icon name={prop.iconName}/>
-        </Block>
-        <ProjectWrapperBlock
-          title={prop.title}
-          subtitle={prop.subtitle}
-          body={prop.body}
-          isButton={true}
-          onFunc={() => prop.setIsModal(false)}
-        />
-      </Block>
+    <Block blockRef={ref} name="block-project-modal">
+      <Button 
+        type="h2" 
+        name="button-icon button-white"
+        func={{ onClick: prop.onFunc }}
+        children={<Icon name="Arrow"/>}
+      />
+      <Block 
+        name="block-project-image"
+        children={<Icon name={prop.iconName}/>}
+      />
+      <Text 
+        type="h1" 
+        name="text-project-title"
+        children={prop.title}
+      />
+      <Text 
+        type="p" 
+        name="text-project-subtitle"
+        children={prop.subtitle}
+      />
+      <Text 
+        type="p" 
+        name="text-project-body"
+        children={prop.body}
+      />
     </Block>
   ) 
 }
 
 const ProjectBlock = (prop: iProject) => {
   const[isModal, setIsModal] = useState(false)
+  const[isModalChanged, setIsModalChanged] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
-    const onClick = () => {
-      ref.current.classList.remove("block-project--show")
-      setIsModal(true)
+    if (ref.current && !isModal && isModalChanged){
+      ref.current.classList.add("block-project--show")
     }
-    
-    const current = ref.current
-
-    if(current)
-      current.addEventListener("click", onClick)
-    
-    return () => current.removeEventListener("click", onClick)
-  },[])
-
-  useEffect(() => {
-    if(ref.current && isModal)
-      ref.current.classList.add("block-project--show") 
-  },[isModal])
+    else if (ref.current && isModal){
+      ref.current.classList.remove("block-project--show")  
+      setIsModalChanged(true)
+    }
+  },[isModal, isModalChanged])
 
   return(
     <React.Fragment>
       <Block blockRef={ref} name="block-project">
-        <Block name="block-project-image">
-          <Icon name={prop.iconName}/>
-        </Block>
-        <ProjectWrapperBlock
-          title={prop.title}
-          subtitle={prop.subtitle}
+        <Block 
+          name="block-project-image"
+          children={<Icon name={prop.iconName}/>}
+        />
+        <Text 
+          type="h1" 
+          name="text-project-title"
+          children={prop.title}
+        />
+        <Text 
+          type="p" 
+          name="text-project-subtitle"
+          children={prop.subtitle}
+        />
+        <Button
+          type="h2"
+          name="button-icon button-white"
+          func={{onClick: () => setIsModal(true)}}
+          text="Ver mais"
+          textName="text-body-button"
+          // children={<Icon name="Arrow"/>}
         />
       </Block>
       <ProjectModalBlock
@@ -205,7 +164,7 @@ const ProjectBlock = (prop: iProject) => {
         body={prop.body}
         iconName={prop.iconName}
         isModal={isModal}
-        setIsModal={setIsModal}
+        onFunc={() => setIsModal(false)}
       />
     </React.Fragment>
   )
@@ -229,4 +188,4 @@ const DropdownBlock = (prop: iDroprown) => {
   )
 }
 
-export {Block, Nav, InfoBlock, ProjectBlock, DropdownBlock}
+export {Block, InfoBlock, ProjectBlock, DropdownBlock}

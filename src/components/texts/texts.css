@@ -5,7 +5,6 @@ p {
 h1, h2, p {
   font-family: "Roboto Condensed";
   font-weight: 300;
-  color: var(--black);
   margin: 0;
 }
 h1::-moz-selection, h2::-moz-selection, p::-moz-selection {
@@ -13,6 +12,10 @@ h1::-moz-selection, h2::-moz-selection, p::-moz-selection {
 }
 h1::selection, h2::selection, p::selection {
   background-color: var(--blue);
+}
+
+.text-title {
+  margin: 20px 0 40px 0;
 }
 
 .text-intro-title {
@@ -36,7 +39,8 @@ h1::selection, h2::selection, p::selection {
 }
 
 .text-intro-title,
-.text-menu-title {
+.text-menu-title,
+.text-button-body {
   font-family: "Roboto";
   font-weight: 100;
   color: var(--black);
@@ -52,44 +56,50 @@ h1::selection, h2::selection, p::selection {
   color: var(--black);
 }
 
-.text-button-white,
 .text-white,
 .text-menu-title,
 .text-menu-subtitle,
-.text-footer-body {
+.text-footer-body,
+.text-enter-title,
+.text-enter-subtitle {
   color: var(--white);
 }
 
+.text-title,
 .text-intro-title,
-.text-intro-subtitle {
+.text-intro-subtitle,
+.text-enter-title,
+.text-enter-subtitle {
   opacity: 0;
   transform: translateX(-20%);
   transition: all 1s;
 }
+.text-title--show,
 .text-intro-title--show,
-.text-intro-subtitle--show {
+.text-intro-subtitle--show,
+.text-enter-title--show,
+.text-enter-subtitle--show {
   opacity: 1;
   transform: translateX(0);
   transition: all 1s;
 }
 
 @media (min-width: 0px) {
-  h1 {
-    font-size: 35px;
-  }
-  h2, p,
-  .text-info-title,
-  .text-project-title,
+  h2,
+  p,
   .text-intro-subtitle {
     font-size: 25px;
   }
-  .text-intro-title,
-  .text-menu-title {
-    font-size: 120px;
+  h1,
+  .text-info-title,
+  .text-project-title {
+    font-size: 35px;
+    line-height: 125%;
   }
-  .text-intro-subtitle,
-  .text-menu-subtitle {
-    margin-top: 30px;
+  .text-intro-subtitle {
+    margin-right: 60px;
+    margin-bottom: 20px;
+    line-height: 125%;
   }
   .text-info-subtitle {
     font-size: 40px;
@@ -106,21 +116,43 @@ h1::selection, h2::selection, p::selection {
     font-size: 15px;
     margin-top: 20px;
   }
+  .text-intro-title,
+  .text-menu-title,
+  .text-enter-title {
+    font-size: 120px;
+    line-height: 100%;
+  }
+  .text-intro-subtitle,
+  .text-menu-subtitle,
+  .text-enter-subtitle {
+    margin-top: 10px;
+  }
 }
 @media (min-width: 725px) {
   p, .text-info-title {
     font-size: 35px;
   }
-  .text-intro-title {
-    font-size: 150px;
+  .text-intro-title:last-of-type {
+    margin-bottom: 20px;
   }
   .text-intro-subtitle {
-    font-size: 70px;
+    display: inline;
+    margin-right: 20px;
+    margin-bottom: 0;
   }
   .text-info-subtitle {
     font-size: 50px;
   }
   .text-footer-body {
     font-size: 25px;
+  }
+  .text-intro-title,
+  .text-menu-title,
+  .text-enter-title {
+    font-size: 150px;
+  }
+  .text-intro-subtitle,
+  .text-enter-subtitle {
+    font-size: 50px;
   }
 }/*# sourceMappingURL=texts.css.map */

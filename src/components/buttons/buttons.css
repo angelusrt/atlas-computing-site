@@ -3,11 +3,12 @@ button, a {
   display: inline-block;
   z-index: 4;
   background-color: var(--white);
-  text-decoration: none;
-  color: var(--black);
+  border: 2px solid var(--white);
   border-radius: 10px;
-  border-style: none;
-  padding: 10px 20px;
+  color: var(--black);
+  text-decoration: none;
+  padding: 10px;
+  vertical-align: text-bottom;
   transition: all 0.4s;
 }
 button h1, button h2, a h1, a h2 {
@@ -29,34 +30,89 @@ button .block-dropdown, a .block-dropdown {
 button:hover, a:hover {
   background-color: var(--blue);
   color: var(--black);
+  border-color: var(--black);
   transition: all 0.4s;
 }
 
-.button-white {
-  margin-right: 60px;
+.button-text {
+  padding: 10px 20px;
+  margin-bottom: 40px;
+}
+.button-text .icon {
+  width: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  transform: rotate(0deg);
+}
+
+.button-icon {
+  padding: 10px;
+}
+.button-icon .icon {
+  margin-left: 0;
+}
+
+.button-index {
+  border: 2px solid var(--black);
+  background-color: var(--transparent-white);
+}
+.button-index .block-dropdown {
+  background-color: var(--white);
+  border: 2px solid var(--black);
 }
 
 .button-black {
   background-color: var(--black);
   color: var(--white);
-  transition: all 0.4s;
-}
-.button-black .text-button-white {
+  border-color: var(--black);
   transition: all 0.4s;
 }
 .button-black .icon {
   fill: var(--white);
+  transition: fill 0.4s;
 }
-.button-black:hover .text-button-white {
+
+.button-intro {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.button-intro--show {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  transition: all 1s;
+}
+.button-intro--show:hover {
+  transform: rotate(-10deg) scale(1.5);
+  transition: all 1s;
+}
+
+.button-enter-nav {
+  background-color: var(--transparent-black);
+  transition: all 0.4s;
+}
+.button-enter-nav .block-dropdown {
+  background-color: var(--black);
+  border: 3px solid var(--white);
+}
+.button-enter-nav .icon {
+  fill: var(--white);
+}
+.button-enter-nav:hover {
+  border: solid 3px var(--black);
+  border-left: none 0px;
+  transition: all 1s;
+}
+.button-enter-nav:hover .text-nav {
   color: var(--black);
   transition: all 0.4s;
 }
-.button-black:hover .icon {
+.button-enter-nav:hover .icon {
   fill: var(--black);
   transition: fill 0.4s;
 }
 
-.button-nav {
+.button-index,
+.button-enter-nav {
   z-index: 5;
   display: block;
   position: fixed;
@@ -65,29 +121,24 @@ button:hover, a:hover {
   margin: 20px;
   margin-left: 0;
   padding-left: 20px;
-  border: solid 3px var(--black);
   border-left: none 0px;
   border-start-start-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: var(--transparent-white);
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   opacity: 0;
   transform: translateX(-20%);
   transition: all 1s;
 }
-.button-nav .button-white {
+.button-index .button-white,
+.button-enter-nav .button-white {
   margin-right: 0px;
 }
-.button-nav--show {
+.button-index--show,
+.button-enter-nav--show {
   opacity: 1;
   transform: translateY(0);
   transition: all 1s;
-}
-
-.button-title {
-  margin-bottom: 40px;
-  margin-left: -20px;
 }
 
 .button-title,

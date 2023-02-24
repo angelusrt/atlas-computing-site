@@ -3,20 +3,25 @@
 }
 
 .svg-recife {
-  position: absolute;
-  stroke: var(--white);
-  top: -100px;
-}
-
-.svg-cables {
-  position: absolute;
-  stroke: var(--white);
+  top: -500px;
 }
 
 .svg-project {
   stroke: var(--black);
   margin: 20px 40px;
   width: calc(80% - 80px);
+}
+
+.svg-column-first {
+  z-index: 3;
+}
+
+.svg-recife,
+.svg-cables,
+.svg-column-first,
+.svg-column-second {
+  position: absolute;
+  stroke: var(--white);
 }
 
 .svg-recife,
@@ -26,16 +31,48 @@
 }
 .svg-recife--show,
 .svg-cables--show {
-  opacity: 1;
+  opacity: 0.6;
   transition: opacity 1s;
+}
+
+.svg-column-first {
+  opacity: 0;
+  transform: translateY(30%);
+  transition: all 1s;
+}
+.svg-column-first--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+}
+
+.svg-column-second {
+  opacity: 0;
+  transform: translateY(10%);
+  transition: all 1s;
+}
+.svg-column-second--show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
 }
 
 @media (min-width: 0px) {
   .svg-recife {
-    height: 800px;
-    left: -80vw;
+    height: 1000px;
+    left: -140vw;
   }
   .svg-cables {
+    height: 400px;
+    right: -200px;
+    bottom: -25px;
+  }
+  .svg-column-first {
+    height: 400px;
+    right: -200px;
+    bottom: -25px;
+  }
+  .svg-column-second {
     height: 400px;
     right: -200px;
     bottom: -25px;
@@ -43,12 +80,22 @@
 }
 @media (min-width: 725px) {
   .svg-recife {
-    height: 1000px;
-    left: -15vw;
+    height: 1500px;
+    left: -30vw;
   }
   .svg-cables {
     height: 700px;
     right: -100px;
-    bottom: -175px;
+    bottom: -100px;
+  }
+  .svg-column-first {
+    height: 700px;
+    right: 290px;
+    bottom: -120px;
+  }
+  .svg-column-second {
+    height: 500px;
+    right: 200px;
+    bottom: -100px;
   }
 }/*# sourceMappingURL=Icons.css.map */

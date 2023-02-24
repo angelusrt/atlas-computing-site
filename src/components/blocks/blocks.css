@@ -1,6 +1,7 @@
 nav {
   display: flex;
   flex-direction: row;
+  align-items: baseline;
 }
 nav .block-wrapper {
   margin-left: auto;
@@ -12,8 +13,7 @@ nav .block-wrapper {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  background-color: var(--white);
-  border: 3px solid var(--black);
+  justify-content: space-between;
   border-radius: 20px;
   padding: 20px;
   opacity: 0;
@@ -33,7 +33,7 @@ nav .block-wrapper {
 }
 .block-dropdown--show {
   opacity: 1;
-  height: 203px;
+  height: 225px;
   transition: all 1s;
 }
 .block-dropdown--show .button-link {
@@ -43,48 +43,51 @@ nav .block-wrapper {
 }
 
 .block-project {
-  overflow: hidden;
   position: relative;
-  background-color: var(--white);
-  box-shadow: 0px 0px var(--white);
-  transition: all 1s;
+  justify-content: space-between;
 }
-.block-project:hover {
-  box-shadow: 12px 12px var(--blue);
-  transition: all 1s;
+.block-project .button-text {
+  margin-top: 40px;
+}
+.block-project .button-icon {
+  margin-top: 20px;
+  border: 2px solid var(--black);
+}
+.block-project .block-project-image {
+  z-index: -1;
+  position: absolute;
+  text-align: center;
+  overflow: hidden;
 }
 
-.block-modal-wrapper {
-  z-index: 2;
-  background-color: var(--white);
-  opacity: 0;
+.block-project-modal {
   position: absolute;
+  align-items: flex-start;
+  z-index: 5;
   width: 100%;
   height: 100%;
+  top: 0;
   left: 0;
-  transition: opacity 1s;
+  opacity: 0;
+  transition: opacity 0.5s;
 }
-.block-modal-wrapper .block-project-modal {
-  position: absolute;
-  overflow: hidden;
-  background-color: var(--white);
-  box-shadow: 0px 0px var(--white);
-  z-index: 3;
+.block-project-modal--none {
+  display: none;
 }
-.block-modal-wrapper .block-project-modal button svg {
+.block-project-modal--show {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+.block-project-modal .button-icon .icon {
   transform: rotate(0deg);
   margin-left: 0;
 }
-.block-modal-wrapper .block-project-modal:hover {
-  box-shadow: 12px 12px var(--blue);
-  transition: all 1s;
+.block-project-modal .block-project-image {
+  margin: 40px 0;
+  width: 400px;
 }
-.block-modal-wrapper--none {
-  display: none;
-}
-.block-modal-wrapper--show {
-  opacity: 1;
-  transition: opacity 1s;
+.block-project-modal .block-project-image .svg-project {
+  margin: 0;
 }
 
 .block-horizontal {
@@ -111,10 +114,33 @@ nav .block-wrapper {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
-.block-project,
-.block-project-modal,
 .block-about-image {
-  border: 3px solid var(--black);
+  border: 2px solid var(--black);
+}
+
+.block-black {
+  background-color: var(--black);
+}
+.block-black .button-black:hover {
+  background-color: var(--black);
+  color: var(--blue);
+  border-color: var(--blue);
+  transition: all 0.4s;
+}
+.block-black .button-black:hover .icon {
+  fill: var(--blue);
+  transition: fill 0.4s;
+}
+
+.block-white .button-black:hover {
+  background-color: var(--blue);
+  color: var(--black);
+  border-color: var(--black);
+  transition: all 0.4s;
+}
+.block-white .button-black:hover .icon {
+  fill: var(--black);
+  transition: fill 0.4s;
 }
 
 .block-info,
@@ -128,6 +154,15 @@ nav .block-wrapper {
   opacity: 1;
   transform: translateY(0);
   transition: all 1s;
+}
+
+.block-project,
+.block-project-modal--show {
+  overflow: hidden;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 @media (min-width: 0px) {
@@ -149,63 +184,41 @@ nav .block-wrapper {
     gap: 40px 0;
   }
   .block-discover {
-    height: 600px;
+    height: 500px;
   }
   .block-discover .block-info {
     position: absolute;
   }
   .block-discover:first-of-type .block-info {
     left: 40vw;
-    top: 35%;
+    bottom: 50px;
   }
-  .block-discover:last-of-type .block-info {
-    bottom: 25%;
-    left: 0;
-    transform: translateX(-20%);
-    transition: all 1s;
+  .block-project .block-project-image {
+    top: 0;
+    opacity: 0.1;
+    left: -100px;
+    height: 200px;
   }
-  .block-discover:last-of-type .block-info--show {
-    transform: translateX(0);
-    transition: all 1s;
-  }
-  .block-modal-wrapper .block-project-modal {
+  .block-project-modal {
     width: calc(100% - 40px);
-    transform: translateX(-5%);
     margin: 0 auto;
-    left: 0;
-    right: 0;
-    opacity: 0;
-    transition: all 1s;
-  }
-  .block-modal-wrapper .block-project-modal .block-project-image {
-    position: absolute;
-    right: -150px;
-  }
-  .block-modal-wrapper .block-project-modal .block-wrapper {
     padding: 20px;
+    transform: translateX(-5%);
+    transition: all 0.5s;
   }
-  .block-modal-wrapper .block-project-modal .block-wrapper button {
-    margin: 0 0 20px -20px;
-  }
-  .block-modal-wrapper--show .block-project-modal {
+  .block-project-modal--show {
     transform: translateX(0);
     opacity: 1;
-    transition: all 1s 0.2s;
-  }
-  .block-project .block-wrapper,
-  .block-project-modal .block-wrapper {
-    padding: 20px;
-  }
-  .block-project-image,
-  .block-project-modal-image {
-    height: 130px;
-    text-align: center;
-    overflow: hidden;
+    transition: all 0.5s 0.2s;
   }
   .block-about-image {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
+  }
+  .block-project,
+  .block-project-modal {
+    padding: 60px 20px 20px 20px;
   }
 }
 @media (min-width: 725px) {
@@ -217,9 +230,6 @@ nav .block-wrapper {
     transform: translateX(-50%) translateY(0);
     transition: all 1s;
   }
-  .block-horizontal {
-    flex-direction: row;
-  }
   .block-horizontal .block-wrapper:first-of-type {
     margin-bottom: 0;
     margin-right: 80px;
@@ -228,48 +238,31 @@ nav .block-wrapper {
     gap: 60px;
   }
   .block-discover {
-    height: 700px;
+    height: 550px;
   }
   .block-discover .block-info {
     position: absolute;
   }
   .block-discover:first-of-type .block-info {
-    left: 40vw;
-    top: 30%;
+    left: 60vw;
+    top: auto;
+    bottom: 150px;
   }
-  .block-discover:last-of-type .block-info {
-    bottom: 30%;
-    left: 10vw;
+  .block-project {
+    padding: 80px 40px 40px 40px;
   }
-  .block-project .block-wrapper {
-    padding: 40px;
-  }
-  .block-modal-wrapper .block-project-modal {
-    width: 66vw;
-    transform: translateX(-5%);
+  .block-project-modal {
+    width: calc(100% - 240px);
+    padding: 80px 120px;
     margin: 0 auto;
-    left: 0;
-    right: 0;
-    opacity: 0;
-    transition: all 1s;
+    transition: all 0.5s;
   }
-  .block-modal-wrapper .block-project-modal .block-project-image {
-    position: absolute;
-    right: -100px;
-  }
-  .block-modal-wrapper .block-project-modal .block-wrapper {
-    padding: 40px;
-  }
-  .block-modal-wrapper .block-project-modal .block-wrapper button {
-    margin: 0 0 20px -20px;
-  }
-  .block-modal-wrapper--show .block-project-modal {
-    width: 66vw;
+  .block-project-modal--show {
     transform: translateX(0);
     opacity: 1;
     left: 0;
     right: 0;
-    transition: all 1s 0.2s;
+    transition: all 0.5s 0.2s;
   }
   .block-about-image {
     width: 200px;

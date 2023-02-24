@@ -1,38 +1,30 @@
+import { TextBodyButtonName, TextNav } from "../texts/Texts.types"
 
-// const buttonNameDic = {
-//   'white': 'button-white', 
-//   'black': 'button-black',
-//   'h1': 'button-title',
-//   'h2': 'button-subtitle',
-// }
-
-import { TextColorName } from "../texts/Texts.types"
-
-// const textNameDic = {
-//   'black':'text-button-white', 
-//   'white':'text-button-black'
-// }
 const buttonTitles = [
   "button-title button-black", 
   "button-title button-white"
 ]
 
-type ButtonName = 
-  'button-title button-white' | 
-  'button-subtitle button-white' | 
+type ButtonNav = 
   'button-nav' | 
-  'button-title button-black' | 
-  'button-subtitle button-black'
+  'button-enter-nav'
+type ButtonName = 
+  'button-text button-white' | 
+  'button-icon button-white' | 
+  'button-text button-black' | 
+  'button-icon button-black' |
+  'button-intro button-icon button-black' |
+  'button-index'
 type ButtonType = 'h1' | 'h2' 
-type ButtonColorName = 'button-white' | 'button-black' 
 type LinkName = 
   'button-link button-white' |
   'button-link button-black'
 
 interface iButton {
-  name: ButtonName | ButtonColorName,
-  textName: TextColorName, 
   type: ButtonType,
+  name: ButtonName,
+  isTitle ?: boolean,
+  textName ?: TextNav | TextBodyButtonName, 
   text ?: string,
   children ?: any,
   func ?: any,
@@ -40,11 +32,23 @@ interface iButton {
 
 interface iLink {
   name: LinkName,
-  textName: TextColorName,
   text: string,
   href: string,
   isNewTab: boolean
 } 
 
+interface iNavButton {
+  name: ButtonNav,
+  textName: TextNav,
+}
+
+interface iNavButtonHelper {
+  data: {text: string, href: string}[],
+  name: LinkName,
+}
+interface iItem {
+  text: string, 
+  href: string 
+}
 export {buttonTitles}
-export type {iButton, iLink}
+export type {iButton, iLink, iNavButton, iNavButtonHelper, iItem}

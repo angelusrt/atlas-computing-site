@@ -2,8 +2,7 @@
   position: absolute;
   width: 400px;
   height: 400px;
-  top: 90px;
-
+  z-index: 4;
   opacity: 0;
   transform: translateY(-20%);
   transition: all 1s;
@@ -66,11 +65,13 @@
 
 @media (min-width: 0) {
   .canvas-globe{
+    top: 80px;
     right: -200px;
   } 
 }
 @media (min-width: 725px) {
   .canvas-globe{
+    top: 40px;
     left: calc(50vw - 200px);
   }
 }

@@ -11,12 +11,13 @@ interface iInfoBlock {
   titleName: TextTitleInfoName
   title: string,
   subtitleName: TextSubtitleInfoName
-  subtitle: string
+  subtitle: string,
+  blockRef: React.LegacyRef<HTMLDivElement>
 }
 
 const projectModalNames: [string, string] = [
-  "block-modal-wrapper--show", 
-  "block-modal-wrapper--none"
+  "block-project-modal--show", 
+  "block-project-modal--none"
 ]
 
 type IconName = 'ReadingFlow' | 'Database' | 'Network'
@@ -30,7 +31,7 @@ interface iProject {
 
 interface iProjectModal extends iProject {
   isModal: boolean,
-  setIsModal: React.Dispatch<React.SetStateAction<boolean>>
+  onFunc: () => void
 }
 
 interface iProjectWrapper {

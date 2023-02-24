@@ -26,7 +26,7 @@ const Globe = () => {
 
   useAnimateOnScroll(
     '.canvas-globe', 
-    {...trans, start: 2000}
+    {...trans, start: 1000}
   )
 
   useEffect(() => {

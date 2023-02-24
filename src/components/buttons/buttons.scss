@@ -3,11 +3,12 @@ button, a{
   display: inline-block;
   z-index: 4;
   background-color: var(--white);
-  text-decoration: none;
-  color: var(--black);
+  border: 2px solid var(--white);
   border-radius: 10px;
-  border-style: none;
-  padding: 10px 20px;
+  color: var(--black);
+  text-decoration: none;
+  padding: 10px;
+  vertical-align: text-bottom;
   transition: all .4s;
   
   h1, h2{
@@ -29,26 +30,81 @@ button, a{
   &:hover{
     background-color: var(--blue);
     color: var(--black);
+    border-color: var(--black);
     transition: all .4s;
   }
 }
 
-.button-white{
-  margin-right: 60px;
+.button-text{
+  padding: 10px 20px;
+  margin-bottom: 40px;
+
+  .icon{
+    width: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transform: rotate(0deg)
+  }
+}
+.button-icon{
+  padding: 10px; 
+
+  .icon{
+    margin-left: 0;
+  }
+}
+.button-index{
+  border: 2px solid var(--black);
+  background-color: var(--transparent-white);
+
+  .block-dropdown{
+    background-color: var(--white);
+    border: 2px solid var(--black);
+  }
 }
 .button-black{
   background-color: var(--black);
   color: var(--white);
+  border-color: var(--black);
   transition: all .4s;
 
-  .text-button-white{
-    transition: all .4s;
+  .icon{
+    fill: var(--white);
+    transition: fill .4s;
+  }
+}
+.button-intro{
+  opacity: 0;
+  transition: opacity 1s;
+  
+  &--show{
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    transition: all 1s;
+    
+    &:hover{
+      transform: rotate(-10deg) scale(1.5);
+      transition: all 1s;
+    }
+  }
+}
+.button-enter-nav{
+  background-color: var(--transparent-black);
+  transition: all .4s;
+
+  .block-dropdown{
+    background-color: var(--black);
+    border: 3px solid var(--white);
   }
   .icon{
     fill: var(--white);
   }
   &:hover{
-    .text-button-white{
+    border: solid 3px var(--black);
+    border-left: none 0px;
+    transition: all 1s;
+
+    .text-nav{
       color: var(--black);
       transition: all .4s;
     }
@@ -59,7 +115,8 @@ button, a{
   } 
 }
 
-.button-nav{
+.button-index,
+.button-enter-nav{
   z-index: 5;
   display: block;
   position: fixed;
@@ -70,11 +127,9 @@ button, a{
   margin-left: 0;
   padding-left: 20px;
 
-  border: solid 3px var(--black);
   border-left: none 0px;
   border-start-start-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: var(--transparent-white);
   backdrop-filter: blur(6px);
 
   opacity: 0;
@@ -84,16 +139,11 @@ button, a{
   .button-white{
     margin-right: 0px;
   }
-
   &--show{
     opacity: 1;
     transform: translateY(0);
     transition: all 1s;
   }
-}
-.button-title{
-  margin-bottom: 40px;
-  margin-left: -20px;
 }
 
 .button-title,

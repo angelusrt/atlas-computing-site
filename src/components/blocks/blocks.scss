@@ -1,6 +1,7 @@
 nav{
   display: flex;
   flex-direction: row;
+  align-items: baseline;
 
   .block-wrapper{
     margin-left: auto;
@@ -12,9 +13,8 @@ nav{
   position: absolute;
   display: flex;
   flex-wrap: nowrap;
-  flex-direction: column;
-  background-color: var(--white);
-  border: 3px solid var(--black);
+  flex-direction: column;  
+  justify-content: space-between;
   border-radius: 20px;
   padding: 20px;
 
@@ -26,7 +26,6 @@ nav{
     margin: 0;
     opacity: 0;
     transition: all 0.5s; 
-
   }
   &--none{
     display: none;
@@ -37,7 +36,7 @@ nav{
   }
   &--show {
     opacity: 1;
-    height: 203px;
+    height: 225px;
     transition: all 1s;
 
     .button-link{
@@ -48,49 +47,52 @@ nav{
   }
 }
 .block-project{
-  overflow: hidden;
   position: relative;
-  background-color: var(--white);
-  box-shadow: 0px 0px var(--white);
-  transition: all 1s;
-
-  &:hover{
-    box-shadow: 12px 12px var(--blue);
-    transition: all 1s;
+  justify-content: space-between;
+  
+  .button-text{
+    margin-top: 40px;
+  }
+  .button-icon{
+    margin-top: 20px;
+    border: 2px solid var(--black);
+  }
+  .block-project-image{
+    z-index: -1;
+    position: absolute;
+    text-align: center;
+    overflow: hidden;
   }
 }
-.block-modal-wrapper{
-  z-index: 2;
-  background-color: var(--white);
-  opacity: 0;
+.block-project-modal{
   position: absolute;
+  align-items: flex-start;
+  z-index: 5;
   width: 100%;
   height: 100%;
+  top: 0;
   left: 0;
-  transition: opacity 1s;
+  opacity: 0;
+  transition: opacity 0.5s;
 
-  .block-project-modal{
-    position: absolute;
-    overflow: hidden;
-    background-color: var(--white);
-    box-shadow: 0px 0px var(--white);
-    z-index: 3;
-  
-    button svg{
-      transform: rotate(0deg);
-      margin-left: 0;
-    }
-    &:hover{
-      box-shadow: 12px 12px var(--blue);
-      transition: all 1s;
-    }
-  }
   &--none{
     display: none;
   }
   &--show{
     opacity: 1;
-    transition: opacity 1s;
+    transition: opacity 0.5s;
+  }
+  .button-icon .icon{
+    transform: rotate(0deg);
+    margin-left: 0;
+  }
+  .block-project-image{
+    margin: 40px 0;
+    width: 400px;
+
+    .svg-project{
+      margin: 0;
+    }
   }
 }
 .block-horizontal{
@@ -110,18 +112,44 @@ nav{
 .block-info{
   margin: 40px 0;
   padding: 0 20px;
-
 }
 .block-grid{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
-
-.block-project,
-.block-project-modal,
 .block-about-image{
-  border: 3px solid var(--black);
+  border: 2px solid var(--black);
 }
+.block-black{
+  background-color: var(--black);
+
+  .button-black:hover{
+    background-color: var(--black);
+    color: var(--blue);
+    border-color: var(--blue);
+    transition: all .4s;
+
+    .icon{
+      fill: var(--blue);
+      transition: fill .4s;
+    }
+  } 
+}
+.block-white{
+  .button-black:hover{
+    background-color: var(--blue);
+    color: var(--black);
+    border-color: var(--black);
+    transition: all .4s;
+
+    .icon{
+      fill: var(--black);
+      transition: fill .4s;
+    }
+  } 
+}
+
+
 .block-info,
 .block-project{
   opacity: 0;
@@ -133,6 +161,14 @@ nav{
     transform: translateY(0);
     transition: all 1s;
   }
+}
+.block-project, 
+.block-project-modal--show{
+  overflow: hidden;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 @media (min-width: 0px) {
@@ -156,73 +192,46 @@ nav{
     gap: 40px 0;
   }
   .block-discover{
-    height: 600px;
+    height: 500px;
 
     .block-info{
       position: absolute;
     }
     &:first-of-type .block-info{
       left: 40vw;
-      top: 35%;
-    }
-    &:last-of-type .block-info{
-      bottom: 25%;
-      left: 0;
-
-      transform: translateX(-20%);
-      transition: all 1s;
-
-      &--show{
-        transform: translateX(0);
-        transition: all 1s;
-      }
+      bottom: 50px;
     }
   }
-  .block-modal-wrapper{
-    .block-project-modal{
-      width: calc(100% - 40px);
-      transform: translateX(-5%);
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      opacity: 0;
-  
-      transition: all 1s;
-  
-      .block-project-image{
-        position: absolute;
-        right: -150px;
-      }
-      .block-wrapper{
-        padding: 20px;
-        
-        button{
-          margin: 0 0 20px -20px;
-        }
-      }
-    }
-    &--show .block-project-modal{
+  .block-project .block-project-image{
+    top: 0;
+    opacity: 0.10;
+    left: -100px;
+    height: 200px;
+  }
+  .block-project-modal{
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    padding: 20px;
+    transform: translateX(-5%);
+    transition: all 0.5s;
+    
+    &--show{
       transform: translateX(0);
       opacity: 1;
-
-      transition: all 1s .2s;
+  
+      transition: all 0.5s .2s;
     }
-  }
-  .block-project, 
-  .block-project-modal{
-    .block-wrapper{
-      padding: 20px;
-    }
-    &-image{
-      height: 130px;
-      text-align: center;
-      overflow: hidden;
-    }
+    
   }
   .block-about-image{
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
+  }
+
+  .block-project, 
+  .block-project-modal{
+    padding: 60px 20px 20px 20px;
   }
 }
 
@@ -238,8 +247,6 @@ nav{
   }
 
   .block-horizontal{
-    flex-direction: row;
-    
     .block-wrapper:first-of-type{
       margin-bottom: 0;
       margin-right: 80px;
@@ -249,56 +256,32 @@ nav{
     gap: 60px;
   }
   .block-discover{
-    height: 700px;
+    height: 550px;
 
     .block-info{
       position: absolute;
     }
     &:first-of-type .block-info{
-      left: 40vw;
-      top: 30%;
-    }
-    &:last-of-type .block-info{
-      bottom: 30%;
-      left: 10vw;
+      left: 60vw;
+      top: auto;
+      bottom: 150px;
     }
   }
   .block-project{
-    .block-wrapper{
-      padding: 40px;
-    }
+    padding: 80px 40px 40px 40px;
   }
-  .block-modal-wrapper{
-    .block-project-modal{
-      width: calc(66vw);
-      transform: translateX(-5%);
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      opacity: 0;
-  
-      transition: all 1s;
-  
-      .block-project-image{
-        position: absolute;
-        right: -100px;
-      }
-      .block-wrapper{
-        padding: 40px;
-        
-        button{
-          margin: 0 0 20px -20px;
-        }
-      }
-    }
-    &--show .block-project-modal{
-      width: calc(66vw);
+  .block-project-modal{
+    width: calc(100% - 240px);
+    padding: 80px 120px;
+    margin: 0 auto;
+    transition: all 0.5s;
+    
+    &--show{
       transform: translateX(0);
       opacity: 1;
       left: 0;
       right: 0;
-
-      transition: all 1s .2s;
+      transition: all 0.5s .2s;
     }
   }
   .block-about-image{
