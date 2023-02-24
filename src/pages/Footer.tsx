@@ -3,14 +3,13 @@ import { Text } from "../components/texts/Texts"
 import data from "../data.json"
 
 const Footer = () => (
-  <footer id="footer">
+  <footer id="footer" className="block-black">
     {
       data.footer.buttons.map(
         (item, index) => 
         <Link 
           isNewTab={true}
           name="button-link button-black"
-          textName="text-button-white"
           key={index}
           href={item.href}
           text={item.title}
