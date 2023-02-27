@@ -8,18 +8,16 @@ const transTitle = {...trans, start: 200, delayPerItem: 200}
 const transSubtitle = {...trans, start: 600}
 const transFooter = {...trans, start: 200}
 
-const Text = (props: iText) => {
+const Text = (prop: iText) => {
   useAnimateOnScroll('.text-title', trans)
-  useAnimateOnScroll('.text-intro-title', transTitle)
-  useAnimateOnScroll('.text-intro-subtitle', transSubtitle)
-  useAnimateOnScroll('.text-footer-body', transFooter)
-  useAnimateOnScroll('.text-enter-title', transTitle)
-  useAnimateOnScroll('.text-enter-subtitle', transSubtitle)
+  useAnimateOnScroll('.text-big-title', transTitle)
+  useAnimateOnScroll('.text-big-subtitle', transSubtitle)
+  useAnimateOnScroll('.text-thin-small', transFooter)
 
   return (
-    <props.type className={props.name}>
-      {props.children}
-    </props.type>
+    <prop.type ref={prop.textRef} className={prop.name}>
+      {prop.children}
+    </prop.type>
   )
 }
 

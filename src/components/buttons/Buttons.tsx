@@ -9,20 +9,17 @@ import { Text } from "../texts/Texts"
 import { DropdownBlock } from "../blocks/Blocks"
 import { Icon } from "../icons/Icons"
 
-import data from "../../data.json"
 import "./buttons.css"
 
 const transButton = {...trans, start: 400}
-const transIntro = {...trans, start: 600}
-const transIndex = {...trans, start: 1500}
+const transIndex = {...trans, start: 1000}
 
 const Button = (prop: iButton) => {
   const ref = useRef<HTMLButtonElement>(null!)
-  
-  useAnimateOnScroll('.button-text', trans)
-  useAnimateOnScroll( '.button-icon', transButton)
+
+  useAnimateOnScroll('.button-black', transButton)
+  useAnimateOnScroll('.button-white', transButton)
   useAnimateOnScroll('.button-index', transIndex)
-  useAnimateOnScroll('.button-intro', transIntro)
 
   return(
     <button 
@@ -52,14 +49,12 @@ const Link = (prop: iLink) => {
 
   return(
     <a 
-      className={prop.name} 
+      className="button-link" 
       href={prop.href} 
       target={prop.isNewTab ? "_blank" : "_self"}
       rel="noreferrer"
     >
-      <Text type='h2'>
-        {prop.text}
-      </Text>
+      <Text type='h2'>{prop.text}</Text>
     </a>
   )
 }
@@ -69,7 +64,6 @@ const navButtonHelper = (prop: iNavButtonHelper) => (
     <Link
       key={index}
       isNewTab={false}
-      name={prop.name}
       href={item.href}
       text={item.text}
     />
@@ -83,8 +77,7 @@ const NavButton = (prop: iNavButton) => {
     <Button
       type='h2'
       name="button-index"
-      textName="text-nav"
-      text={data.nav.buttonNames[1]}
+      textName="text-bold-small"
       func={{ 
         onTouchStart: () => setToggle(true),
         onTouchEnd: () => setToggle(false),
@@ -96,14 +89,8 @@ const NavButton = (prop: iNavButton) => {
       <DropdownBlock 
         toggle={isToggle}
         children={
-          prop.name === "button-nav" ?
           navButtonHelper({
-            data: data.index, 
-            name: "button-link button-white"
-          }):
-          navButtonHelper({
-            data: data.enterIndex, 
-            name: "button-link button-black"
+            data: prop.index
           })
       }/>
     </Button>

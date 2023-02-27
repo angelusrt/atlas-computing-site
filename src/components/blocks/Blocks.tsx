@@ -9,27 +9,19 @@ import { Icon } from "../icons/Icons"
 import { Text } from "../texts/Texts"
 
 import { 
-  dropdownNames, 
   iBlock,
-  iDroprown,
-  iInfoBlock,
+  iDropdown,
   iProject,
-  iProjectModal,
-  projectModalNames,
 } from "./Blocks.types"
 import "./blocks.css"
 
 const Block = (prop: iBlock) => {
   useAnimateOnScroll(
-    '.block-info', 
-    {...trans, start: 800, delayPerItem: 200}
-  )
-  useAnimateOnScroll(
     '.block-project', 
     {...trans, start: 400, delayPerItem: 200}
   )
   useAnimateOnScroll(
-    '.block-horizontal .block-wrapper', 
+    '.block-about', 
     {...trans, start: 400, delayPerItem: 200}
   )
 
@@ -44,78 +36,6 @@ const Block = (prop: iBlock) => {
   )
 }
 
-const InfoBlock = (prop: iInfoBlock) => (
-  <Block name="block-info" blockRef={prop.blockRef}>
-    <Text 
-      type="h2" 
-      name={prop.titleName}
-      children={prop.title}
-    />
-    <Text 
-      type="h1" 
-      name={prop.subtitleName}
-      children={prop.subtitle}
-    />
-  </Block>
-)
-
-const ProjectModalBlock = (prop: iProjectModal) => {
-  const [time , setTime] = useState<NodeJS.Timeout>()
-
-  const ref = useRef<HTMLDivElement>(null!)
-  
-  useAnimateWithClass({
-    classArray: projectModalNames,
-    isToggle: prop.isModal,
-    ref, setTime, time
-  })
-
-  useEffect(() => {
-    const offset = document.getElementById("projects")?.offsetTop
-    const bodyStyle = document.body.style
-
-    if(prop.isModal){
-      bodyStyle.overflow = "hidden"
-      bodyStyle.height = "100%"  
-
-      window.scrollTo({behavior: "smooth", top: offset})
-    } else {
-      bodyStyle.overflow = "auto"
-      bodyStyle.height = "auto"   
-    }
-  },[prop.isModal])
-
-  return(
-    <Block blockRef={ref} name="block-project-modal">
-      <Button 
-        type="h2" 
-        name="button-icon button-white"
-        func={{ onClick: prop.onFunc }}
-        children={<Icon name="Arrow"/>}
-      />
-      <Block 
-        name="block-project-image"
-        children={<Icon name={prop.iconName}/>}
-      />
-      <Text 
-        type="h1" 
-        name="text-project-title"
-        children={prop.title}
-      />
-      <Text 
-        type="p" 
-        name="text-project-subtitle"
-        children={prop.subtitle}
-      />
-      <Text 
-        type="p" 
-        name="text-project-body"
-        children={prop.body}
-      />
-    </Block>
-  ) 
-}
-
 const ProjectBlock = (prop: iProject) => {
   const[isModal, setIsModal] = useState(false)
   const[isModalChanged, setIsModalChanged] = useState(false)
@@ -124,59 +44,72 @@ const ProjectBlock = (prop: iProject) => {
 
   useEffect(() => {
     if (ref.current && !isModal && isModalChanged){
+      ref.current.classList.remove("block-project--expanded")  
       ref.current.classList.add("block-project--show")
     }
     else if (ref.current && isModal){
-      ref.current.classList.remove("block-project--show")  
+      ref.current.classList.remove("block-project--show") 
+      ref.current.classList.add("block-project--expanded")  
       setIsModalChanged(true)
     }
   },[isModal, isModalChanged])
 
+  useEffect(() => {
+    const offset = document.getElementById("projects")?.offsetTop
+    const bodyStyle = document.body.style
+
+    if(isModal){
+      bodyStyle.overflow = "hidden"
+      bodyStyle.height = "100%"  
+
+      window.scrollTo({behavior: "smooth", top: offset})
+    } else {
+      bodyStyle.overflow = "auto"
+      bodyStyle.height = "auto"   
+    }
+  },[isModal])
+
   return(
     <React.Fragment>
       <Block blockRef={ref} name="block-project">
-        <Block 
-          name="block-project-image"
-          children={<Icon name={prop.iconName}/>}
-        />
+        <Icon name={prop.iconName}/>
         <Text 
           type="h1" 
-          name="text-project-title"
+          name="text-big"
           children={prop.title}
         />
         <Text 
           type="p" 
-          name="text-project-subtitle"
+          name="text-thin-small"
           children={prop.subtitle}
+        />
+        <Text 
+          type="p" 
+          name="text-normal"
+          children={prop.body}
         />
         <Button
           type="h2"
-          name="button-icon button-white"
-          func={{onClick: () => setIsModal(true)}}
+          name="button-white"
+          func={{onClick: () => setIsModal((state: boolean) => !state)}}
           text="Ver mais"
-          textName="text-body-button"
-          // children={<Icon name="Arrow"/>}
+          textName="text-bold-small"
         />
       </Block>
-      <ProjectModalBlock
-        title={prop.title}
-        subtitle={prop.subtitle}
-        body={prop.body}
-        iconName={prop.iconName}
-        isModal={isModal}
-        onFunc={() => setIsModal(false)}
-      />
     </React.Fragment>
   )
 }
 
-const DropdownBlock = (prop: iDroprown) => {
+const DropdownBlock = (prop: iDropdown) => {
   const [time , setTime] = useState<NodeJS.Timeout>()
 
   const ref = useRef<HTMLDivElement>(null!)
 
   useAnimateWithClass({
-    classArray: dropdownNames,
+    classArray: [
+      "block-dropdown--show", 
+      "block-dropdown--none"
+    ],
     isToggle: prop.toggle,
     ref, setTime, time
   })
@@ -188,4 +121,4 @@ const DropdownBlock = (prop: iDroprown) => {
   )
 }
 
-export {Block, InfoBlock, ProjectBlock, DropdownBlock}
+export {Block, ProjectBlock, DropdownBlock}
