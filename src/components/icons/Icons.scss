@@ -1,34 +1,15 @@
 .svg-arrow{
   transform: rotate(180deg);
 }
-.svg-recife{
-  top: -500px;
-}
-.svg-project{
-  stroke: var(--black);
-  margin: 20px 40px;
-  width: calc(80% - 80px);
-}
+
 .svg-column-first{
   z-index: 3;
 }
 
-.svg-recife,
-.svg-cables,
 .svg-column-first,
 .svg-column-second{
   position: absolute;
   stroke: var(--white);
-}
-.svg-recife,
-.svg-cables{
-  opacity: 0;
-  transition: opacity 1s;
-
-  &--show{
-    opacity: 0.6;
-    transition: opacity 1s;
-  }
 }
 
 .svg-column-first{
@@ -56,15 +37,6 @@
 }
 
 @media (min-width: 0px) {
-  .svg-recife{
-    height: 1000px;   
-    left: -140vw;
-  }
-  .svg-cables{
-    height: 400px;
-    right: -200px;
-    bottom: -25px;
-  }
   .svg-column-first{
     height: 400px;
     right: -200px;
@@ -78,15 +50,6 @@
 
 }
 @media (min-width: 725px) {
-  .svg-recife{
-    height: 1500px;   
-    left: -30vw;
-  }
-  .svg-cables{
-    height: 700px;
-    right: -100px;
-    bottom: -100px;
-  }
   .svg-column-first{
     height: 700px;
     right: 290px;

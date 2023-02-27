@@ -16,143 +16,109 @@ h1::selection, h2::selection, p::selection {
 
 .text-title {
   margin: 20px 0 40px 0;
-}
-
-.text-intro-title {
-  z-index: -1;
+  z-index: 4;
+  text-align: center;
   position: relative;
 }
 
-.text-project-body {
-  line-height: normal;
-}
-
-.text-footer-body {
-  opacity: 0;
-  transform: translateY(20%);
-  transition: all 1s;
-}
-.text-footer-body--show {
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 1s;
-}
-
-.text-intro-title,
-.text-menu-title,
-.text-button-body {
-  font-family: "Roboto";
-  font-weight: 100;
-  color: var(--black);
-}
-
-.text-intro-subtitle,
-.text-menu-subtitle,
-.text-info-subtitle,
-.text-project-title,
-.text-footer-body {
+.text-big {
   font-family: "Poppins";
+  font-style: normal;
   font-weight: 800;
-  color: var(--black);
+  font-size: 50px;
+  line-height: 75px;
+  word-break: break-all;
 }
 
-.text-white,
-.text-menu-title,
-.text-menu-subtitle,
-.text-footer-body,
-.text-enter-title,
-.text-enter-subtitle {
-  color: var(--white);
+.text-big-title {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100;
+  line-height: 100%;
+}
+
+.text-big-subtitle {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  line-height: 150%;
+}
+
+.text-thin-small {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.text-bold-small {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 150%;
+}
+
+.text-normal {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
 }
 
 .text-title,
-.text-intro-title,
-.text-intro-subtitle,
-.text-enter-title,
-.text-enter-subtitle {
+.text-big-title,
+.text-big-subtitle {
   opacity: 0;
-  transform: translateX(-20%);
-  transition: all 1s;
+  transform: translateX(-10%);
+  transition: all 0.5s;
 }
 .text-title--show,
-.text-intro-title--show,
-.text-intro-subtitle--show,
-.text-enter-title--show,
-.text-enter-subtitle--show {
+.text-big-title--show,
+.text-big-subtitle--show {
   opacity: 1;
   transform: translateX(0);
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 @media (min-width: 0px) {
-  h2,
-  p,
-  .text-intro-subtitle {
+  h2, p {
     font-size: 25px;
   }
-  h1,
-  .text-info-title,
-  .text-project-title {
+  h1 {
     font-size: 35px;
     line-height: 125%;
   }
-  .text-intro-subtitle {
-    margin-right: 60px;
-    margin-bottom: 20px;
-    line-height: 125%;
+  .text-big-title:first-of-type {
+    font-size: 100px;
   }
-  .text-info-subtitle {
-    font-size: 40px;
-    margin-top: 5px;
-    word-break: break-all;
+  .text-big-title:last-of-type {
+    font-size: 50px;
+    font-weight: 300;
   }
-  .text-project-subtitle {
-    margin-top: 10px;
+  .text-big-subtitle {
+    font-size: 30px;
   }
-  .text-project-body {
-    margin-top: 20px;
-  }
-  .text-footer-body {
-    font-size: 15px;
-    margin-top: 20px;
-  }
-  .text-intro-title,
-  .text-menu-title,
-  .text-enter-title {
-    font-size: 120px;
-    line-height: 100%;
-  }
-  .text-intro-subtitle,
-  .text-menu-subtitle,
-  .text-enter-subtitle {
-    margin-top: 10px;
+  .text-normal {
+    font-size: 25px;
   }
 }
 @media (min-width: 725px) {
-  p, .text-info-title {
+  p {
     font-size: 35px;
   }
-  .text-intro-title:last-of-type {
-    margin-bottom: 20px;
-  }
-  .text-intro-subtitle {
-    display: inline;
-    margin-right: 20px;
-    margin-bottom: 0;
-  }
-  .text-info-subtitle {
-    font-size: 50px;
-  }
-  .text-footer-body {
-    font-size: 25px;
-  }
-  .text-intro-title,
-  .text-menu-title,
-  .text-enter-title {
+  .text-big-title:first-of-type,
+  .text-big-title:last-of-type {
     font-size: 150px;
+    font-weight: 100;
+    margin: 0 40px;
   }
-  .text-intro-subtitle,
-  .text-enter-subtitle {
+  .text-big-subtitle {
     font-size: 50px;
+    margin-top: 20px;
+  }
+  .text-normal {
+    font-size: 35px;
   }
 }/*# sourceMappingURL=texts.css.map */
