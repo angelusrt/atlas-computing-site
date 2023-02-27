@@ -16,7 +16,6 @@ const Arrow = () => (
     />
   </svg>
 )
-
 const Dropdown = () => (
   <svg
     viewBox="0 0 24 24"
@@ -30,7 +29,6 @@ const Dropdown = () => (
     />
   </svg>
 )
-
 const Recife = (prop: iSVGIcon) => (
   <svg
     ref={prop.elRef}
@@ -58,37 +56,6 @@ const Recife = (prop: iSVGIcon) => (
     </g>
   </svg>
 )
-const Cables = (prop: iSVGIcon) => (
-  <svg
-    ref={prop.elRef}
-    className="svg-cables"
-    viewBox="0 0 5186 3148"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      d="m5178.27 485.839-421.266 949.576-1107.62 1295-611.918-38.328-704.005 343.181-832.984-.136-529.089-342.856-28.353-429.09m0 0 317.448 327.562m-317.448-327.562-318.179 435.671L7.79 3141.496m5170.48-2655.66L4461.385 8.131l-459.05 796.394-606.498 532.561-571.91 136.948m-1880.89 789.151 410.183 218.261m-92.735 109.301 797.224 144.448 913.252-452.554 839.794-258.893 773.7-1193.53 593.813-344.387m-2354.34 988.198-865.394 893.063-335.209 60.271L943.04 2263.18M5178.27 485.83l-708.606-107.564-283.381 667.779-532.571 522.164-686.902 255.148-968.879 719.428-407.275-32.028-237.434-29.317"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-      }}
-    />
-    <circle
-      cx={945.894}
-      cy={2272.58}
-      r={29.42}
-      style={{
-        strokeWidth: "12.5px",
-      }}
-    />
-  </svg>
-)
-
 const ColumnFirst = (prop: iSVGIcon) => (
   <svg
     ref={prop.elRef}
@@ -152,7 +119,6 @@ const ColumnFirst = (prop: iSVGIcon) => (
     />
   </svg>
 )
-
 const ColumnSecond = (prop: iSVGIcon) => (
   <svg
     ref={prop.elRef}
@@ -195,7 +161,6 @@ const ColumnSecond = (prop: iSVGIcon) => (
     />
   </svg>
 )
-
 const ReadingFlow = () => (
   <svg
     className="icon"
@@ -280,7 +245,6 @@ const ReadingFlow = () => (
     </g>
   </svg>
 )
-
 const Database = () => (
   <svg
     className="icon"
@@ -338,7 +302,6 @@ const Database = () => (
     </g>
   </svg>
 )
-
 const Network = () => (
   <svg
     className="icon"
@@ -407,8 +370,6 @@ const Icon = (props: iIcon) => {
   switch (props.name) {
     case 'Recife':
       return <Recife elRef={props.elRef}/>
-    case 'Cables':
-      return <Cables elRef={props.elRef}/>
     case 'ColumnFirst':
       return <ColumnFirst elRef={props.elRef}/>
     case 'ColumnSecond':
