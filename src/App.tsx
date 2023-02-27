@@ -1,35 +1,49 @@
 import React, { useState } from 'react'
+import { NavButton } from './components/buttons/Buttons'
 
 import About from './pages/About'
 import Discover from './pages/Discover'
 import Footer from './pages/Footer'
 import Intro from './pages/Intro'
 import Projects from './pages/Projects'
+import World from './pages/World'
 
-// const About = React.lazy(() => import('./pages/About'))
-// const Discover = React.lazy(() => import('./pages/Discover'))
-// const Footer = React.lazy(() => import('./pages/Footer'))
-// const Intro = React.lazy(() => import('./pages/Intro'))
-// const Projects = React.lazy(() => import('./pages/Projects'))
-// const Enter = React.lazy(() => import('./pages/Enter'))
+import data from "./data.json"
 
-const App = () => {
-  const [isToggle, setToggle] = useState(true)
-
-  return (
-    <div 
-      className="App" 
-      children={
-        <React.Fragment>
-          <Intro setToggle={() => setToggle(false)}/>
-          <Discover/>
-          <Projects/>
-          <About/>
-          <Footer/>
-        </React.Fragment>
-      }
-    />
-  )
-}
+const App = () => (
+  <div 
+    className="App" 
+    children={
+      <React.Fragment>
+        <NavButton
+          index={data.index}
+        />
+        <Intro
+          subtitle={data.intro.subtitle}
+        />
+        <Discover 
+          tag={data.discover.tag}
+        />
+        <Projects
+          tag={data.projects.tag}
+          itens={data.projects.itens}
+        />
+        <About
+          tag={data.about.tag}
+          title={data.about.title}
+          body={data.about.body[0]}
+        />
+        <World 
+          tag={data.world.tag}
+          title={data.world.title}
+        />
+        <Footer
+          buttons={data.footer.buttons}
+          body={data.footer.body}
+        />
+      </React.Fragment>
+    }
+  />
+)
 
 export default App

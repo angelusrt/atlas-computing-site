@@ -3,7 +3,8 @@
     {"text": "Introdução", "href": "#intro"},
     {"text": "Descubra", "href": "#discover"},
     {"text": "Projetos", "href": "#projects"},
-    {"text": "Seu", "href": "#about"}
+    {"text": "Seu", "href": "#about"},
+    {"text": "Mundo", "href": "#world"}
   ],
   "enterIndex": [
     {"text": "Enter", "href": "#enter"}
@@ -54,6 +55,10 @@
     "body": [
       "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
     ]
+  },
+  "world": {
+    "tag": "Mundo",
+    "title": "EM CONSTRUÇÃO"
   },
   "footer": {
     "tag": "Footer",
