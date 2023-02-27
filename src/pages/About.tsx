@@ -1,26 +1,23 @@
 import { Block } from "../components/blocks/Blocks"
 import { Text } from "../components/texts/Texts"
-import data from "../data.json"
 
-const About = () => (
-  <section id="about" className="block-white">
-    <Text name="text-title" type='h1'>
-      {data.about.tag}
-    </Text>
-    <Block name="block-horizontal">
-      <Block name="block-wrapper">
-        <Block name="block-about-image"/>
-        <Text
-          type="h1"
-          name="text-project-title"
-          children={data.about.title}
-        />
-      </Block>
-      <Block name="block-wrapper">
-        <Text type='p'>
-          {data.about.body[0]}
-        </Text>
-      </Block>
+interface iAbout {
+  tag: string,
+  title: string,
+  body: string
+}
+
+const About = (prop: iAbout) => (
+  <section id="about" className="block-blue">
+    <Text name="text-title" type='h1'>{prop.tag}</Text>
+    <Block name="block-about">
+      <Block name="image"/>
+      <Text
+        type="h1"
+        name="text-big"
+        children={prop.title}
+      />
+      <Text type='p' name="text-normal">{prop.body}</Text>
     </Block>
   </section>
 )

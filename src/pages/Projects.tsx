@@ -1,16 +1,22 @@
 import { Block, ProjectBlock } from "../components/blocks/Blocks"
-import { Button } from "../components/buttons/Buttons"
 import { Text } from "../components/texts/Texts"
-import data from "../data.json"
 
-const Projects = () => (
+interface iProjects {
+  tag: string,
+  itens: {
+    icon: string, 
+    title: string, 
+    subtitle: string, 
+    body: string
+  }[]
+}
+
+const Projects = (prop: iProjects) => (
   <section id="projects" className="block-white">
-    <Text name="text-title" type='h1'>
-      {data.projects.tag}
-    </Text>
+    <Text name="text-title" type='h1'>{prop.tag}</Text>
     <Block 
       name="block-grid"
-      children={ data.projects.itens.map(
+      children={ prop.itens.map(
         (item, id) => 
         <ProjectBlock
           key={id}
