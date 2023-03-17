@@ -56,15 +56,30 @@
 @media (min-width: 725px) {
   .canvas-globe {
     position: absolute;
-    width: 400px;
-    top: 40px;
-    left: calc(50vw - 200px);
+    width: 750px;
+    height: 750px;
+    left: calc(50vw - 375px);
+    z-index: 5;
     display: none;
-    transform: translateY(-10%);
-    transition: opacity 0.5s, transform 0.5s;
   }
   .canvas-globe--show {
-    transform: translateY(0);
-    transition: opacity 0.5s, transform 0.5s;
+    opacity: 1;
+    top: 320px;
+    transform: scale(1);
+  }
+}
+@keyframes globe-in {
+  0% {
+    opacity: 0;
+    top: -240px;
+    transform: scale(0.2) translateX(0);
+  }
+  50% {
+    transform: scale(0.6) translateX(50%);
+  }
+  100% {
+    opacity: 1;
+    top: 320px;
+    transform: scale(1) translateX(0);
   }
 }/*# sourceMappingURL=canvas.css.map */
