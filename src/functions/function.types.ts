@@ -1,6 +1,10 @@
 import { BufferGeometry, Vector3 } from "three"
 
-interface Transition {
+type ObsEntry = IntersectionObserverEntry
+
+type HTMLRef = React.MutableRefObject<HTMLDivElement>
+
+type TransitionType = {
   isTransition: boolean,
   timeout: number,
   delayPerItem: number,
@@ -9,15 +13,7 @@ interface Transition {
   index: number
 }
 
-interface ElTransition extends Transition{
-  el: Element
-}
-
-interface EntryTransition extends Transition{
-  entry: IntersectionObserverEntry
-}
-
-const trans: Transition = {
+const trans: TransitionType = {
   isTransition: true,
   isDelayChild: false,
   delayPerItem: 0,
@@ -26,20 +22,20 @@ const trans: Transition = {
   index: 0,
 }
 
-interface RefGeometry {
+type GeometryType = {
   ref: React.MutableRefObject<BufferGeometry>,
   points: Vector3[],
   scale: number,
   rotation: number
 }
 
-interface LineRotation {
-  isVisible: boolean,
+type RotationType = {
   ref: React.MutableRefObject<THREE.LineSegments>,
+  isVisible: boolean,
   sensibility: number
 }
 
-interface ClassAnimation {
+type AnimationType = {
   ref: React.MutableRefObject<HTMLDivElement>,
   classArray: [string, string],
   time: NodeJS.Timeout | undefined,
@@ -49,10 +45,10 @@ interface ClassAnimation {
 
 export {trans}
 export type {
-  Transition, 
-  EntryTransition, 
-  ElTransition, 
-  RefGeometry, 
-  LineRotation,
-  ClassAnimation
+  ObsEntry,
+  HTMLRef,
+  TransitionType,
+  GeometryType, 
+  RotationType,
+  AnimationType
 }

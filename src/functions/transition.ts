@@ -1,13 +1,9 @@
 import { useEffect } from "react"
-import {  
-  Transition,
-  EntryTransition, 
-  ElTransition
-} from "./function.types"
-import { animateQuery } from "./utils"
+import { ObsEntry, TransitionType } from "./function.types"
+import { getShowClass } from "./utils"
 
-function setAttribute(trans: ElTransition){
-  trans.el.setAttribute(
+function setAttribute(el: Element, trans: TransitionType){
+  el.setAttribute(
     'style', 
     `transition-delay: ${
       trans.start + 
@@ -17,7 +13,7 @@ function setAttribute(trans: ElTransition){
   ) 
 }
 
-function removeAttribute(trans: ElTransition){
+function removeAttribute(el: Element, trans: TransitionType){
   const duration = (
     trans.timeout + 
     trans.start + 
@@ -26,28 +22,28 @@ function removeAttribute(trans: ElTransition){
   )
 
   setTimeout(() => {
-    trans.el.removeAttribute('style')
+    el.removeAttribute('style')
   }, duration)
 }
 
-function delayItem(trans: ElTransition) {
-  setAttribute(trans)
-  removeAttribute(trans)
+function delayItem(el: Element, trans: TransitionType) {
+  setAttribute(el, trans)
+  removeAttribute(el, trans)
 }
 
-function delayChildren(prop: EntryTransition) {
-  Array(...prop.entry.target.children).forEach((item, index) => 
-    delayItem({...prop, index, el: item})
+function delayChildren(el: ObsEntry, trans: TransitionType) {
+  Array(...el.target.children).forEach((item, index) => 
+    delayItem(item, {...trans, index})
   ) 
 }
-function delay(prop: EntryTransition){
-  if(prop.isDelayChild)
-    delayChildren({...prop, entry: prop.entry})
+function delay(el: ObsEntry, trans: TransitionType){
+  if(trans.isDelayChild)
+    delayChildren(el, trans)
   else
-    delayItem({...prop, el: prop.entry.target})
+    delayItem(el.target, trans)
 }
 
-function observe (className: string, trans: ElTransition) {
+function observe (el: Element, className: string, trans: TransitionType) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const isNotAlreadyAnimated = !entry.target.classList.contains(className)
@@ -56,30 +52,26 @@ function observe (className: string, trans: ElTransition) {
         entry.target.classList.add(className)
 
         if(trans.isTransition)
-          delay({...trans, entry})
+          delay(entry, trans)
       } 
       else if(!isNotAlreadyAnimated){
-        observer.unobserve(trans.el)
+        observer.unobserve(el)
       }
     })}
   )
 
-  observer.observe(trans.el)
+  observer.observe(el)
 }
 
-function useAnimateOnScroll(
-  query: string, trans: Transition
-){
+function useAnimateOnView(query: string, trans: TransitionType){
   useEffect(() => {  
     const itemsToAnimate = document.querySelectorAll(query)
     
-    itemsToAnimate.forEach(
-      (el, index) => observe(
-        animateQuery(query), {...trans, index, el}
-      )
+    itemsToAnimate.forEach((el, index) => 
+      observe(el, getShowClass(query), {...trans, index})
     )
     //eslint-disable-next-line
   }, [])
 }
 
-export {useAnimateOnScroll}
+export {useAnimateOnView}

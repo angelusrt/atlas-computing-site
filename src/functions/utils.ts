@@ -1,82 +1,40 @@
 import { useEffect } from "react"
-import { Vector3 } from "three"
-import { ClassAnimation, LineRotation, RefGeometry } from "./function.types"
+import { ExpandedType, StyleType } from "../components/blocks/Blocks.types"
+import { AnimationType, HTMLRef } from "./function.types"
 
-const z = 0
-const circumference = 2 * Math.PI
+function toggleClass(prop: AnimationType){
+  const {classArray, isToggle, ref, time, setTime} = prop
 
-function createPointsOfCircle(subdivisions: number, radius: number){
-  const points: Vector3[] = []
-  const step =  circumference/ subdivisions
+  const classList = ref.current.classList
+  const removeClass = (i: number) => classList.remove(classArray[i]) 
+  const addClass = (i: number) => classList.add(classArray[i])
 
-  for (let i = 0; i < subdivisions + 1; i++) {
-    const x = radius * Math.cos(step * i)
-    const y = radius * Math.sin(step * i)
+  if(time) clearTimeout(time)
 
-    points.push(new Vector3(x, y, z))
-  }
-
-  return points
-}
-
-function setGeometry(props: RefGeometry){
-  const current = props.ref.current
-
-  if(current != null){
-    current.computeBoundingSphere()
-    current.setFromPoints(props.points) 
-    current.scale(props.scale, props.scale, props.scale) 
-    current.rotateY(props.rotation)
-  }
-}
-
-function rotateWhenMouseMove(prop: LineRotation){
-  const onMouseMove = (e: MouseEvent) => {
-    const current = prop.ref.current 
-
-    if(current !== null)
-      current.rotation.y += e.movementX/prop.sensibility
-  }
-
-  if(prop.isVisible)
-    window.addEventListener('mousemove', onMouseMove)
-  else  
-    window.removeEventListener('mousemove', onMouseMove)
-}
-
-function animateWithClass(prop: ClassAnimation){
-  const classList = prop.ref.current.classList
-  const removeClass = (i: number) => classList.remove(prop.classArray[i]) 
-  const addClass = (i: number) => classList.add(prop.classArray[i])
-
-  if(prop.time !== undefined) clearTimeout(prop.time)
-
-  if(!prop.isToggle){
+  if(!isToggle){
     removeClass(0)
-    prop.setTime(setTimeout(() => addClass(1), 1000))
-  } else if(prop.isToggle){
+    setTime(setTimeout(() => addClass(1), 1000))
+  } 
+  else {
     removeClass(1)
-    prop.setTime(setTimeout(() => addClass(0), 10))
+    setTime(setTimeout(() => addClass(0), 10))
   }
 }
 
-function useSetGeometry(prop: RefGeometry){
-  useEffect(() => 
-    //eslint-disable-next-line
-    setGeometry(prop),[]
-  )
-}
-function useRotateWhenMouseMove(prop: LineRotation){
-  useEffect(() => 
-    rotateWhenMouseMove(prop),[prop.sensibility, prop.isVisible, prop]
-  )
-}
-function useAnimateWithClass(prop: ClassAnimation){
-  //eslint-disable-next-line
-  useEffect(() => animateWithClass({...prop}),[prop.isToggle])
+function toggleScrollOnExpanded(isExpanded: ExpandedType) {
+  if(isExpanded !== 'unset')
+    document.body.setAttribute("style",'overflow: hidden; height: 100%;')
+  else
+    document.body.setAttribute("style", 'overflow: auto; height: auto;')
 }
 
-function animateQuery(query: string): string {
+function addPos (ref: HTMLRef, style: string) {
+  const block = ref.current.getElementsByClassName('block-wrapper')[0]
+  
+  if(block) block.setAttribute('style', style)
+}
+
+function getShowClass(query: string): string {
   const queryArray = query.split(" ")
   const lastQuery = queryArray[queryArray.length - 1]
   const className = lastQuery.substring(1)
@@ -84,13 +42,47 @@ function animateQuery(query: string): string {
   return className + '--show'
 }
 
+function remove(classList: DOMTokenList, mod: string) {
+  classList.remove(classList[0] + mod)
+}
+
+function add(classList: DOMTokenList, mod: string) {
+  classList.add(classList[0] + mod)
+}
+
+function getStyle (style: StyleType | undefined): string {
+  if(typeof style === 'undefined') return ''
+  if(typeof style.parentTop === 'undefined') return ''
+
+  const isOffsetWidth = typeof style.offsetWidth === 'undefined'
+  const isOffsetHeight = typeof style.offsetHeight === 'undefined'
+
+  if(!style.isAbout && !isOffsetHeight && !isOffsetWidth)
+    return `
+      top: ${style.offsetTop - style.scrollY + style.parentTop}px;
+      left: ${style.offsetLeft}px;
+      width: ${style.offsetWidth}px;
+      height: ${style.offsetHeight}px;
+    ` 
+  else
+    return `
+      top: ${style.offsetTop - style.scrollY + style.parentTop}px;
+      left: ${style.offsetLeft}px; 
+    `
+} 
+
+function useToggleClass(prop: AnimationType){
+  //eslint-disable-next-line
+  useEffect(() => toggleClass(prop),[prop.isToggle])
+}
+
 export{
-  createPointsOfCircle, 
-  rotateWhenMouseMove, 
-  setGeometry, 
-  animateWithClass,
-  useSetGeometry,
-  useRotateWhenMouseMove,
-  useAnimateWithClass,
-  animateQuery
+  toggleClass,
+  toggleScrollOnExpanded,
+  remove,
+  add,
+  addPos,
+  getStyle,
+  getShowClass,
+  useToggleClass,
 }
