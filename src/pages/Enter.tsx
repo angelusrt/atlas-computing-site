@@ -1,19 +1,33 @@
 import { Icon } from "../components/icons/Icons"
 import { Text } from "../components/texts/Texts"
 
-interface iEnter {
+type EnterType = {
   subtitle: string
 }
 
-const Enter = (prop: iEnter) => (
+const Enter = (prop: EnterType) => (
   <section id="enter" className="block-black">
-    <Icon name="ColumnFirst"/>
-    <Icon name="ColumnSecond"/>
-    <Text type='h1' name="text-big-title">Atlas</Text>
-    <Text type='h1' name="text-big-title">Computing</Text>
-    <Text type='h2' name="text-big-subtitle">
-      {prop.subtitle}
-    </Text>
+    <Icon 
+      name="ColumnFirst"
+    />
+    <Icon 
+      name="ColumnSecond"
+    />
+    <Text 
+      type='h1' 
+      name="text-big-title" 
+      children="Atlas"
+    />
+    <Text 
+      type='h1' 
+      name="text-big-title" 
+      children="Computing"
+    />
+    <Text 
+      type='h2' 
+      name="text-big-subtitle" 
+      children={prop.subtitle}
+    />
   </section>
 )
 

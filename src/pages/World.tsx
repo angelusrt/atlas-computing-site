@@ -2,19 +2,29 @@ import { Button } from "../components/buttons/Buttons"
 import { Icon } from "../components/icons/Icons"
 import { Text } from "../components/texts/Texts"
 
-interface iWorld {
+type WorldType = {
   tag: string,
   title: string
 }
 
-const World = (prop: iWorld) => (
+const World = (prop: WorldType) => (
   <section id="world">
-    <Text name="text-title" type='h1'>{prop.tag}</Text>
-    <Text name="text-big-subtitle" type='p'>{prop.title}</Text>
+    <Text 
+      name="text-title" 
+      type='h1'
+      children={prop.tag}
+    />
+    <Text 
+      name="text-big-subtitle" 
+      type='p'
+      children={prop.title}
+    />
     <Button
       type='h2'
       name="button-black"
-      children={<Icon name="Arrow"/>}
+      children={
+        <Icon name="Arrow"/>
+      }
     />
   </section>
 )

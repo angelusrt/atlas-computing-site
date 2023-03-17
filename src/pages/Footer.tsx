@@ -1,7 +1,7 @@
 import { Link } from "../components/buttons/Buttons"
 import { Text } from "../components/texts/Texts"
 
-interface iFooter {
+type FooterType = {
   buttons: {
     title: string,
     href: string
@@ -9,25 +9,28 @@ interface iFooter {
   body: string
 }
 
-const Footer = (prop: iFooter) => (
-  <footer id="footer" className="block-black">
-    {
-      prop.buttons.map(
-        (item, index) => 
-        <Link 
-          isNewTab={true}
-          key={index}
-          href={item.href}
-          text={item.title}
-        />
-      )
-    }
-    <Text
-      type="h2"
-      name="text-thin-small"
-      children={prop.body}
+const Footer = (prop: FooterType) => {
+  const {buttons, body} = prop
+  
+  const Links = buttons.map((i, id) => 
+    <Link 
+      isNewTab={true}
+      key={id}
+      href={i.href}
+      text={i.title}
     />
-  </footer>
-)
+  )
+
+  return(
+    <footer id="footer" className="block-black">
+      {Links}
+      <Text
+        type="h2"
+        name="text-thin-small"
+        children={body}
+      />
+    </footer>
+  )
+}
 
 export default Footer
