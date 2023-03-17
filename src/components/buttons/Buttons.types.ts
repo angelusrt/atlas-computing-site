@@ -1,40 +1,33 @@
-import { TextName } from "../texts/Texts.types"
+import { TextNameType } from "../texts/Texts.types"
 
-type ButtonName = 
+type ButtonName = (
   'button-index' |
   'button-white' |
   'button-black'
-type ButtonType = 'h1' | 'h2' 
+)
 
-interface iButton {
-  type: ButtonType,
+type ButtonType = {
+  type: 'h1' | 'h2',
   name: ButtonName,
-  isTitle ?: boolean,
-  textName ?: TextName, 
+  blockRef ?: React.LegacyRef<HTMLButtonElement>,
+  textName ?: TextNameType, 
   text ?: string,
   children ?: any,
   func ?: any,
 } 
 
-interface iLink {
+type LinkType = {
   text: string,
   href: string,
   isNewTab: boolean
 } 
 
-interface iNavButton {
+type NavType = {
   index: {
     text: string,
     href: string
   }[],
+  isMobile: boolean
 }
 
-interface iNavButtonHelper {
-  data: {text: string, href: string}[]
-}
-interface iItem {
-  text: string, 
-  href: string 
-}
-
-export type {iButton, iLink, iNavButton, iNavButtonHelper, iItem}
+export type {ButtonType, LinkType, NavType}

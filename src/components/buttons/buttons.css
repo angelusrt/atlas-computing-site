@@ -26,12 +26,6 @@ button .block-dropdown, a .block-dropdown {
   left: 80px;
   transition: all 0.5s 0.2s;
 }
-button:hover, a:hover {
-  background-color: var(--blue);
-  color: var(--black);
-  border-color: var(--black);
-  transition: all 0.5s;
-}
 
 .button-black {
   background-color: var(--black);
@@ -51,7 +45,7 @@ button:hover, a:hover {
   bottom: 0;
   left: 0;
   margin: 20px;
-  padding: 10px 10px;
+  padding: 13.5px 15px;
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   border: 2px solid var(--black);
@@ -65,9 +59,15 @@ button:hover, a:hover {
 .button-index .button-white {
   margin-right: 0px;
 }
-.button-index .icon {
+.button-index .svg-menu {
   margin: 0;
-  transform: rotate(-90deg);
+  width: 20px;
+}
+.button-index--hover {
+  background-color: var(--blue);
+  color: var(--black);
+  border-color: var(--black);
+  transition: all 0.5s;
 }
 
 .button-index,
@@ -84,5 +84,14 @@ button:hover, a:hover {
 .button-white--show {
   opacity: 1;
   transform: translateY(0);
+  transition: all 0.5s;
+}
+
+.button-link:hover,
+.button-black:hover,
+.button-white:hover {
+  background-color: var(--blue);
+  color: var(--black);
+  border-color: var(--black);
   transition: all 0.5s;
 }/*# sourceMappingURL=buttons.css.map */

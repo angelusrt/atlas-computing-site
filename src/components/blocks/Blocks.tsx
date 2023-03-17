@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 
-import { useAnimateOnScroll } from "../../functions/transition"
-import { useAnimateWithClass } from "../../functions/utils"
+import { useAnimateOnView } from "../../functions/transition"
+import { useToggleClass } from "../../functions/utils"
 import { trans } from "../../functions/function.types"
 
 import { Button } from "../buttons/Buttons"
@@ -9,18 +9,26 @@ import { Icon } from "../icons/Icons"
 import { Text } from "../texts/Texts"
 
 import { 
-  iBlock,
-  iDropdown,
-  iProject,
+  BlockType,
+  DropdownType,
+  ProjectExpandedType,
+  ProjectType,
+  StyleType,
 } from "./Blocks.types"
 import "./blocks.css"
 
-const Block = (prop: iBlock) => {
-  useAnimateOnScroll(
+const paddingVertical = 80
+
+const classArray: [string, string] = [
+  "block-dropdown--show", "block-dropdown--none"
+]
+
+const Block = (prop: BlockType) => {
+  useAnimateOnView(
     '.block-project', 
     {...trans, start: 400, delayPerItem: 200}
   )
-  useAnimateOnScroll(
+  useAnimateOnView(
     '.block-about', 
     {...trans, start: 400, delayPerItem: 200}
   )
@@ -30,95 +38,116 @@ const Block = (prop: iBlock) => {
       ref={prop.blockRef} 
       className={prop.name} 
       style={prop.style}
+      {...prop.func}
     >
       {prop.children}
     </div>
   )
 }
 
-const ProjectBlock = (prop: iProject) => {
-  const[isModal, setIsModal] = useState(false)
-  const[isModalChanged, setIsModalChanged] = useState(false)
+const ProjectBlock = (prop: ProjectType) => {
+  const {
+    iconName, isMobile, subtitle, title, onFunc, setStyle
+  } = prop
 
   const ref = useRef<HTMLDivElement>(null!)
 
-  useEffect(() => {
-    if (ref.current && !isModal && isModalChanged){
-      ref.current.classList.remove("block-project--expanded")  
-      ref.current.classList.add("block-project--show")
-    }
-    else if (ref.current && isModal){
-      ref.current.classList.remove("block-project--show") 
-      ref.current.classList.add("block-project--expanded")  
-      setIsModalChanged(true)
-    }
-  },[isModal, isModalChanged])
+  const paddingHorizontal = isMobile ? 40 : 80
 
-  useEffect(() => {
-    const offset = document.getElementById("projects")?.offsetTop
-    const bodyStyle = document.body.style
+  function getStyle(): StyleType {
+    const block = ref.current
 
-    if(isModal){
-      bodyStyle.overflow = "hidden"
-      bodyStyle.height = "100%"  
-
-      window.scrollTo({behavior: "smooth", top: offset})
-    } else {
-      bodyStyle.overflow = "auto"
-      bodyStyle.height = "auto"   
+    return {
+      isAbout: false,
+      offsetTop: block.offsetTop,
+      offsetLeft: block.offsetLeft,
+      offsetWidth: block.offsetWidth - paddingHorizontal,
+      offsetHeight : block.offsetHeight - paddingVertical,
+      parentTop: document.getElementById('projects')?.offsetTop,
+      scrollY: window.scrollY,
+      ref: ref
     }
-  },[isModal])
+  }
 
   return(
-    <React.Fragment>
-      <Block blockRef={ref} name="block-project">
-        <Icon name={prop.iconName}/>
-        <Text 
-          type="h1" 
-          name="text-big"
-          children={prop.title}
-        />
-        <Text 
-          type="p" 
-          name="text-thin-small"
-          children={prop.subtitle}
-        />
-        <Text 
-          type="p" 
-          name="text-normal"
-          children={prop.body}
-        />
-        <Button
-          type="h2"
-          name="button-white"
-          func={{onClick: () => setIsModal((state: boolean) => !state)}}
-          text="Ver mais"
-          textName="text-bold-small"
-        />
-      </Block>
-    </React.Fragment>
-  )
-}
-
-const DropdownBlock = (prop: iDropdown) => {
-  const [time , setTime] = useState<NodeJS.Timeout>()
-
-  const ref = useRef<HTMLDivElement>(null!)
-
-  useAnimateWithClass({
-    classArray: [
-      "block-dropdown--show", 
-      "block-dropdown--none"
-    ],
-    isToggle: prop.toggle,
-    ref, setTime, time
-  })
-
-  return (
-    <Block blockRef={ref} name="block-dropdown">
-      {prop.children}
+    <Block blockRef={ref} name="block-project">
+      <Icon name={iconName}/>
+      <Text 
+        type="h1" 
+        name="text-big"
+        children={title}
+      />
+      <Text 
+        type="p" 
+        name="text-thin-small"
+        children={subtitle}
+      />
+      <Button
+        type="h2"
+        name="button-white"
+        func={{onClick: () => {
+          onFunc()
+          setStyle(getStyle())
+        }}}
+        text="Ver mais"
+        textName="text-bold-small"
+      />
     </Block>
   )
 }
 
-export {Block, ProjectBlock, DropdownBlock}
+const ProjectExpandedBlock = (prop: ProjectExpandedType) => (
+  <Block blockRef={prop.blockRef} name="block-project-expanded">
+    <Block name="block-wrapper">
+      <Icon name={prop.iconName}/>
+      <Text 
+        type="h1" 
+        name="text-big"
+        children={prop.title}
+      />
+      <Text 
+        type="p" 
+        name="text-thin-small"
+        children={prop.subtitle}
+      />
+      <Text 
+        type="p" 
+        name="text-normal"
+        children={prop.body}
+      />
+      <Button
+        type="h2"
+        name="button-white"
+        func={{onClick: () => prop.onFunc()}}
+        text="Voltar"
+        textName="text-bold-small"
+      >
+        <Text 
+          type="h2" 
+          name="text-bold-small" 
+          children="Ver mais"
+        />
+      </Button>
+    </Block>
+  </Block>
+)
+
+const DropdownBlock = (prop: DropdownType) => {
+  const {toggle, children} = prop
+
+  const [time , setTime] = useState<NodeJS.Timeout>()
+
+  const ref = useRef<HTMLDivElement>(null!)
+
+  useToggleClass({
+    ref, time, classArray, isToggle: toggle, setTime, 
+  })
+
+  return (
+    <Block blockRef={ref} name="block-dropdown">
+      {children}
+    </Block>
+  )
+}
+
+export {Block, ProjectBlock, ProjectExpandedBlock, DropdownBlock}

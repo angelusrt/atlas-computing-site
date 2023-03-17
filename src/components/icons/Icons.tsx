@@ -1,6 +1,6 @@
-import { useAnimateOnScroll } from "../../functions/transition"
-import { trans, Transition } from "../../functions/function.types"
-import { iIcon, iSVGIcon } from "./Icons.types"
+import { useAnimateOnView } from "../../functions/transition"
+import { trans, TransitionType } from "../../functions/function.types"
+import { IconType, SVGIconType } from "./Icons.types"
 import "./Icons.css"
 
 const Arrow = () => (
@@ -29,10 +29,26 @@ const Dropdown = () => (
     />
   </svg>
 )
-const Recife = (prop: iSVGIcon) => (
+const Menu = () => (
+  <svg
+    className="icon svg-menu" 
+    viewBox="0 30 448 440"
+  >
+    <path 
+      d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 
+      32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 
+      256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 
+      32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 
+      416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 
+      32-32H416c17.7 0 32 14.3 32 32z" 
+    />
+  </svg>
+)
+
+const Recife = (prop: SVGIconType) => (
   <svg
     ref={prop.elRef}
-    className="svg-recife"
+    className="image svg-recife"
     viewBox="0 0 1374 1376"
     style={{
       fillRule: "evenodd",
@@ -56,111 +72,7 @@ const Recife = (prop: iSVGIcon) => (
     </g>
   </svg>
 )
-const ColumnFirst = (prop: iSVGIcon) => (
-  <svg
-    ref={prop.elRef}
-    className="svg-column-first"
-    viewBox="0 0 725 2571"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 2,
-    }}
-  >
-    <path
-      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
-      style={{
-        fill: "#000",
-      }}
-    />
-    <path
-      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
-      style={{
-        fill: "none",
-        stroke: "#000",
-        strokeWidth: "62.5px",
-      }}
-    />
-    <path
-      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Zm660.8 374.893H629.34M108.518 362.63l-77.161-86.744"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-        strokeLinecap: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    />
-    <path
-      d="m31.357 275.886.686-238.2 583.336-6.25m77.464 377.034V183.841L615.379 31.436M106.515 363.563c26.782-72.976 122.478-118.355 220.685-127.136"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-        strokeLinecap: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    />
-    <path
-      d="M368.087 419.026c-121.552 7.922-220.779 51.221-241.662 101.577-3.071 7.407-4.448 14.966-3.951 22.589l.011.159-.017 40.892c-9.85-10.429-14.795-21.97-15.801-34.373-5.009-61.788 113.933-125.758 262.089-137.769l-.669 6.925Z"
-      style={{
-        strokeWidth: "12.5px",
-        strokeLinecap: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    />
-    <path
-      d="m106.757 544.104.453-180.541-.095 32.097m18.566 2138.86-3.138-1982.03-.079-42.975M277.487 2535.56l-4.75-2102.25m-104.321 2101.5.427-2045.83.007-16.223M631.658 2467.07l-2.89-2053.5"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-        strokeLinecap: "round",
-        strokeMiterlimit: 1.5,
-      }}
-    />
-  </svg>
-)
-const ColumnSecond = (prop: iSVGIcon) => (
-  <svg
-    ref={prop.elRef}
-    className="svg-column-second"
-    viewBox="0 0 544 2021"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      d="m7.497 12.16-.729 197.675 60.852 68.409-.349 139.072s-.919 8.836 3.112 17.842c4.269 9.539 9.454 14.271 9.454 14.271l2.574 1560.3 404.6 2.786-1.651-1624.74 50.874-.079-.069-48.78V230.501L421.369 7.727 7.497 12.162Z"
-      style={{
-        fill: "#000",
-        strokeWidth: "12.5px",
-      }}
-    />
-    <path
-      d="M67.077 272.875c21.427-58.384 97.988-94.689 176.558-101.714"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-      }}
-    />
-    <path
-      d="M276.346 317.248c-97.247 6.338-176.632 40.979-193.339 81.266-2.458 5.926-3.559 11.974-3.162 18.072l.009.128-.013 32.715c-7.88-8.344-11.837-17.577-12.642-27.5-4.007-49.433 91.151-100.611 209.682-110.221l-.535 5.54Z"
-      style={{
-        strokeWidth: "12.5px",
-      }}
-    />
-    <path
-      d="m67.271 417.316.362-144.44-.076 25.678M82.411 2009.73l-2.51-1585.7-.064-34.382M203.863 2010.62l-3.801-1681.94m-82.816 1679.33-.512-1634.81-.005-12.964M487.214 1955.77 485.05 417.8"
-      style={{
-        fill: "none",
-        strokeWidth: "12.5px",
-      }}
-    />
-  </svg>
-)
+
 const ReadingFlow = () => (
   <svg
     className="icon"
@@ -358,30 +270,246 @@ const Network = () => (
   </svg>
 )
 
-const firstTrans: Transition = {...trans, start: 1500}
-const secondTrans: Transition = {...trans, start: 1700}
+const Hat = () => (
+  <svg
+    className="svg-image svg-small"
+    viewBox="0 0 208 140"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      style={{
+        strokeWidth: "2.6px",
+      }}
+      d="M27.269 93.247s1.211-69.155 1.211-70.214c0-9.647 33.213-20.583 
+      75.613-20.583s76.824 10.936 76.824 20.583c0 1.059-2.859 69.392-2.859 
+      69.392 17.169 4.739 27.694 11.124 27.694 18.143 0 14.602-45.552 
+      26.457-101.659 26.457-56.107 0-101.659-11.855-101.659-26.457 
+      0-6.621 9.364-12.677 24.835-17.321Z"
+    />
+  </svg>
+)
+const Palm = () => (
+  <svg
+    className="svg-image svg-big"
+    viewBox="0 0 338 530"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      style={{
+        strokeWidth: "3px",
+      }}
+      d="m132.093 210.411-16.941-51.2 21.562-52.551-56.895 13.522-77.04 
+      22.538 41.788-56.97 87.607-33.219 12.546 5.678-17.913-18.38L74.354 
+      20l45.889-17.477 47.467 17.518 14.157 22.093 
+      5.164-12.463-5.463-18.971-6.683-8.177 19.217 4.05 26.236 
+      23.855-2.819 23.325 45.349-4.619 44.307 13.363 27.613 
+      48.623-27.613-17.158-30.907-7.772-28.053 1.773-28.346 1.155 38.229 
+      10.681 49.896 65.383-12.276 74.53-35.861-48.31-43.315-51.148-18.53 
+      55.576-33.252 22.648-28.715 158.214 8.47 150.537-66.54-2.669 
+      16.618-139.999 35.918-169.754 1.582-4.396Z"
+    />
+  </svg>
+)
+const Rock = () => (
+  <svg
+    className="svg-image svg-small"
+    viewBox="0 0 251 138"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      style={{
+        strokeWidth: "2.8px",
+      }}
+      d="m69.961 2.221 116.245 1.534 61.929 72.64-52.712 
+      58.495-151.463-2.876L2.645 73.828 69.961 2.221Z"
+    />
+  </svg>
+)
+const Clarinete = () => (
+  <svg
+    className="svg-image svg-small"
+    viewBox="0 0 315 185"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      style={{
+        strokeWidth: "3px",
+      }}
+      d="M261.651 4.717a20.578 20.578 0 0 0-3.714 2.542L2.257 
+      182.269l294.78-105.155h0a24.9 24.9 0 0 0 
+      3.209-1.418c33.432-17.614-8.424-87.168-38.595-70.979Z"
+    />
+  </svg>
+)
 
-const Icon = (props: iIcon) => {
-  useAnimateOnScroll('.svg-recife', trans)
-  useAnimateOnScroll('.svg-cables', trans)
-  useAnimateOnScroll('.svg-column-first', firstTrans)
-  useAnimateOnScroll('.svg-column-second', secondTrans)
 
-  switch (props.name) {
+
+const ColumnFirst = (prop: SVGIconType) => (
+  <svg
+    ref={prop.elRef}
+    className="svg-column-first"
+    viewBox="0 0 725 2571"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 2,
+    }}
+  >
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
+      style={{
+        fill: "#000",
+      }}
+    />
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
+      style={{
+        fill: "none",
+        stroke: "#000",
+        strokeWidth: "62.5px",
+      }}
+    />
+    <path
+      d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Zm660.8 374.893H629.34M108.518 362.63l-77.161-86.744"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="m31.357 275.886.686-238.2 583.336-6.25m77.464 377.034V183.841L615.379 31.436M106.515 363.563c26.782-72.976 122.478-118.355 220.685-127.136"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="M368.087 419.026c-121.552 7.922-220.779 51.221-241.662 101.577-3.071 7.407-4.448 14.966-3.951 22.589l.011.159-.017 40.892c-9.85-10.429-14.795-21.97-15.801-34.373-5.009-61.788 113.933-125.758 262.089-137.769l-.669 6.925Z"
+      style={{
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+    <path
+      d="m106.757 544.104.453-180.541-.095 32.097m18.566 2138.86-3.138-1982.03-.079-42.975M277.487 2535.56l-4.75-2102.25m-104.321 2101.5.427-2045.83.007-16.223M631.658 2467.07l-2.89-2053.5"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+        strokeLinecap: "round",
+        strokeMiterlimit: 1.5,
+      }}
+    />
+  </svg>
+)
+const ColumnSecond = (prop: SVGIconType) => (
+  <svg
+    ref={prop.elRef}
+    className="svg-column-second"
+    viewBox="0 0 544 2021"
+    style={{
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      strokeMiterlimit: 1.5,
+    }}
+  >
+    <path
+      d="m7.497 12.16-.729 197.675 60.852 68.409-.349 139.072s-.919 8.836 3.112 17.842c4.269 9.539 9.454 14.271 9.454 14.271l2.574 1560.3 404.6 2.786-1.651-1624.74 50.874-.079-.069-48.78V230.501L421.369 7.727 7.497 12.162Z"
+      style={{
+        fill: "#000",
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="M67.077 272.875c21.427-58.384 97.988-94.689 176.558-101.714"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="M276.346 317.248c-97.247 6.338-176.632 40.979-193.339 81.266-2.458 5.926-3.559 11.974-3.162 18.072l.009.128-.013 32.715c-7.88-8.344-11.837-17.577-12.642-27.5-4.007-49.433 91.151-100.611 209.682-110.221l-.535 5.54Z"
+      style={{
+        strokeWidth: "12.5px",
+      }}
+    />
+    <path
+      d="m67.271 417.316.362-144.44-.076 25.678M82.411 2009.73l-2.51-1585.7-.064-34.382M203.863 2010.62l-3.801-1681.94m-82.816 1679.33-.512-1634.81-.005-12.964M487.214 1955.77 485.05 417.8"
+      style={{
+        fill: "none",
+        strokeWidth: "12.5px",
+      }}
+    />
+  </svg>
+)
+
+const firstTrans: TransitionType = {...trans, start: 1500}
+const secondTrans: TransitionType = {...trans, start: 1700}
+
+const Icon = (prop: IconType) => {
+  const {name, elRef} = prop
+
+  useAnimateOnView('.svg-recife', trans)
+  useAnimateOnView('.svg-cables', trans)
+  useAnimateOnView('.svg-column-first', firstTrans)
+  useAnimateOnView('.svg-column-second', secondTrans)
+
+  switch (name) {
     case 'Recife':
-      return <Recife elRef={props.elRef}/>
+      return <Recife elRef={elRef}/>
     case 'ColumnFirst':
-      return <ColumnFirst elRef={props.elRef}/>
+      return <ColumnFirst elRef={elRef}/>
     case 'ColumnSecond':
-      return <ColumnSecond elRef={props.elRef}/>
+      return <ColumnSecond elRef={elRef}/>
     case 'Dropdown':
       return <Dropdown/>
+    case 'Menu':
+      return <Menu/>
     case 'ReadingFlow':
       return <ReadingFlow/>
     case 'Database':
       return <Database/>
     case 'Network':
       return <Network/>
+    case 'Hat':
+      return <Hat/>
+    case 'Palm':
+      return <Palm/>
+    case 'Rock':
+      return <Rock/>
+    case 'Clarinete':
+      return <Clarinete/>
     default:
     case 'Arrow':
       return <Arrow/>

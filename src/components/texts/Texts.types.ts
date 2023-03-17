@@ -1,4 +1,4 @@
-type TextName = 
+type TextNameType = 
   'text-title' |
   'text-big-title' |
   'text-big-subtitle' |
@@ -6,15 +6,14 @@ type TextName =
   'text-thin-small' |
   'text-bold-small' |
   'text-normal'
-type TextType = 'p' | 'h1' | 'h2' 
 
-interface iText {
+type TextType = {
+  children: string,
+  type: 'p' | 'h1' | 'h2' ,
   textRef ?: React.LegacyRef<HTMLParagraphElement>,
-  type: TextType,
-  name ?: TextName
-  children: string
+  name ?: TextNameType
 }
 
 export type {
-  iText, TextName, TextType
+  TextType, TextNameType
 }

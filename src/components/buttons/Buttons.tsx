@@ -1,9 +1,9 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
-import { useAnimateOnScroll } from "../../functions/transition"
+import { useAnimateOnView } from "../../functions/transition"
 import { trans } from "../../functions/function.types"
 
-import { iButton, iItem, iLink, iNavButton, iNavButtonHelper } from "./Buttons.types"
+import { ButtonType, LinkType, NavType } from "./Buttons.types"
 
 import { Text } from "../texts/Texts"
 import { DropdownBlock } from "../blocks/Blocks"
@@ -14,35 +14,34 @@ import "./buttons.css"
 const transButton = {...trans, start: 400}
 const transIndex = {...trans, start: 1000}
 
-const Button = (prop: iButton) => {
-  const ref = useRef<HTMLButtonElement>(null!)
+const Button = (prop: ButtonType) => {
+  const {
+    blockRef, name, type, children, func, text, textName
+  } = prop
 
-  useAnimateOnScroll('.button-black', transButton)
-  useAnimateOnScroll('.button-white', transButton)
-  useAnimateOnScroll('.button-index', transIndex)
+  useAnimateOnView('.button-black', transButton)
+  useAnimateOnView('.button-white', transButton)
+  useAnimateOnView('.button-index', transIndex)
 
   return(
-    <button 
-      ref={ref}
-      className={prop.name} 
-      {...prop.func}
-    >
+    <button ref={blockRef} className={name} {...func}>
       {
-        prop.text &&
+        text &&
         <Text 
-          name={prop.textName}
-          type={prop.type}
-        >
-          {prop.text}
-        </Text>
+          name={textName}
+          type={type}
+          children={text}
+        />
       }
-      {prop.children}
+      {children}
     </button>
   )
 }
 
-const Link = (prop: iLink) => {
-  useAnimateOnScroll(
+const Link = (prop: LinkType) => {
+  const {href, isNewTab, text} = prop
+
+  useAnimateOnView(
     '#footer .button-link', 
     {...trans, delayPerItem: 200}
   )
@@ -50,49 +49,69 @@ const Link = (prop: iLink) => {
   return(
     <a 
       className="button-link" 
-      href={prop.href} 
-      target={prop.isNewTab ? "_blank" : "_self"}
+      href={href} 
+      target={isNewTab ? "_blank" : "_self"}
       rel="noreferrer"
     >
-      <Text type='h2'>{prop.text}</Text>
+      <Text 
+        type='h2' 
+        children={text}
+      />
     </a>
   )
 }
 
-const navButtonHelper = (prop: iNavButtonHelper) => (
-  prop.data.map((item: iItem, index: number) =>
+const NavButton = (prop: NavType) => {
+  const {index, isMobile} = prop
+
+  const [isToggle, setToggle] = useState(false)
+  
+  const ref = useRef<HTMLButtonElement>(null!)
+
+  const Links = index.map((item, id) =>
     <Link
-      key={index}
+      key={id}
       isNewTab={false}
       href={item.href}
       text={item.text}
     />
   )
-)
 
-const NavButton = (prop: iNavButton) => {
-  const [isToggle, setToggle] = useState(false)
+  function getFunc() {
+    if(isMobile)
+      return { 
+        onClick: () => setToggle(s => !s),
+        onMouseLeave: () => setToggle(false)
+      }
+    else
+      return { 
+        onMouseEnter: () => setToggle(true),
+        onMouseLeave: () => setToggle(false)
+      } 
+  }
+
+  useEffect(() => {
+    const button = ref.current.classList
+
+    if(isToggle)
+      button.add("button-index--hover")
+    else
+      button.remove("button-index--hover")
+  }, [isToggle])
 
   return (
     <Button
+      blockRef={ref} 
       type='h2'
       name="button-index"
       textName="text-bold-small"
-      func={{ 
-        onTouchStart: () => setToggle(true),
-        onTouchEnd: () => setToggle(false),
-        onMouseEnter: () => setToggle(true),
-        onMouseLeave: () => setToggle(false)
-      }}
+      func={getFunc()}
     >
-      <Icon name="Dropdown"/>
+      <Icon name="Menu"/>
       <DropdownBlock 
         toggle={isToggle}
-        children={
-          navButtonHelper({
-            data: prop.index
-          })
-      }/>
+        children={Links}
+      />
     </Button>
   )
 }

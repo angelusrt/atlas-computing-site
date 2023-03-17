@@ -1,24 +1,12 @@
-const iconName = [
-  'Arrow', 'Dropdown', 'Recife', 
-  'Cables', 'ReadingFlow', 'Database', 
-  'Network', 'ColumnFirst', 'ColumnSecond'
-]
+type RefSVGType = React.MutableRefObject<SVGSVGElement> | undefined 
 
-type IconName = 
-  'Arrow' | 'Dropdown' | 'Recife' | 
-  'Cables' | 'ReadingFlow' | 'Database' | 
-  'Network' | 'ColumnFirst' | 'ColumnSecond'
-
-type RefSVG = React.MutableRefObject<SVGSVGElement> | undefined 
-
-interface iIcon {
-  name:  IconName | string,
-  elRef?: RefSVG
+type IconType = {
+  name: string,
+  elRef?: RefSVGType
 }
 
-interface iSVGIcon{
-  elRef: RefSVG
+type SVGIconType = {
+  elRef: RefSVGType
 }
 
-export {iconName}
-export type {iIcon, RefSVG, iSVGIcon}
+export type {IconType, SVGIconType}
