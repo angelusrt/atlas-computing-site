@@ -22,6 +22,7 @@ const World = (prop: WorldType) => (
     <Button
       type='h2'
       name="button-black"
+      ariaLabel="Próxima página"
       children={
         <Icon name="Arrow"/>
       }

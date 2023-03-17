@@ -18,6 +18,7 @@ const Footer = (prop: FooterType) => {
       key={id}
       href={i.href}
       text={i.title}
+      ariaLabel={i.title}
     />
   )
 

@@ -48,6 +48,7 @@ const Values = (prop: ValuesType) => {
           <Button
             type="h2"
             name="button-white"
+            ariaLabel="Voltar"
             func={{onClick: decrement}}
             children={
               <Icon name="arrow"/>
@@ -56,6 +57,7 @@ const Values = (prop: ValuesType) => {
           <Button
             type="h2"
             name="button-white"
+            ariaLabel="Próximo"
             func={{onClick: increment}}
             children={
               <Icon name="arrow"/>

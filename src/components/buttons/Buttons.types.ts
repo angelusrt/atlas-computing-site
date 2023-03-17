@@ -8,6 +8,7 @@ type ButtonName = (
 
 type ButtonType = {
   type: 'h1' | 'h2',
+  ariaLabel: string,
   name: ButtonName,
   blockRef ?: React.LegacyRef<HTMLButtonElement>,
   textName ?: TextNameType, 
@@ -19,7 +20,8 @@ type ButtonType = {
 type LinkType = {
   text: string,
   href: string,
-  isNewTab: boolean
+  isNewTab: boolean,
+  ariaLabel: string
 } 
 
 type NavType = {

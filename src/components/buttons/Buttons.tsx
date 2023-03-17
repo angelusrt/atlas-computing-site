@@ -16,7 +16,7 @@ const transIndex = {...trans, start: 1000}
 
 const Button = (prop: ButtonType) => {
   const {
-    blockRef, name, type, children, func, text, textName
+    blockRef, name, type, children, func, text, textName, ariaLabel
   } = prop
 
   useAnimateOnView('.button-black', transButton)
@@ -24,7 +24,12 @@ const Button = (prop: ButtonType) => {
   useAnimateOnView('.button-index', transIndex)
 
   return(
-    <button ref={blockRef} className={name} {...func}>
+    <button 
+      ref={blockRef} 
+      className={name} 
+      aria-label={ariaLabel}
+      {...func}
+    >
       {
         text &&
         <Text 
@@ -39,7 +44,7 @@ const Button = (prop: ButtonType) => {
 }
 
 const Link = (prop: LinkType) => {
-  const {href, isNewTab, text} = prop
+  const {href, isNewTab, text, ariaLabel} = prop
 
   useAnimateOnView(
     '#footer .button-link', 
@@ -52,6 +57,7 @@ const Link = (prop: LinkType) => {
       href={href} 
       target={isNewTab ? "_blank" : "_self"}
       rel="noreferrer"
+      aria-label={ariaLabel}
     >
       <Text 
         type='h2' 
@@ -74,6 +80,7 @@ const NavButton = (prop: NavType) => {
       isNewTab={false}
       href={item.href}
       text={item.text}
+      ariaLabel={item.text}
     />
   )
 
@@ -105,6 +112,7 @@ const NavButton = (prop: NavType) => {
       type='h2'
       name="button-index"
       textName="text-bold-small"
+      ariaLabel="Menu"
       func={getFunc()}
     >
       <Icon name="Menu"/>

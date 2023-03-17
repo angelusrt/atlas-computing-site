@@ -90,6 +90,7 @@ const ProjectBlock = (prop: ProjectType) => {
           setStyle(getStyle())
         }}}
         text="Ver mais"
+        ariaLabel="Ver mais"
         textName="text-bold-small"
       />
     </Block>
@@ -119,6 +120,7 @@ const ProjectExpandedBlock = (prop: ProjectExpandedType) => (
         type="h2"
         name="button-white"
         func={{onClick: () => prop.onFunc()}}
+        ariaLabel="Voltar"
         text="Voltar"
         textName="text-bold-small"
       >
