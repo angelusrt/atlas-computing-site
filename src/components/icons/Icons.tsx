@@ -270,104 +270,6 @@ const Network = () => (
   </svg>
 )
 
-const Hat = () => (
-  <svg
-    className="svg-image svg-small"
-    viewBox="0 0 208 140"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      style={{
-        strokeWidth: "2.6px",
-      }}
-      d="M27.269 93.247s1.211-69.155 1.211-70.214c0-9.647 33.213-20.583 
-      75.613-20.583s76.824 10.936 76.824 20.583c0 1.059-2.859 69.392-2.859 
-      69.392 17.169 4.739 27.694 11.124 27.694 18.143 0 14.602-45.552 
-      26.457-101.659 26.457-56.107 0-101.659-11.855-101.659-26.457 
-      0-6.621 9.364-12.677 24.835-17.321Z"
-    />
-  </svg>
-)
-const Palm = () => (
-  <svg
-    className="svg-image svg-big"
-    viewBox="0 0 338 530"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      style={{
-        strokeWidth: "3px",
-      }}
-      d="m132.093 210.411-16.941-51.2 21.562-52.551-56.895 13.522-77.04 
-      22.538 41.788-56.97 87.607-33.219 12.546 5.678-17.913-18.38L74.354 
-      20l45.889-17.477 47.467 17.518 14.157 22.093 
-      5.164-12.463-5.463-18.971-6.683-8.177 19.217 4.05 26.236 
-      23.855-2.819 23.325 45.349-4.619 44.307 13.363 27.613 
-      48.623-27.613-17.158-30.907-7.772-28.053 1.773-28.346 1.155 38.229 
-      10.681 49.896 65.383-12.276 74.53-35.861-48.31-43.315-51.148-18.53 
-      55.576-33.252 22.648-28.715 158.214 8.47 150.537-66.54-2.669 
-      16.618-139.999 35.918-169.754 1.582-4.396Z"
-    />
-  </svg>
-)
-const Rock = () => (
-  <svg
-    className="svg-image svg-small"
-    viewBox="0 0 251 138"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      style={{
-        strokeWidth: "2.8px",
-      }}
-      d="m69.961 2.221 116.245 1.534 61.929 72.64-52.712 
-      58.495-151.463-2.876L2.645 73.828 69.961 2.221Z"
-    />
-  </svg>
-)
-const Clarinete = () => (
-  <svg
-    className="svg-image svg-small"
-    viewBox="0 0 315 185"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-  >
-    <path
-      style={{
-        strokeWidth: "3px",
-      }}
-      d="M261.651 4.717a20.578 20.578 0 0 0-3.714 2.542L2.257 
-      182.269l294.78-105.155h0a24.9 24.9 0 0 0 
-      3.209-1.418c33.432-17.614-8.424-87.168-38.595-70.979Z"
-    />
-  </svg>
-)
-
-
-
 const ColumnFirst = (prop: SVGIconType) => (
   <svg
     ref={prop.elRef}
@@ -502,14 +404,6 @@ const Icon = (prop: IconType) => {
       return <Database/>
     case 'Network':
       return <Network/>
-    case 'Hat':
-      return <Hat/>
-    case 'Palm':
-      return <Palm/>
-    case 'Rock':
-      return <Rock/>
-    case 'Clarinete':
-      return <Clarinete/>
     default:
     case 'Arrow':
       return <Arrow/>

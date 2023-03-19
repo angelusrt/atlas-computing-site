@@ -85,9 +85,9 @@
             "name" : "Material",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
-                    0.800000011920929,
-                    0.800000011920929,
-                    0.800000011920929,
+                    1,
+                    1,
+                    1,
                     1
                 ],
                 "metallicFactor" : 0,
@@ -119,7 +119,8 @@
                         "TEXCOORD_0" : 5,
                         "NORMAL" : 6
                     },
-                    "indices" : 7
+                    "indices" : 7,
+                    "material" : 0
                 }
             ]
         },
@@ -132,7 +133,8 @@
                         "TEXCOORD_0" : 9,
                         "NORMAL" : 10
                     },
-                    "indices" : 11
+                    "indices" : 11,
+                    "material" : 0
                 }
             ]
         },
@@ -145,7 +147,8 @@
                         "TEXCOORD_0" : 13,
                         "NORMAL" : 14
                     },
-                    "indices" : 15
+                    "indices" : 15,
+                    "material" : 0
                 }
             ]
         }

@@ -21,9 +21,9 @@ function getShowStyle(isMobile: boolean): string {
   const height = window.innerHeight
 
   if(isMobile)
-    return `left: ${(width - height * 1.05)/2}px`
+    return `left: ${(width - height)/2}px`
   else
-    return `top: ${(height - width * 1.05)/2}px`
+    return `top: ${(height - width)/2}px`
 }
 
 const About = (prop: AboutType) => {
@@ -70,7 +70,7 @@ const About = (prop: AboutType) => {
         remove(expand.classList, "--enter")
         setIsExpanded('unset')
         setCurrentValue(0)
-      }, 600)
+      }, 1000)
     }
     else if(isExpanded === "expand-enter"){
       addPos(ref, getStyle(style))
@@ -91,9 +91,8 @@ const About = (prop: AboutType) => {
       <Text 
         name="text-title" 
         type='h1'
-      >
-        {tag}
-      </Text>
+        children={tag}
+      />
       <Block name="block-about">
         <Block 
           name="image" 
@@ -106,27 +105,19 @@ const About = (prop: AboutType) => {
         <Text
           type="h1"
           name="text-big"
-        >
-          {title}
-        </Text>
+          children={title}
+        />
         <Text 
           type='p' 
           name="text-normal"
-        >
-          {body}
-        </Text>
+          children={body}
+        />
       </Block>
       <Block 
         blockRef={ref} 
         name="image-expand"
-      >
-        <Block 
-          name="block-wrapper"
-          children={
-            Values(valuesOptions)
-          }
-        />
-      </Block>
+        children={Values(valuesOptions)}
+      />
     </section>
   )
 }

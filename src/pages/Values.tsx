@@ -15,10 +15,6 @@ type ValuesType = {
   setIsExpanded: (state: ExpandedType) => void
 }
 
-const dic = [
-  'Hat', 'Palm', 'Rock', 'Clarinete'
-]
-
 const Values = (prop: ValuesType) => {
   const {
     blockRef, currentValue, isMobile, values, valuesTag, 
@@ -37,13 +33,18 @@ const Values = (prop: ValuesType) => {
   )
 
   return (
-    <section ref={blockRef} id="values">
+    <section ref={blockRef} id="values" className="block-wrapper">
       <Block name="block-wrapper-content">
         <Text
           type="h1"
           name="text-title"
           children={valuesTag}
         />
+        <Text 
+          type='h1' 
+          name="text-big-subtitle"
+          children={values[currentValue]}
+        /> 
         <Block name="block-wrapper-button">
           <Button
             type="h2"
@@ -64,18 +65,11 @@ const Values = (prop: ValuesType) => {
             }
           />
         </Block>
-        <Text 
-          type='h1' 
-          name="text-big-subtitle"
-          children={values[currentValue]}
-        /> 
       </Block>
       <Canvas 
         isMobile={isMobile} 
         name="canvas-values"
       />
-      <Icon name={dic[currentValue]}/>
-      <Icon name={dic[currentValue]}/>
     </section>
   )
 }

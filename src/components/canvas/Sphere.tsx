@@ -70,7 +70,7 @@ const DashedLine = (prop: {rotation: number, isVisible: boolean}) => {
     sensibility: dashedLineSensibility, 
   })
   useFrame(
-    () => lineRef.current.rotation.y += 0.005, 
+    () => lineRef.current.rotation.y += 0.002, 
     isVisible ? 0 : 1
   )
 

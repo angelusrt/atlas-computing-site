@@ -4,45 +4,54 @@ import { Lighthouse } from './Lighthouse'
 import { Sphere } from "./Sphere"
 import "./canvas.css"
 
-type CanvasType = {
+type CanvasNameType = "canvas-globe" | "canvas-values"
+
+type CanvasType = { 
   isMobile: boolean,
-  name: "canvas-globe" | "canvas-values"
+  name: CanvasNameType
 }
 
-type positionType = {
-  "canvas-globe": [number, number, number],
-  "canvas-values": [number, number, number]
-}
+type positionType = Record<CanvasNameType, [number, number, number]>
+type intensityType = Record<CanvasNameType, number>
 
 const position: positionType = {
   "canvas-globe": [-50, 60, 100],
-  "canvas-values": [-8, 8, 8]
+  "canvas-values": [250, 50, 50]
+}
+const intensity: intensityType = {
+  "canvas-globe": 8,
+  "canvas-values": 6
 }
 
 const Canvas = (prop: CanvasType) => {
   const {isMobile, name} = prop
 
   const [isVisible, setIsVisible] = useState(true)
-
-  const isGlobe = name === "canvas-globe"
-  const options = {isMobile, isVisible, setIsVisible}
-
-  const Obj: JSX.Element = isGlobe ? Sphere(options) : Lighthouse()
   
+  function getObj(): JSX.Element {
+    const isGlobe = name === "canvas-globe"
+    const options = {isMobile, isVisible, setIsVisible}
+   
+    if(isGlobe)
+      return Sphere(options)
+    else 
+      return <Lighthouse isMobile={isMobile}/>
+  }
+
   return(
     <Can
-      className={"canvas " + name}
-      style={{
-        position: 'absolute',
-        height: isMobile ? 400 : 725,
-        width: isMobile ? 400 : 725 
-      }} 
+      className={"canvas " + name} 
+      style={{position: "absolute"}} 
     >
       <pointLight 
         position={position[name]} 
-        intensity={8}
+        intensity={intensity[name]}
       />
-      {Obj}
+      <ambientLight
+        position={position[name]}
+        intensity={0.01}
+      />
+      {getObj()}
     </Can>
   )
 }
