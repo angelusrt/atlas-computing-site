@@ -12,7 +12,7 @@ import { Icon } from "../icons/Icons"
 import "./buttons.css"
 
 const transButton = {...trans, start: 400}
-const transIndex = {...trans, start: 1000}
+const transIndex = {...trans, start: 600}
 
 const Button = (prop: ButtonType) => {
   const {

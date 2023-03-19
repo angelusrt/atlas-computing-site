@@ -4,8 +4,8 @@ import { TextType } from "./Texts.types"
 
 import "./texts.css"
 
-const transTitle = {...trans, start: 200, delayPerItem: 200}
-const transSubtitle = {...trans, start: 600}
+const transTitle = {...trans, delayPerItem: 100}
+const transSubtitle = {...trans, start: 200}
 const transFooter = {...trans, start: 200}
 
 const Text = (prop: TextType) => {

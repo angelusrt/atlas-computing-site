@@ -105,7 +105,7 @@ const SphereLine = (prop: {isVisible: boolean}) => {
 const Sphere = (prop: SphereType) => {
   const {isMobile, isVisible, setIsVisible} = prop
 
-  const options = {...trans, start: isMobile ? 1000 : 0}
+  const options = {...trans, start: isMobile ? 300 : 0}
   
   useAnimateOnView('.canvas-globe', options)
 
