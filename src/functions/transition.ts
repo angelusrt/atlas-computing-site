@@ -44,34 +44,42 @@ function delay(el: ObsEntry, trans: TransitionType){
 }
 
 function observe (el: Element, className: string, trans: TransitionType) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const isNotAlreadyAnimated = !entry.target.classList.contains(className)
+  function setTransition(entry: IntersectionObserverEntry) {
+    const isNotAlreadyAnimated = !entry.target.classList.contains(className)
 
-      if(entry.isIntersecting && isNotAlreadyAnimated){
-        entry.target.classList.add(className)
+    if(entry.isIntersecting && isNotAlreadyAnimated){
+      entry.target.classList.add(className)
 
-        if(trans.isTransition)
-          delay(entry, trans)
-      } 
-      else if(!isNotAlreadyAnimated){
-        observer.unobserve(el)
-      }
-    })}
-  )
+      if(trans.isTransition)
+        delay(entry, trans)
+    } 
+    else if(!isNotAlreadyAnimated){
+      observer.unobserve(el)
+    }
+  }
+  
+  function setForEach(entries: IntersectionObserverEntry[]) {
+    entries.forEach(setTransition)
+  }
+
+  const observer = new IntersectionObserver(setForEach)
 
   observer.observe(el)
 }
 
 function useAnimateOnView(query: string, trans: TransitionType){
-  useEffect(() => {  
+  function effectAnimate(){  
     const itemsToAnimate = document.querySelectorAll(query)
     
-    itemsToAnimate.forEach((el, index) => 
+    function animate(el: Element, index: number) {
       observe(el, getShowClass(query), {...trans, index})
-    )
-    //eslint-disable-next-line
-  }, [])
+    }
+
+    itemsToAnimate.forEach(animate)
+  }
+  
+  //eslint-disable-next-line
+  useEffect(effectAnimate, [])
 }
 
 export {useAnimateOnView}

@@ -1,8 +1,9 @@
 import { BufferGeometry, Vector3 } from "three"
+import { ExpandedType } from "../components/blocks/Blocks.types"
 
 type ObsEntry = IntersectionObserverEntry
 
-type HTMLRef = React.MutableRefObject<HTMLDivElement>
+type HTMLRef = React.MutableRefObject<HTMLElement>
 
 type TransitionType = {
   isTransition: boolean,
@@ -36,11 +37,40 @@ type RotationType = {
 }
 
 type AnimationType = {
-  ref: React.MutableRefObject<HTMLDivElement>,
-  classArray: [string, string],
+  isExpanded: ExpandedType,
+  exitTimeoutTime: number, 
+  onEnter: () => void,
+  onEnterTimeout: () => void,
+  onExit: () => void,
+  onExitTimeout: () => void
+}
+
+type EnterType = {
+  ref: HTMLRef, 
+  delayFirst: number,
+  delaySecond: number,
+  displayActive: number,
   time: NodeJS.Timeout | undefined,
-  setTime: React.Dispatch<React.SetStateAction<NodeJS.Timeout | undefined>>,
-  isToggle: boolean
+  getIsDisplay: (s: number) => boolean
+  setTime: (s: NodeJS.Timeout) => void,
+  doNext?: () => void
+}
+
+type ExitType = {
+  ref: HTMLRef, 
+  isLast: boolean,
+  delayFirst: number,
+  delaySecond: number,
+  doNext: () => void, 
+}
+
+type RatingType = {
+  emoji: number,
+  pageActive: number
+}
+
+type UserType = {
+  rating: RatingType[] | null
 }
 
 export {trans}
@@ -49,6 +79,10 @@ export type {
   HTMLRef,
   TransitionType,
   GeometryType, 
+  EnterType,
+  ExitType,
   RotationType,
+  RatingType,
+  UserType,
   AnimationType
 }

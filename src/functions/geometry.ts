@@ -1,5 +1,7 @@
 import { useEffect } from "react"
 import { Vector3 } from "three"
+import { Err, Ok, Result } from "ts-results"
+import { BlockErrorType } from "../components/blocks/Blocks.types"
 import { GeometryType, RotationType } from "./function.types"
 
 const z = 0
@@ -19,25 +21,31 @@ function getCirclePoints(subdivisions: number, radius: number): Vector3[]{
   return points
 }
 
-function setGeometry(prop: GeometryType){
+function setGeometry(prop: GeometryType): Result<"Successfull", BlockErrorType>{
   const {points, ref, rotation, scale} = prop
   const geometry = ref.current
 
-  if(geometry != null){
-    geometry.computeBoundingSphere()
-    geometry.setFromPoints(points) 
-    geometry.scale(scale, scale, scale) 
-    geometry.rotateY(rotation)
-  }
+  if(!geometry) return Err("BLOCK_DOESNT_EXIST")
+
+  geometry.computeBoundingSphere()
+  geometry.setFromPoints(points) 
+  geometry.scale(scale, scale, scale) 
+  geometry.rotateY(rotation)
+
+  return Ok("Successfull")
 }
 
 function rotateOnMouse(prop: RotationType){
   const {isVisible, ref, sensibility} = prop
 
-  const onMouse = (e: MouseEvent) => {
+  const onMouse = (e: MouseEvent): Result<"Successfull", BlockErrorType> => {
     const line = ref.current 
 
-    if(line) line.rotation.y += e.movementX / sensibility
+    if(!line) return Err("BLOCK_DOESNT_EXIST")
+
+    line.rotation.y += e.movementX / sensibility
+    
+    return Ok("Successfull")
   }
 
   if(isVisible)
@@ -47,10 +55,7 @@ function rotateOnMouse(prop: RotationType){
 }
 
 function useSetGeometry(prop: GeometryType){
-  useEffect(() => 
-    //eslint-disable-next-line
-    setGeometry(prop),[]
-  )
+  useEffect(() => {setGeometry(prop)},[])
 }
 
 function useRotateOnMouse(prop: RotationType){
