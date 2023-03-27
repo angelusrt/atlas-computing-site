@@ -7,6 +7,7 @@ import {
   addPos,
   getStyle,
   remove,
+  setAnimation,
   toggleScrollOnExpanded,
 } from "../functions/utils"
 
@@ -46,32 +47,39 @@ const Projects = (prop: ProjectsType) => {
   )
 
   useEffect(() => {
-    if(isExpanded === "expand-out"){
-      remove(ref.current.classList, "--show")  
-
-      setTimeout(() => {
-        remove(ref.current.classList, "--enter")
+    const classList = ref.current.classList 
+    
+    setAnimation({
+      onEnter: () => {
+        addPos(ref, getStyle(style))
+        add(classList, "--enter")  
+      },
+      onEnterTimeout: () => {
+        add(classList, "--show")
+      },
+      onExit: () => {
+        remove(classList, "--show")  
+      },
+      onExitTimeout: () => {
+        remove(classList, "--enter")
         setIsExpanded('unset')
-      }, isMobile ? 700 : 1000)
-    } 
-    else if(isExpanded === "expand-enter"){
-      addPos(ref, getStyle(style))
-      add(ref.current.classList, "--enter")  
-
-      setTimeout(() => {
-        add(ref.current.classList, "--show")
-      }, 5)
-    }
+      },
+      exitTimeoutTime: isMobile ? 700 : 1000,
+      isExpanded
+    })
 
     toggleScrollOnExpanded(isExpanded) 
   },[isExpanded, isMobile, style])
 
   return(
     <section id="projects" className="block-white">
-      <Text name="text-title" type='h1'>
-        {tag}
-      </Text>
+      <Text 
+        type='h1'
+        name="text-title" 
+        children={tag}
+      />
       <Block 
+        type="div"
         name="block-grid"
         children={projects}
       />
