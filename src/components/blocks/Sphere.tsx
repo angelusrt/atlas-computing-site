@@ -96,8 +96,12 @@ const SphereLine = (prop: {isVisible: boolean}) => {
     steps.push(i * sphereLineStep)
   
   return (
-    <React.Fragment children={ steps.map( rotation =>
-      DashedLine({rotation, isVisible})
+    <React.Fragment children={ steps.map( (rot, id) =>
+      <DashedLine
+        key={id}
+        rotation={rot} 
+        isVisible={isVisible}
+      />
     )}/>
   )
 }
