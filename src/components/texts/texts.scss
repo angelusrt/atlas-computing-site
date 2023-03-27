@@ -12,6 +12,19 @@ h1, h2, p{
   }
 }
 
+input, select, .text-normal-small{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; 
+  font-size: 20px;
+
+  &::selection{
+    color: var(--black);
+    background-color: var(--blue);
+  }
+}
+
 .text-title{
   margin: 20px 0 40px 0;
   z-index: 4;
@@ -38,12 +51,18 @@ h1, h2, p{
   font-weight: 800;
   line-height: 150%;
 }
+.text-thin{
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 300;
+  line-height: 125%;
+}
 .text-thin-small{
   font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 300;
   font-size: 25px;
-  line-height: 30px;
+  line-height: 125%;
 }
 .text-bold-small{
   font-family: 'Roboto Condensed';
@@ -93,7 +112,7 @@ h1, h2, p{
   .text-big-subtitle{
     font-size: 30px;
   }
-  .text-normal{
+  .text-normal, .text-thin{
     font-size: 25px;
   }
 }
@@ -113,7 +132,7 @@ h1, h2, p{
     font-size: 50px;
     margin-top: 20px;
   }
-  .text-normal{
+  .text-normal, .text-thin{
     font-size: 35px;
   }
 }

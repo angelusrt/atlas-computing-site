@@ -12,40 +12,14 @@
   stroke: var(--white);
 }
 
-.svg-column-first{
-  opacity: 0;
-  transform: translateY(30%);
-  transition: all 1s;
-
-  &--show{
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 1s;
-  }
-}
-
-.svg-column-second{
-  opacity: 0;
-  transform: translateY(10%);
-  transition: all 1s;
-
-  &--show{
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 1s;
-  }
-}
-
 @media (min-width: 0px) {
   .svg-column-first{
-    height: 400px;
-    right: -200px;
-    bottom: -25px;
+    height: 500px;
+    right: -40px;
+    bottom: -100px;
   }
   .svg-column-second{
-    height: 400px;
-    right: -200px;
-    bottom: -25px;
+    display: none;
   }
 
 }
@@ -53,11 +27,13 @@
   .svg-column-first{
     height: 700px;
     right: 290px;
-    bottom: -120px;
+    bottom: -140px;
   }
   .svg-column-second{
     height: 500px;
     right: 200px;
-    bottom: -100px;
+    bottom: -120px;
+
+    display: block;
   }
 }

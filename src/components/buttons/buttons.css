@@ -5,7 +5,6 @@ button, a {
   background-color: var(--white);
   border: 2px solid var(--white);
   border-radius: 10px;
-  color: var(--black);
   text-decoration: none;
   padding: 10px;
   vertical-align: text-bottom;
@@ -25,6 +24,10 @@ button .block-dropdown, a .block-dropdown {
   bottom: 80px;
   left: 80px;
   transition: all 0.5s 0.2s;
+}
+
+.button-white {
+  color: var(--black);
 }
 
 .button-black {
@@ -73,7 +76,8 @@ button .block-dropdown, a .block-dropdown {
 .button-index,
 .button-link,
 .button-black,
-.button-white {
+.button-white,
+.button-transparent {
   opacity: 0;
   transform: translateY(-10%);
   transition: all 0.5s;
@@ -81,7 +85,8 @@ button .block-dropdown, a .block-dropdown {
 .button-index--show,
 .button-link--show,
 .button-black--show,
-.button-white--show {
+.button-white--show,
+.button-transparent--show {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.5s;
@@ -89,7 +94,8 @@ button .block-dropdown, a .block-dropdown {
 
 .button-link:hover,
 .button-black:hover,
-.button-white:hover {
+.button-white:hover,
+.button-transparent:hover {
   background-color: var(--blue);
   color: var(--black);
   border-color: var(--black);

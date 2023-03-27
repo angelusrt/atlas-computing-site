@@ -14,6 +14,22 @@ h1::selection, h2::selection, p::selection {
   background-color: var(--blue);
 }
 
+input, select, .text-normal-small {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  font-size: 20px;
+}
+input::-moz-selection, select::-moz-selection, .text-normal-small::-moz-selection {
+  color: var(--black);
+  background-color: var(--blue);
+}
+input::selection, select::selection, .text-normal-small::selection {
+  color: var(--black);
+  background-color: var(--blue);
+}
+
 .text-title {
   margin: 20px 0 40px 0;
   z-index: 4;
@@ -44,12 +60,19 @@ h1::selection, h2::selection, p::selection {
   line-height: 150%;
 }
 
+.text-thin {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 300;
+  line-height: 125%;
+}
+
 .text-thin-small {
   font-family: "Roboto Condensed";
   font-style: normal;
   font-weight: 300;
   font-size: 25px;
-  line-height: 30px;
+  line-height: 125%;
 }
 
 .text-bold-small {
@@ -100,7 +123,7 @@ h1::selection, h2::selection, p::selection {
   .text-big-subtitle {
     font-size: 30px;
   }
-  .text-normal {
+  .text-normal, .text-thin {
     font-size: 25px;
   }
 }
@@ -118,7 +141,7 @@ h1::selection, h2::selection, p::selection {
     font-size: 50px;
     margin-top: 20px;
   }
-  .text-normal {
+  .text-normal, .text-thin {
     font-size: 35px;
   }
 }/*# sourceMappingURL=texts.css.map */

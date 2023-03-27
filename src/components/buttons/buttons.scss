@@ -5,7 +5,7 @@ button, a{
   background-color: var(--white);
   border: 2px solid var(--white);
   border-radius: 10px;
-  color: var(--black);
+  // color: var(--black);
   text-decoration: none;
   padding: 10px;
   vertical-align: text-bottom;
@@ -29,6 +29,9 @@ button, a{
   }
 }
 
+.button-white{
+  color: var(--black);
+}
 .button-black{
   background-color: var(--black);
   color: var(--white);
@@ -75,7 +78,8 @@ button, a{
 .button-index,
 .button-link,
 .button-black,
-.button-white{
+.button-white,
+.button-transparent{
   opacity: 0;
   transform: translateY(-10%);
   transition: all 0.5s;
@@ -89,7 +93,8 @@ button, a{
 
 .button-link,
 .button-black,
-.button-white{
+.button-white,
+.button-transparent{
   &:hover{
     background-color: var(--blue);
     color: var(--black);
