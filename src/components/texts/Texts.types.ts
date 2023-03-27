@@ -1,11 +1,14 @@
-type TextNameType = 
+type TextNameType = (
   'text-title' |
   'text-big-title' |
   'text-big-subtitle' |
   'text-big' |
   'text-thin-small' |
   'text-bold-small' |
-  'text-normal'
+  'text-normal' |
+  'text-thin' | 
+  'text-normal-small'
+)
 
 type TextType = {
   children: string,

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react"
+
 import { Block } from "../components/blocks/Blocks"
 import { Text } from "../components/texts/Texts"
 import { StyleType, ExpandedType } from "../components/blocks/Blocks.types"
+
 import {
-  add, addPos, getStyle, remove, toggleScrollOnExpanded,
+  add, addPos, getStyle, remove, setAnimation, toggleScrollOnExpanded
 } from "../functions/utils"
-import { Values } from "./Values"
+
+import Values from "./Values"
 
 type AboutType = {
   tag: string,
@@ -43,8 +46,20 @@ const About = (prop: AboutType) => {
     currentValue,
     isMobile,
     blockRef: sectionRef,
-    setCurrentValue: (s: number) => setCurrentValue(s),
-    setIsExpanded: (s: ExpandedType) => setIsExpanded(s), 
+    decrement, 
+    increment,
+  }
+
+  function decrement() {
+    currentValue > 0 ?
+    setCurrentValue(currentValue - 1):
+    setIsExpanded('expand-out')
+  }
+  
+  function increment() {
+    currentValue < 3 ?
+    setCurrentValue(currentValue + 1):
+    setIsExpanded('expand-out')
   }
 
   function getStyleOptions(): StyleType {
@@ -57,31 +72,38 @@ const About = (prop: AboutType) => {
     }
   }
 
+  function onClick() {
+    setIsExpanded('expand-enter')
+    setStyle(getStyleOptions)
+  }
+
   useEffect(() => {
-    const expand = ref.current
+    const classList = ref.current.classList
     const section = sectionRef.current
 
-    if(isExpanded === "expand-out"){
-      remove(expand.classList, "--show")       
-      addPos(ref, getStyle(style))
-      section.setAttribute('style', getStyle(style))
-      
-      setTimeout(() => {
-        remove(expand.classList, "--enter")
+    setAnimation({
+      onEnter: () => {
+        addPos(ref, getStyle(style))
+        add(classList, "--enter")   
+      },
+      onEnterTimeout: () => {
+        add(classList, "--show")
+        addPos(ref, getShowStyle(isMobile))
+        section.setAttribute('style', getShowStyle(isMobile)) 
+      },
+      onExit: () => {
+        remove(classList, "--show")       
+        addPos(ref, getStyle(style))
+        section.setAttribute('style', getStyle(style)) 
+      },
+      onExitTimeout: () => {
+        remove(classList, "--enter")
         setIsExpanded('unset')
         setCurrentValue(0)
-      }, 1000)
-    }
-    else if(isExpanded === "expand-enter"){
-      addPos(ref, getStyle(style))
-      add(expand.classList, "--enter")  
-
-      setTimeout(() => {
-        add(expand.classList, "--show")
-        addPos(ref, getShowStyle(isMobile))
-        section.setAttribute('style', getShowStyle(isMobile))
-      }, 5)
-    }
+      },
+      exitTimeoutTime: 1000,
+      isExpanded
+    })
 
     toggleScrollOnExpanded(isExpanded)
   },[isExpanded, isMobile, style])
@@ -93,14 +115,12 @@ const About = (prop: AboutType) => {
         type='h1'
         children={tag}
       />
-      <Block name="block-about">
+      <Block type="div" name="block-about">
         <Block 
-          name="image" 
+          type="div"
+          name="block-values" 
           blockRef={blockRef}
-          func={{ onClick: () => {
-            setIsExpanded('expand-enter')
-            setStyle(getStyleOptions)
-          }}}
+          func={{onClick: onClick}}
         />
         <Text
           type="h1"
@@ -114,8 +134,9 @@ const About = (prop: AboutType) => {
         />
       </Block>
       <Block 
+        type="div"
         blockRef={ref} 
-        name="image-expand"
+        name="block-values-expand"
         children={Values(valuesOptions)}
       />
     </section>

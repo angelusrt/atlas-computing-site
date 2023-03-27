@@ -3,7 +3,8 @@ import { TextNameType } from "../texts/Texts.types"
 type ButtonName = (
   'button-index' |
   'button-white' |
-  'button-black'
+  'button-black' |
+  'button-transparent'
 )
 
 type ButtonType = {

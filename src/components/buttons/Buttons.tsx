@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
 import { useAnimateOnView } from "../../functions/transition"
-import { trans } from "../../functions/function.types"
 
 import { ButtonType, LinkType, NavType } from "./Buttons.types"
 
@@ -11,8 +10,30 @@ import { Icon } from "../icons/Icons"
 
 import "./buttons.css"
 
-const transButton = {...trans, start: 400}
-const transIndex = {...trans, start: 600}
+const transLink = {
+  isTransition: true,
+  isDelayChild: false,
+  delayPerItem: 200,
+  timeout: 200,
+  start: 0,
+  index: 0,
+}
+const transButton = {
+  isTransition: true,
+  isDelayChild: false,
+  delayPerItem: 0,
+  timeout: 200,
+  start: 400,
+  index: 0,
+}
+const transIndex = {
+  isTransition: true,
+  isDelayChild: false,
+  delayPerItem: 0,
+  timeout: 200,
+  start: 600,
+  index: 0,
+}
 
 const Button = (prop: ButtonType) => {
   const {
@@ -22,12 +43,14 @@ const Button = (prop: ButtonType) => {
   useAnimateOnView('.button-black', transButton)
   useAnimateOnView('.button-white', transButton)
   useAnimateOnView('.button-index', transIndex)
+  useAnimateOnView('.button-transparent', transIndex)
 
   return(
     <button 
       ref={blockRef} 
-      className={name} 
+      className={name || ""} 
       aria-label={ariaLabel}
+      type="button"
       {...func}
     >
       {
@@ -46,10 +69,7 @@ const Button = (prop: ButtonType) => {
 const Link = (prop: LinkType) => {
   const {href, isNewTab, text, ariaLabel} = prop
 
-  useAnimateOnView(
-    '#footer .button-link', 
-    {...trans, delayPerItem: 200}
-  )
+  useAnimateOnView('#footer .button-link', transLink)
 
   return(
     <a 

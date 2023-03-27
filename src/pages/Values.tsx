@@ -1,7 +1,5 @@
-import { Block } from "../components/blocks/Blocks"
-import { ExpandedType } from "../components/blocks/Blocks.types"
+import { Block, Canvas } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
-import { Canvas } from "../components/canvas/Canvas"
 import { Icon } from "../components/icons/Icons"
 import { Text } from "../components/texts/Texts"
 
@@ -11,30 +9,19 @@ type ValuesType = {
   currentValue: number,
   isMobile: boolean,
   blockRef: React.LegacyRef<HTMLElement>,
-  setCurrentValue: (state: number) => void,
-  setIsExpanded: (state: ExpandedType) => void
+  increment: () => void,
+  decrement: () => void,
 }
 
 const Values = (prop: ValuesType) => {
   const {
     blockRef, currentValue, isMobile, values, valuesTag, 
-    setCurrentValue, setIsExpanded
+    increment, decrement
   } = prop
   
-  const decrement = () => (
-    currentValue > 0 ?
-    setCurrentValue(currentValue - 1):
-    setIsExpanded('expand-out')
-  )
-  const increment = () => (
-    currentValue < 3 ?
-    setCurrentValue(currentValue + 1):
-    setIsExpanded('expand-out')
-  )
-
   return (
     <section ref={blockRef} id="values" className="block-wrapper">
-      <Block name="block-wrapper-content">
+      <Block type="div" name="block-wrapper-content">
         <Text
           type="h1"
           name="text-title"
@@ -45,7 +32,7 @@ const Values = (prop: ValuesType) => {
           name="text-big-subtitle"
           children={values[currentValue]}
         /> 
-        <Block name="block-wrapper-button">
+        <Block type="div" name="block-wrapper-button">
           <Button
             type="h2"
             name="button-white"
@@ -74,4 +61,4 @@ const Values = (prop: ValuesType) => {
   )
 }
 
-export {Values}
+export default Values

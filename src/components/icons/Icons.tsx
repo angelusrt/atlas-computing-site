@@ -1,5 +1,5 @@
 import { useAnimateOnView } from "../../functions/transition"
-import { trans, TransitionType } from "../../functions/function.types"
+import { trans } from "../../functions/function.types"
 import { IconType, SVGIconType } from "./Icons.types"
 import "./Icons.css"
 
@@ -376,16 +376,11 @@ const ColumnSecond = (prop: SVGIconType) => (
   </svg>
 )
 
-const firstTrans: TransitionType = {...trans, start: 1500}
-const secondTrans: TransitionType = {...trans, start: 1700}
-
 const Icon = (prop: IconType) => {
   const {name, elRef} = prop
 
   useAnimateOnView('.svg-recife', trans)
   useAnimateOnView('.svg-cables', trans)
-  useAnimateOnView('.svg-column-first', firstTrans)
-  useAnimateOnView('.svg-column-second', secondTrans)
 
   switch (name) {
     case 'Recife':

@@ -4,7 +4,8 @@ import { Text } from "../components/texts/Texts"
 
 type WorldType = {
   tag: string,
-  title: string
+  title: string,
+  setPage: () => void
 }
 
 const World = (prop: WorldType) => (
@@ -23,6 +24,7 @@ const World = (prop: WorldType) => (
       type='h2'
       name="button-black"
       ariaLabel="Próxima página"
+      func={{onClick: prop.setPage}}
       children={
         <Icon name="Arrow"/>
       }

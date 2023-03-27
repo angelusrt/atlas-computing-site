@@ -4,17 +4,30 @@ import { TextType } from "./Texts.types"
 
 import "./texts.css"
 
-const transTitle = {...trans, delayPerItem: 100}
-const transSubtitle = {...trans, start: 200}
-const transFooter = {...trans, start: 200}
+const transTitle = {
+  isTransition: true,
+  isDelayChild: false,
+  delayPerItem: 100,
+  timeout: 200,
+  start: 0,
+  index: 0
+}
+const transOthers = {
+  isTransition: true,
+  isDelayChild: false,
+  delayPerItem: 0,
+  timeout: 200,
+  start: 200,
+  index: 0
+}
 
 const Text = (prop: TextType) => {
   const {textRef, name, children} = prop
   
   useAnimateOnView('.text-title', trans)
   useAnimateOnView('.text-big-title', transTitle)
-  useAnimateOnView('.text-big-subtitle', transSubtitle)
-  useAnimateOnView('.text-thin-small', transFooter)
+  useAnimateOnView('.text-big-subtitle', transOthers)
+  useAnimateOnView('.text-thin-small', transOthers)
 
   return (
     <prop.type ref={textRef} className={name}>
