@@ -1,0 +1,130 @@
+{
+  "nav": [
+    {"text": "Atention", "href": "#atention", "page": 2, "theme": "block-white"},
+    {"text": "Creation", "href": "#creation", "page": 6, "theme": "block-black"},
+    {"text": "Comparison", "href": "#comparison", "page": 9, "theme": "block-white"},
+    {"text": "Estruturação", "href": "#structuring", "page": 12, "theme": "block-black"}
+  ],
+  "emojiAriaLabels": ["Feliz", "Coração", "Ódio", "Indiferente"],
+  "atlas2": {
+    "subtitle": ["EM", "CONSTRUÇÃO"]
+  },
+  "intro": [
+    {
+      "page": 2,
+      "tag": "atention",
+      "theme": "block-white",
+      "iconName": "triangle",
+      "title": "Atenção",
+      "subtitle": "A seguir você realizará um conjunto de testes em relação a sua experiência e dados.",
+      "body": "É recomendado o uso de dados ficticios."
+    },
+    {
+      "page": 4,
+      "tag": "creation",
+      "theme": "block-black",
+      "iconName": "Prism",
+      "title": "Criação",
+      "subtitle": "Experimente em tempo real a criação de estruturas de dados.",
+      "body": "A seguir coletaremos alguns dados seus. Eles serão anonimizados."
+    },
+    {
+      "page": 6,
+      "tag": "comparison",
+      "theme": "block-white",
+      "iconName": "bricks",
+      "title": "Comparação",
+      "subtitle": "Veja os dados formados a partir do banco de dados.",
+      "body": "Suas respostas serão comparadas com as outras da rede."
+    },
+    {
+      "page": 8,
+      "tag": "structuring",
+      "theme": "block-black",
+      "iconName": "bricks",
+      "title": "Estruturação",
+      "subtitle": "Correlações serão criadas a partir da estruturação de dados.",
+      "body": "As informações geradas são somente ilustrativas e não correspondem ao rigor de uma pesquisa cientifica."
+    }
+  ],
+  "tutorial": [
+    {
+      "title": "Navegação",
+      "subtitle": "Parte 1 de 2",
+      "body": "Esse botão lateral indica sua posição"
+    },
+    {
+      "title": "Navegação",
+      "subtitle": "Parte 2 de 2",
+      "body": "Esse botão lateral indica sua posição"
+    },
+    {
+      "title": "Avaliação",
+      "subtitle": "Parte 1 de 1",
+      "body": "A qualquer momento você poderá avaliar sua experiência."
+    }
+  ],
+  "forms": {
+    "inputs": [
+      {
+        "text": "Primeiro Nome",
+        "name": "first-name",
+        "type": "text"
+      }
+    ],
+    "selections": [
+      {
+        "text": "Continente",
+        "name": "continent",
+        "optionList": [{
+          "text": "America do sul",
+          "name": "south-america"
+        }]
+      },
+      {
+        "text": "Animal Favorito",
+        "name": "fav-animal",
+        "optionList": [{
+          "text": "Cachorro",
+          "name": "dog"
+        }]
+      },
+      {
+        "text": "Hoje",
+        "name": "today",
+        "optionList": [{
+          "text": "Bem",
+          "name": "well"
+        }]
+      },
+      {
+        "text": "Mudanças Climáticas",
+        "name": "global-warming",
+        "optionList": [{
+          "text": "Ruim",
+          "name": "bad"
+        }]
+      },
+      {
+        "text": "Globalismo",
+        "name": "globalism",
+        "optionList": [{
+          "text": "Bom",
+          "name": "well"
+        }]
+      }
+    ],
+    "infos": [
+      {
+        "title": "Identidade",
+        "subtitle": "Parte 1 de 2",
+        "body": "Conte-nos um pouco sobre você"
+      },
+      {
+        "title": "Sensação",
+        "subtitle": "Parte 2 de 2",
+        "body": "Como você se sente em relação a esses temas?"
+      } 
+    ]
+  }
+}

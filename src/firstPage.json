@@ -1,21 +1,15 @@
 {
   "index": [
-    {"text": "Introdução", "href": "#intro"},
+    {"text": "Introdução", "href": "#atlas"},
     {"text": "Descubra", "href": "#discover"},
     {"text": "Projetos", "href": "#projects"},
     {"text": "Seu", "href": "#about"},
     {"text": "Mundo", "href": "#world"}
   ],
-  "enterIndex": [
-    {"text": "Enter", "href": "#enter"}
-  ],
   "nav": {
     "buttonNames": ["AtCom", "Indíce", "Entre"]
   },
-  "enterNav": {
-    "buttonNames": ["Voltar"]
-  },
-  "intro": {
+  "atlas": {
     "tag": "Intro",
     "title": ["Atlas", "Computing"],
     "subtitle": "DESCUBRA PROJETOS CAPAZES DE MELHORAR O SEU MUNDO."
@@ -85,10 +79,5 @@
       }
     ],
     "body": "Todos os direitos reservados a AtlasComputing"
-  },
-  "enter": {
-    "tag": "Enter",
-    "title": ["Atlas", "Computing"],
-    "subtitle": "Em construção."
   }
 }
