@@ -1,80 +1,28 @@
-import { useRef, useState } from "react"
 import { Block } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
 import { Icon } from "../components/icons/Icons"
 import { Text } from "../components/texts/Texts"
-import { ExitType } from "../functions/function.types"
-import { setOnExit, useSetDisplay, useSetOnEnter } from "../functions/utils"
+import { DivRef } from "../functions/function.types"
+import { setExit } from "../functions/utils"
+import data from "../secondPage.json"
 
 type Atlas2Type = {
-  data: {
-    subtitle: string[]
-  },
-  displayActive: number,
-  getIsDisplay: (e: number) => boolean,
+  blockRef: DivRef,
   decrement: () => void,
   increment: () => void
 }
 
+const atlas2 = data.atlas2
+
 const Atlas2 = (prop: Atlas2Type) => {
-  const {data, displayActive, getIsDisplay, decrement, increment} = prop
+  const {blockRef, decrement, increment} = prop
 
-  const [time , setTime] = useState<NodeJS.Timeout>()
-
-  const ref = useRef<HTMLDivElement>(null!)  
-
-  const firstOnExitOptions: ExitType = {
-    ref, 
-    delayFirst: 1500, 
-    delaySecond: 250, 
-    isLast: getIsDisplay(displayActive + 1), 
-    doNext: increment
-  }
-  const secondOnExitOptions: ExitType = {
-    ref, 
-    delayFirst: 1500, 
-    delaySecond: 250, 
-    isLast: getIsDisplay(displayActive - 1), 
-    doNext: decrement
-  }
-
-  useSetDisplay(ref, getIsDisplay(displayActive))
-  useSetOnEnter({
-    delayFirst: 1500,
-    delaySecond: 250,
-    displayActive,
-    ref,
-    time,
-    setTime,
-    getIsDisplay
-  })
-  
   return (
-    <section 
-      ref={ref} 
-      className="atlas2 block-black"
-      id="atlas2" 
-    >  
-      <Text 
-        type='h1' 
-        name="text-big-title" 
-        children="Atlas"
-      />
-      <Text 
-        type='h1' 
-        name="text-big-title" 
-        children="Computing"
-      />
-      <Text 
-        type='h2' 
-        name="text-big-subtitle" 
-        children={data.subtitle[0]}
-      />
-      <Text 
-        type='h2' 
-        name="text-big-subtitle" 
-        children={data.subtitle[1]}
-      />
+    <section ref={blockRef} className="atlas2 block-black" id="atlas2">  
+      <Text type='h1' name="text-big-title" children="Atlas"/>
+      <Text type='h1' name="text-big-title" children="Computing"/>
+      <Text type='h2' name="text-big-subtitle" children={atlas2.subtitle[0]}/>
+      <Text type='h2' name="text-big-subtitle" children={atlas2.subtitle[1]}/>
       <Block type="div" name="block-wrapper-button">
         <Button
           type="h2"
@@ -82,7 +30,7 @@ const Atlas2 = (prop: Atlas2Type) => {
           ariaLabel="Continuar"
           textName="text-bold-small"
           text="Continuar"
-          func={{onClick: () => setOnExit(firstOnExitOptions)}}
+          func={{onClick: () => setExit(blockRef, increment, 1500)}}
         />
         <Button
           type="h2"
@@ -90,7 +38,7 @@ const Atlas2 = (prop: Atlas2Type) => {
           ariaLabel="Voltar"
           textName="text-bold-small"
           text="Voltar"
-          func={{onClick: () => setOnExit(secondOnExitOptions)}}
+          func={{onClick: () => setExit(blockRef, decrement, 1500)}}
         />
       </Block>
       <Icon name="ColumnFirst"/>

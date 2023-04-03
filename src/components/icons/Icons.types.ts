@@ -1,12 +1,12 @@
 type RefSVGType = React.MutableRefObject<SVGSVGElement> | undefined 
 
 type IconType = {
-  name: string,
-  elRef?: RefSVGType
+  name?: string,
+  blockRef?: RefSVGType
 }
 
 type SVGIconType = {
-  elRef: RefSVGType
+  blockRef: RefSVGType
 }
 
 export type {IconType, SVGIconType}

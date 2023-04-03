@@ -1,35 +1,23 @@
+import React from "react"
 import { Link } from "../components/buttons/Buttons"
 import { Text } from "../components/texts/Texts"
+import data from "../firstPage.json"
 
-type FooterType = {
-  buttons: {
-    title: string,
-    href: string
-  }[],
-  body: string
-}
+const footer = data.footer 
 
-const Footer = (prop: FooterType) => {
-  const {buttons, body} = prop
-  
-  const Links = buttons.map((i, id) => 
-    <Link 
-      isNewTab={true}
-      key={id}
-      href={i.href}
-      text={i.title}
-      ariaLabel={i.title}
-    />
-  )
-
+const Footer = () => {
   return(
-    <footer id="footer" className="block-black">
-      {Links}
-      <Text
-        type="h2"
-        name="text-thin-small"
-        children={body}
-      />
+    <footer id="footer" className="block-black"> 
+      {footer.buttons.map((e, i) => 
+        <Link 
+          isNewTab={true}
+          key={i}
+          href={e.href}
+          text={e.title}
+          ariaLabel={e.title}
+        />
+      )}
+      <Text type="h2" name="text-thin-small" children={footer.body}/>
     </footer>
   )
 }

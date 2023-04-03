@@ -55,11 +55,7 @@ const Button = (prop: ButtonType) => {
     >
       {
         text &&
-        <Text 
-          name={textName}
-          type={type}
-          children={text}
-        />
+        <Text name={textName} type={type} children={text}/>
       }
       {children}
     </button>
@@ -79,10 +75,7 @@ const Link = (prop: LinkType) => {
       rel="noreferrer"
       aria-label={ariaLabel}
     >
-      <Text 
-        type='h2' 
-        children={text}
-      />
+      <Text type='h2' children={text}/>
     </a>
   )
 }
@@ -93,16 +86,6 @@ const NavButton = (prop: NavType) => {
   const [isToggle, setToggle] = useState(false)
   
   const ref = useRef<HTMLButtonElement>(null!)
-
-  const Links = index.map((item, id) =>
-    <Link
-      key={id}
-      isNewTab={false}
-      href={item.href}
-      text={item.text}
-      ariaLabel={item.text}
-    />
-  )
 
   function getFunc() {
     if(isMobile)
@@ -136,10 +119,17 @@ const NavButton = (prop: NavType) => {
       func={getFunc()}
     >
       <Icon name="Menu"/>
-      <DropdownBlock 
-        toggle={isToggle}
-        children={Links}
-      />
+      <DropdownBlock toggle={isToggle}>
+        {index.map((e, i) =>
+          <Link
+            key={i}
+            isNewTab={false}
+            href={e.href}
+            text={e.text}
+            ariaLabel={e.text}
+          />
+        )}
+      </DropdownBlock>
     </Button>
   )
 }

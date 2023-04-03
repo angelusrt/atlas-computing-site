@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-
-import { getIndex, setDisplay, setLocation } from './functions/utils'
-import { RatingType, UserType } from './functions/function.types'
+import React, { createContext, useEffect, useRef, useState } from 'react'
 
 import { Block, NavBlock } from './components/blocks/Blocks'
 import { NavButton } from './components/buttons/Buttons'
+
+import { setEnter, getIndex, setLocation, remove, add, getInitialPage } from './functions/utils'
+import { DivRef } from './functions/function.types'
 
 import Atlas from './pages/Atlas'
 import Discover from './pages/Discover'
@@ -22,158 +22,160 @@ import secondData from "./secondPage.json"
 
 import "./App.css"
 
-const intros = [2, 6, 9, 12]
-const infos = [3, 4, 5]
-const forms = [7, 8]
-const navs = [3, 4, 5, 7, 8, 12]
-
-const sectionMap: Record<number, number> = {
-  0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1,
-  6: 2, 7: 2, 8: 2,
-  9: 3, 10: 3, 11: 3,
-  12: 4, 13: 4
+const pageMap: Record<number, number> = {
+  0: 1, 1: 1, 2: 1, 3: 1, 
+  4: 2, 5: 2, 
+  6: 3, 7: 3,
 }
 
-function getInitialPage () {
-  return window.location.pathname === '/1/' ? 1 : 0
-}
+const isMobileContext = createContext<boolean>(false)
+
+const intros = [2, 4, 6]
+const navs = [3, 5, 7] 
 
 const App = () => {
   const[isMobile, setIsMobile] = useState(window.innerWidth < 725)
-  const[pageActive, setPageActive] = useState(getInitialPage())
-  const[pageFirstEntry, setPageFirstEntry] = useState(0)
-  const[userState, setUserState] = useState<UserType>({rating: null})
+  const[active, setActive] = useState(getInitialPage())
+  const[lastPageDiscovered, setLastPageDiscovered] = useState(0)
 
+  const atlas2Ref = useRef<HTMLDivElement>(null!)
+  const introRef = useRef<HTMLDivElement>(null!)
+  const tutorialRef = useRef<HTMLDivElement>(null!)
+  const formsRef = useRef<HTMLDivElement>(null!)
+  const navRef = useRef<HTMLElement>(null!)
   const firstRef = useRef<HTMLDivElement>(null!)
   const secondRef = useRef<HTMLDivElement>(null!)
 
-  function decrement() {
-    setPageActive(s => s - 1)
+  const index = getIndex(intros, active)
+
+  const refMap: [DivRef, number][] = [
+    [atlas2Ref, 1500],
+    [tutorialRef, 1000],
+    [formsRef, 1000],
+    [formsRef, 1000],
+  ]
+
+  function decrement(ref: DivRef, delay: number) {
+    setActive(s => s - 1)
+    setEnter(ref, delay)
   }
-  function increment() {
-    setPageActive(s => s + 1)
-    setPageFirstEntry(s => pageActive + 1 > s ? pageActive + 1 : s)
+  function increment(ref: DivRef, delay: number) {
+    setActive(s => s + 1)
+    setLastPageDiscovered(s => active + 1 > s ? active + 1 : s)
+    setEnter(ref, delay)
   }
   function decrementPage() {
-    setPageActive(0)
+    setActive(0)
     setLocation('/0/')
   }
   function incrementPage() {
-    setPageActive(1)
+    setActive(1)
     setLocation('/1/')
-  }
-  function setRating(prop: RatingType) {
-    const {emoji, pageActive} = prop
-    
-    setUserState(s => {
-      if (s.rating)
-        s.rating.push({emoji, pageActive})
-      else 
-        s.rating = [{emoji, pageActive}]
-
-      return s
-    })
+    setEnter(atlas2Ref, 1500)
   }
   
   useEffect(() => {
-    const isFirstPage = pageActive === 0    
+    const isFirstPage = active === 0    
 
-    setDisplay(firstRef, isFirstPage)
-    setDisplay(secondRef, !isFirstPage)
-  }, [pageActive])
+    if(!isFirstPage) setEnter(atlas2Ref, 1500)  
+  }, [])
+
+  useEffect(() => {
+    const first = firstRef.current
+    const second = secondRef.current
+    const nav = navRef.current
+    const intro = introRef.current
+
+    //Trocar visibilidade da página 1 e 2
+    const isFirstPage = active === 0    
+
+    if(isFirstPage){
+      remove(first.classList, "--none")
+      add(second.classList, "--none")
+    }
+    else {
+      add(first.classList, "--none")
+      remove(second.classList, "--none") 
+    }
+
+    //Trocar o tema do 'Intro'
+    if(intros.includes(active)){
+      const theme = secondData.intro[index].theme
+      const isBlack = theme === "block-black"
+    
+      intro.classList.remove(isBlack ? "block-white" : "block-black")
+      intro.classList.add(isBlack ? "block-black" : "block-white")
+    } 
+    else {
+      intro.classList.remove("block-black")
+      intro.classList.remove("block-white") 
+    }
+
+    //Trocar visibilidade do 'NavBlock'
+    if(navs.includes(active)){
+      remove(nav.classList, "--none")
+      
+      //Trocar o tema do 'NavBlock'
+      const theme = secondData.nav[pageMap[active] - 1].theme
+      const isBlack = theme === "block-black"
+  
+      nav.classList.remove(isBlack ? "block-white" : "block-black")
+      nav.classList.add(isBlack ? "block-black" : "block-white")
+    }
+    else{
+      add(nav.classList, "--none")
+    }
+  }, [active])
 
   return(
     <main className="App">
-      <Block
-        type='div' 
-        blockRef={firstRef} 
-        name="section first-page"
-      >
-        <Atlas
-          subtitle={firstData.atlas.subtitle}
-          isMobile={isMobile}
-        />
-        <Discover 
-          tag={firstData.discover.tag}
-          isMobile={isMobile}
-        />
-        <Projects
-          tag={firstData.projects.tag}
-          itens={firstData.projects.itens}
-          isMobile={isMobile}
-        />
-        <About
-          tag={firstData.about.tag}
-          title={firstData.about.title}
-          body={firstData.about.body[0]}
-          valuesTag={firstData.about.values.tag}
-          values={firstData.about.values.body}
-          isMobile={isMobile}
-        />
-        <World 
-          tag={firstData.world.tag}
-          title={firstData.world.title}
-          setPage={incrementPage}
-        />
-        <Footer
-          buttons={firstData.footer.buttons}
-          body={firstData.footer.body}
-        />
-        <NavButton
-          index={firstData.index}
-          isMobile={isMobile}
-        />
-      </Block>
-      <Block 
-        type='div'
-        blockRef={secondRef} 
-        name="section second-page"
-      >
-        <Atlas2
-          data={secondData.atlas2}
-          displayActive={pageActive}
-          getIsDisplay={e => [1].includes(e)}
-          decrement={decrementPage} 
-          increment={increment}
-        />
-        <Intro
-          data={secondData.intro[getIndex(intros, pageActive)]}
-          displayActive={pageActive}
-          getIsDisplay={e => intros.includes(e)}
-          decrement={decrement}
-          increment={increment}
-        />
-        <Tutorial
-          data={secondData.tutorial[getIndex(infos, pageActive)]}
-          displayActive={pageActive}
-          getIsDisplay={e => infos.includes(e)}
-          decrement={decrement}
-          increment={increment} 
-        />
-        <Forms
-          infos={secondData.forms.infos}
-          inputs={secondData.forms.inputs}
-          selections={secondData.forms.selections}
-          index={getIndex(forms, pageActive)}
-          displayActive={pageActive}
-          getIsDisplay={e => forms.includes(e)}
-          isMobile={isMobile}
-          decrement={decrement}
-          increment={increment}
-        />
-        <NavBlock
-          data={secondData.nav}
-          sectionMap={sectionMap}
-          pageActive={pageActive}
-          pageFirstEntry={pageFirstEntry}
-          emojiAriaLabels={secondData.emojiAriaLabels}
-          index={navs.findIndex(e => e === pageActive)}
-          setPageActive={(s) => setPageActive(s)}
-          setRating={setRating}
-        />
-      </Block>
+      <isMobileContext.Provider value={isMobile}>
+        <Block type='div' blockRef={firstRef} name="section first-page">
+          <Atlas/>
+          <Discover active={active}/>
+          <Projects/>
+          <About/>
+          <World setPage={incrementPage}/>
+          <Footer/>
+          <NavButton index={firstData.index} isMobile={isMobile}/>
+        </Block>
+        <Block type='div' blockRef={secondRef} name="section second-page">
+          <Atlas2
+            blockRef={atlas2Ref}
+            decrement={decrementPage} 
+            increment={() => increment(introRef, 1000)}
+          />
+          <Intro
+            index={index}
+            blockRef={introRef}
+            decrement={() => decrement(...refMap[index])}
+            increment={() => increment(...refMap[index + 1])}
+          />
+          <Tutorial
+            blockRef={tutorialRef}
+            decrement={() => decrement(introRef, 1000)}
+            increment={() => increment(introRef, 1000)} 
+          />
+          <Forms
+            blockRef={formsRef}
+            decrement={() => decrement(introRef, 1000)}
+            increment={() => increment(introRef, 1000)}
+          />
+          <NavBlock
+            blockRef={navRef}
+            pageMap={pageMap}
+            active={active}
+            lastPageDiscovered={lastPageDiscovered}
+            setPageActive={(s) => {
+              setActive(s)
+              setEnter(...refMap[getIndex(intros, s) + 1])
+            }}
+          />
+        </Block>
+      </isMobileContext.Provider>
     </main>
   ) 
 }
 
 export default App
+export {isMobileContext}

@@ -1,9 +1,12 @@
-import { BufferGeometry, Vector3 } from "three"
-import { ExpandedType } from "../components/blocks/Blocks.types"
-
 type ObsEntry = IntersectionObserverEntry
 
 type HTMLRef = React.MutableRefObject<HTMLElement>
+type DivRef = React.MutableRefObject<HTMLDivElement>
+
+const bodyStyle = [
+  'overflow: auto; height: auto;',
+  'overflow: hidden; height: 100%;' 
+]
 
 type TransitionType = {
   isTransition: boolean,
@@ -23,45 +26,11 @@ const trans: TransitionType = {
   index: 0,
 }
 
-type GeometryType = {
-  ref: React.MutableRefObject<BufferGeometry>,
-  points: Vector3[],
-  scale: number,
-  rotation: number
-}
-
 type RotationType = {
   ref: React.MutableRefObject<THREE.LineSegments>,
   isVisible: boolean,
+  isMobile: boolean,
   sensibility: number
-}
-
-type AnimationType = {
-  isExpanded: ExpandedType,
-  exitTimeoutTime: number, 
-  onEnter: () => void,
-  onEnterTimeout: () => void,
-  onExit: () => void,
-  onExitTimeout: () => void
-}
-
-type EnterType = {
-  ref: HTMLRef, 
-  delayFirst: number,
-  delaySecond: number,
-  displayActive: number,
-  time: NodeJS.Timeout | undefined,
-  getIsDisplay: (s: number) => boolean
-  setTime: (s: NodeJS.Timeout) => void,
-  doNext?: () => void
-}
-
-type ExitType = {
-  ref: HTMLRef, 
-  isLast: boolean,
-  delayFirst: number,
-  delaySecond: number,
-  doNext: () => void, 
 }
 
 type RatingType = {
@@ -73,16 +42,39 @@ type UserType = {
   rating: RatingType[] | null
 }
 
-export {trans}
+type StyleType = {
+  pad: string[], 
+  endPad: string[], 
+  padAux: number[], 
+  radius: string[],
+}
+
+type KeyframeType = {
+  parent: HTMLElement | null,
+  keyAmount: number,
+  pad: string[],
+  endPad: string[],
+  padAux: number[],
+  radius: string[],
+  block: HTMLElement
+  isEnter: boolean
+}
+
+type OptionListType = {
+  text: string,
+  name: string
+}[]
+
+export {trans, bodyStyle}
 export type {
   ObsEntry,
   HTMLRef,
+  DivRef,
   TransitionType,
-  GeometryType, 
-  EnterType,
-  ExitType,
   RotationType,
   RatingType,
   UserType,
-  AnimationType
+  KeyframeType,
+  StyleType,
+  OptionListType,
 }

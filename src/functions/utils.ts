@@ -1,20 +1,6 @@
-import { useEffect } from "react"
 import { Err, Ok, Result } from "ts-results"
-import { BlockErrorType, ExpandedType, StyleType, ThemeType } from "../components/blocks/Blocks.types"
-import { AnimationType, EnterType, ExitType, HTMLRef } from "./function.types"
-
-function toggleScrollOnExpanded(isExpanded: ExpandedType) {
-  if(isExpanded !== 'unset')
-    document.body.setAttribute("style",'overflow: hidden; height: 100%;')
-  else
-    document.body.setAttribute("style", 'overflow: auto; height: auto;')
-}
-
-function addPos (ref: HTMLRef, style: string) {
-  const block = ref.current.getElementsByClassName('block-wrapper')[0]
-  
-  if(block) block.setAttribute('style', style)
-}
+import { BlockErrorType, ThemeType } from "../components/blocks/Blocks.types"
+import { DivRef, HTMLRef, KeyframeType, OptionListType } from "./function.types"
 
 function remove(classList: DOMTokenList, mod: string) {
   classList.remove(classList[0] + mod)
@@ -25,122 +11,84 @@ function add(classList: DOMTokenList, mod: string) {
 }
 
 function setLocation(path: string) {
-  window.history.pushState(path, path, path);
+  window.history.pushState(path, path, path)
 }
 
-function setAnimation(prop: AnimationType) {
-  const {
-    isExpanded, exitTimeoutTime, 
-    onEnter, onEnterTimeout, onExit, onExitTimeout
-  } = prop
-  
-  if(isExpanded === "expand-enter"){
-    onEnter()
-
-    setTimeout(onEnterTimeout, 5)
-  }
-  else if(isExpanded === "expand-out"){
-    onExit()
-
-    setTimeout(onExitTimeout, exitTimeoutTime)
-  }
+function getInitialPage() {
+  return window.location.pathname === '/1/' ? 1 : 0
 }
 
-function setOnEnter(prop: EnterType): Result<"Successfull", BlockErrorType>{
-  const {
-    ref, delayFirst, delaySecond, time, displayActive,
-    setTime, getIsDisplay, doNext
-  } = prop
-
-  if(!ref.current) return Err("BLOCK_DOESNT_EXIST")
-
-  const classList = ref.current.classList
-
-  const isTrans = classList.contains(classList[0] + "--trans-enter")
-
-  if(getIsDisplay(displayActive)){
-    if(time) clearTimeout(time)
-    
-    setTime(setTimeout(() => 
-      add(classList, "--enter"), 5
-    ))
-    
-    setTime(setTimeout(() => 
-      add(classList, "--show"), delayFirst
-    ))
-
-    if(doNext) doNext()
-  }
-  
-  if(isTrans){
-    setTime(setTimeout(() => 
-      add(classList, "--trans-exit"), 5
-    ))
-
-    setTime(setTimeout(() => {
-      remove(classList, "--trans-exit")
-      remove(classList, "--trans-enter")
-    }, delaySecond)) 
-
-    if(doNext) doNext()
-  }
-
-  return Ok("Successfull")
-}
-
-function setOnExit(prop: ExitType): Result<"Successfull", BlockErrorType>{
-  const {ref, delayFirst, delaySecond, isLast, doNext} = prop
-
-  if(!ref.current) return Err("BLOCK_DOESNT_EXIST")
-
-  const classList = ref.current.classList
-
-  if(!isLast){  
-    remove(classList, "--show")  
-    remove(classList, "--enter")
-
-    setTimeout(doNext, delayFirst)
-  }
-  else{
-    add(classList, "--trans-enter")
-    
-    setTimeout(doNext, delaySecond)
-  }
-
-  return Ok("Successfull")
-} 
-
-function setDisplay(ref: HTMLRef, statement: boolean): boolean | void {
+function setEnter(ref: DivRef, delay: number) {
   const block = ref.current
-  
-  if(!block) return false
 
-  if(statement)
-    block.classList.remove(block.classList[0] + "--none")
-  else
-    block.classList.add(block.classList[0] + "--none")
+  remove(block.classList, "--none")
+
+  setTimeout(() => add(block.classList, "--enter"), 5)
+
+  setTimeout(() => add(block.classList, "--show"), delay)
 }
 
-function getStyle(style: StyleType | undefined): string {
-  if(typeof style === 'undefined') return ''
-  if(typeof style.parentTop === 'undefined') return ''
+function setExit(blockRef: DivRef, func: () => void, delay: number) {
+  const block = blockRef.current
 
-  const isOffsetWidth = typeof style.offsetWidth === 'undefined'
-  const isOffsetHeight = typeof style.offsetHeight === 'undefined'
+  remove(block.classList, "--show")
+  remove(block.classList, "--enter")
 
-  if(!style.isAbout && !isOffsetHeight && !isOffsetWidth)
-    return `
-      top: ${style.offsetTop - style.scrollY + style.parentTop}px;
-      left: ${style.offsetLeft}px;
-      width: ${style.offsetWidth}px;
-      height: ${style.offsetHeight}px;
-    ` 
-  else
-    return `
-      top: ${style.offsetTop - style.scrollY + style.parentTop}px;
-      left: ${style.offsetLeft}px; 
-    `
-} 
+  setTimeout(() => {
+    add(block.classList, "--none")
+    func()
+  }, delay)
+}
+
+function setTransEnter(blockRef: DivRef, func: () => void, delay: number) {
+  const block = blockRef.current
+
+  add(block.classList, "--trans-enter")
+  
+  setTimeout(func, delay)
+}
+
+function setTransExit(blockRef: DivRef, delay: number) {
+  const block = blockRef.current
+
+  const name = block.classList[0] + "--trans-enter"
+  const isTrans = block.classList.contains(name)
+
+  if(isTrans) {
+    setTimeout(() => add(block.classList, "--trans-exit"), 5)
+
+    setTimeout(() => {
+      remove(block.classList, "--trans-exit")
+      remove(block.classList, "--trans-enter")
+    }, delay)
+  }
+}
+
+function setSelectText(
+  ref: HTMLRef | undefined, optionList: OptionListType, id: number
+): Result<"Successfull", BlockErrorType> {
+  const blockLabel = ref?.current
+
+  if(!blockLabel) return Err("BLOCK_DOESNT_EXIST")
+  
+  const select = blockLabel.getElementsByTagName('select')[0]
+
+  if(!select) return Err("BLOCK_DOESNT_EXIST")
+
+  select.selectedIndex = id + 1
+
+  const blockSelected = blockLabel.getElementsByClassName('block-selected')[0]
+
+  if(!blockSelected) return Err("BLOCK_DOESNT_EXIST")
+
+  const textSelected = blockSelected.children.item(0)
+
+  if(!textSelected) return Err("BLOCK_DOESNT_EXIST")
+  
+  textSelected.innerHTML = optionList[id].text
+
+  return Ok("Successfull")
+}
 
 function getShowClass(query: string): string {
   const queryArray = query.split(" ")
@@ -163,28 +111,69 @@ function getTheme(theme: string): ThemeType {
     return "block-white"
 }
 
-function useSetDisplay(ref: HTMLRef, statement: boolean) {
-  useEffect(() => {setDisplay(ref, statement)},[statement])
-}
+function getKeyframe(prop: KeyframeType): Keyframe[] {
+  const {
+    isEnter, block, parent, pad, 
+    endPad, padAux, radius, keyAmount
+  } = prop
 
-function useSetOnEnter(prop: EnterType){
-  useEffect(() => {setOnEnter(prop)},[prop.displayActive])
+  const innerWidth = window.innerWidth
+  const innerHeight = window.innerHeight
+
+  const parentTop = parent ? parent.offsetTop : 0
+  
+  const scroll = window.scrollY
+  const topNum = block.offsetTop - scroll + parentTop
+
+  const top = `${topNum}px`
+  const left = `${block.offsetLeft}px`
+  const bottom = `${topNum + block.offsetHeight - padAux[0]}px`
+  const right = `${block.offsetLeft + block.offsetWidth - padAux[1]}px`
+  const width = `${block.offsetWidth - padAux[1]}px`
+  const height = `${block.offsetHeight - padAux[0]}px`
+
+  const endWidth = `${innerWidth - padAux[3]}px`
+  const endHeight = `${innerHeight - padAux[2]}px`
+
+  const keys: Keyframe[] = [
+    {
+      top, left, bottom, right, width, height, 
+      paddingTop: pad[0], paddingLeft: pad[1], 
+      paddingBottom: pad[2], paddingRight: pad[3],
+      borderRadius: radius[0]
+    },
+    {
+      top, left, bottom, right, width, height,
+      paddingTop: pad[0], paddingLeft: pad[1], 
+      paddingBottom: pad[2], paddingRight: pad[3],
+      borderRadius: radius[1]
+    },
+    {
+      top: `0px`, left: `0px`, bottom: `0px`, right: `0px`,
+      borderRadius: radius[1], width: endWidth, height: endHeight,
+      paddingTop: endPad[0], paddingLeft: endPad[1], 
+      paddingBottom: endPad[2], paddingRight: endPad[3],
+    }
+  ] 
+
+  if(keyAmount === 3)
+    return isEnter ? keys : [keys[2], keys[1], keys[0]]
+  else
+    return isEnter ? [keys[0], keys[2]] : [keys[2], keys[0]] 
 }
 
 export{
-  toggleScrollOnExpanded,
   remove,
   add,
-  addPos,
   setLocation,
-  setAnimation,
-  setOnEnter,
-  setOnExit,
-  getStyle,
   getTheme,
   getIndex,
   getShowClass,
-  setDisplay,
-  useSetDisplay,
-  useSetOnEnter
+  getKeyframe,
+  setEnter,
+  setExit,
+  setTransEnter,
+  setTransExit,
+  setSelectText,
+  getInitialPage
 }

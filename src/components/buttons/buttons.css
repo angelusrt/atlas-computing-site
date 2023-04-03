@@ -2,8 +2,7 @@ button, a {
   position: relative;
   display: inline-block;
   z-index: 4;
-  background-color: var(--white);
-  border: 2px solid var(--white);
+  border: 2px solid;
   border-radius: 10px;
   text-decoration: none;
   padding: 10px;
@@ -27,6 +26,7 @@ button .block-dropdown, a .block-dropdown {
 }
 
 .button-white {
+  background-color: var(--white);
   color: var(--black);
 }
 
@@ -42,7 +42,7 @@ button .block-dropdown, a .block-dropdown {
 }
 
 .button-index {
-  z-index: 5;
+  z-index: 4;
   display: block;
   position: fixed;
   bottom: 0;
@@ -71,6 +71,11 @@ button .block-dropdown, a .block-dropdown {
   color: var(--black);
   border-color: var(--black);
   transition: all 0.5s;
+}
+
+.button-transparent {
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .button-index,

@@ -1,8 +1,8 @@
 {
   "nav": [
     {"text": "Atention", "href": "#atention", "page": 2, "theme": "block-white"},
-    {"text": "Creation", "href": "#creation", "page": 6, "theme": "block-black"},
-    {"text": "Comparison", "href": "#comparison", "page": 9, "theme": "block-white"},
+    {"text": "Creation", "href": "#creation", "page": 4, "theme": "block-black"},
+    {"text": "Comparison", "href": "#comparison", "page": 6, "theme": "block-white"},
     {"text": "Estruturação", "href": "#structuring", "page": 12, "theme": "block-black"}
   ],
   "emojiAriaLabels": ["Feliz", "Coração", "Ódio", "Indiferente"],

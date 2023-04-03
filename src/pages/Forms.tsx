@@ -1,251 +1,236 @@
-import { useEffect, useRef, useState } from "react"
-import { Block, InfoBlock, InputBlock, SelectBlock, SelectExpandedBlock } from "../components/blocks/Blocks"
-import { BlockErrorType, ExpandedType, StyleType } from "../components/blocks/Blocks.types"
-import { add, addPos, getStyle, remove, setAnimation, setOnExit, toggleScrollOnExpanded, useSetDisplay, useSetOnEnter } from "../functions/utils"
-import { ExitType } from "../functions/function.types"
-import { Err, Ok, Result} from "ts-results"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
+
+import { Text } from "../components/texts/Texts"
+import { Block, DropdownBlock } from "../components/blocks/Blocks"
+import { Button } from "../components/buttons/Buttons"
+import { Icon } from "../components/icons/Icons"
+
+import { add, remove, setExit, setSelectText, setTransEnter, setTransExit } from "../functions/utils"
+import { bodyStyle, DivRef, HTMLRef, OptionListType } from "../functions/function.types"
+import data from "../secondPage.json"
 
 type FormsType = {
-  inputs: {
-    text: string,
-    name: string,
-    type: string,
-  }[],
-  selections: {
-    text: string, 
-    name: string,
-    optionList: {
-      text: string,
-      name: string
-    }[]  
-  }[],
-  infos: {
-    title: string,
-    subtitle: string,
-    body: string
-  }[],
-  isMobile: boolean,
-  index: number,
-  displayActive: number,
-  getIsDisplay: (e: number) => boolean, 
+  blockRef: DivRef,
   decrement: () => void,
   increment: () => void,
 }
 
+type InputType = {
+  text: string,
+  name: string,
+  type: React.HTMLInputTypeAttribute,
+}
+
+type SelectType = {
+  item: {
+    text: string,
+    name: string,
+    optionList: OptionListType
+  },
+  setRef: (s: React.MutableRefObject<HTMLElement>) => void
+  setItem: () => void,
+}
+
+const form = data.forms
+const name = "block-forms section block-black block-forms--none"
+const expandedName = "block-form-expanded block-select"
+
+const refContext = createContext<HTMLRef>(null!)
+
 const Forms = (prop: FormsType) => {
-  const {
-    isMobile, infos, inputs, selections, displayActive, index,
-    getIsDisplay, increment, decrement
-  } = prop
-
-  const [time , setTime] = useState<NodeJS.Timeout>()
-  const [labelActive, setLabelActive] = useState(-1)
-  const [isExpanded, setIsExpanded] = useState<ExpandedType>('unset')
-  const [style, setStyle] = useState<StyleType>()
-
-  const ref = useRef<HTMLDivElement>(null!)
-  const formRef = useRef<HTMLElement>(null!)
-  const firstFormRef = useRef<HTMLElement>(null!)
-  const secondFormRef = useRef<HTMLElement>(null!)
-  const selectedExpandedRef = useRef<HTMLElement>(null!)
-
-  const firstOnExitOptions: ExitType = {
-    ref: formRef, 
-    delayFirst: 700, 
-    delaySecond: 450, 
-    isLast: getIsDisplay(displayActive + 1), 
-    doNext: () => {
-      increment()
-      setIsExpanded('expand-out')
-    }
-  }
-  const secondOnExitOptions: ExitType = {
-    ref: formRef, 
-    delayFirst: 700, 
-    delaySecond: 450, 
-    isLast: getIsDisplay(displayActive - 1), 
-    doNext: () => {
-      decrement()
-      setIsExpanded('expand-out')
-    }
-  }
-
-  const selectActive = labelActive > 0 ? labelActive - 1 : 0
+  const {blockRef, increment, decrement} = prop
   
-  function setActive(active: number) {
-    setLabelActive(active)
-    setIsExpanded('expand-enter')
+  const [index, setIndex] = useState(0)
+  const [item, setItem] = useState(-1)
+  const [ref, setRef] = useState<HTMLRef>()
+
+  const parentRef = useRef<HTMLElement>(null!)
+  const expandedRef = useRef<HTMLElement>(null!)
+  const wrapperRef = useRef<HTMLDivElement>(null!)
+
+  const formActive = form.selections[item > 0 ? item - 1 : 0]
+
+  function goBack() {
+    index === 0 ? 
+    setExit(blockRef, decrement, 700) : 
+    setTransEnter(blockRef, () => setIndex(0), 450)
+  } 
+  function gorFoward() {
+    index === 1 ? 
+    setExit(blockRef, increment, 700) : 
+    setTransEnter(blockRef, () => setIndex(1), 450)
   }
-  function setNotActive() {
-    setIsExpanded('expand-out')
-  }
 
-  function setSelectText(id: number): Result<"Successfull", BlockErrorType> {
-    let form: HTMLElement
-    let index: number
+  function expandOut(func: () => void) {
+    const block = ref?.current 
 
-    if(labelActive < 3){
-      form = firstFormRef.current
-      index = labelActive
-    }
-    else{
-      form = secondFormRef.current
-      index = labelActive - 3
-    }
+    if(!block) return undefined
 
-    if(!form) return Err("BLOCK_DOESNT_EXIST")
+    const expanded = expandedRef.current
 
-    const blockLabel = form.children.item(index)
+    remove(expanded.classList, "--show")
 
-    if(!blockLabel) return Err("BLOCK_DOESNT_EXIST")
-    
-    const select = blockLabel.getElementsByTagName('select')[0]
+    setTimeout(() => {
+      remove(expanded.classList, "--enter")
 
-    if(!select) return Err("BLOCK_DOESNT_EXIST")
+      document.body.setAttribute("style", bodyStyle[0])
 
-    select.selectedIndex = id + 1
+      add(expanded.classList, "--none")
 
-    const blockSelected = blockLabel.getElementsByClassName('block-selected')[0]
-
-    if(!blockSelected) return Err("BLOCK_DOESNT_EXIST")
-
-    const textSelected = blockSelected.children.item(0)
-
-    if(!textSelected) return Err("BLOCK_DOESNT_EXIST")
-    
-    textSelected.innerHTML = selections[selectActive].optionList[id].text
-
-    return Ok("Successfull")
+      func()
+    }, 485)
   }
 
   useEffect(() => {
-    const classList = selectedExpandedRef.current.classList
+    setTransExit(blockRef, 450)
 
-    setAnimation({
-      onEnter: () => {
-        addPos(selectedExpandedRef, getStyle(style))
-        add(classList, "--enter")  
-      },
-      onEnterTimeout: () => {
-        add(classList, "--show")
-      },
-      onExit: () => {
-        remove(classList, "--show")  
-      },
-      onExitTimeout: () => {
-        remove(classList, "--enter")
-        setIsExpanded('unset')
-        setLabelActive(-1)
-      },
-      exitTimeoutTime: 800,
-      isExpanded
-    })
+    const parent = parentRef.current
 
-    toggleScrollOnExpanded(isExpanded)
-  },[isExpanded])
-
-  useSetDisplay(ref, getIsDisplay(displayActive))
-  useSetDisplay(firstFormRef, index === 0)
-  useSetDisplay(secondFormRef, index === 1)
-  
-  useSetOnEnter({
-    delayFirst: 1200,
-    delaySecond: 450,
-    displayActive,
-    ref: formRef,
-    time,
-    setTime,
-    getIsDisplay
-  })
+    if(index === 0)
+      remove(parent.classList, "--next")
+    else 
+      add(parent.classList, "--next")
+  }, [index])
 
   return (
-    <section 
-      ref={ref} 
-      className="section forms block-black"
-      id="forms" 
-    >
-      <InfoBlock
-        body={infos[index].body}
-        subtitle={infos[index].subtitle}
-        title={infos[index].title}
-        displayActive={displayActive}
-        getIsDisplay={getIsDisplay}
-        increment={() => setOnExit(firstOnExitOptions)}
-        decrement={() => setOnExit(secondOnExitOptions)}
-      />
-      <Block 
-        type="form" 
-        blockRef={formRef} 
-        name="block-form"
-      >
-        <Block 
-          type="div"
-          blockRef={firstFormRef} 
-          name="block-wrapper-form block-black"
-        >
+    <section ref={blockRef} className={name} id="forms">
+      <Block type="div" name="block-info">
+        <Block type="div" name="block-wrapper-button">
+          <Button
+            type="h2"
+            name="button-transparent"
+            ariaLabel="Voltar"
+            textName="text-bold-small"
+            func={{onClick: goBack}}
+            children={<Icon name="Arrow"/>}
+          />
+          <Button
+            type="h2"
+            name="button-transparent"
+            ariaLabel="Continuar"
+            textName="text-bold-small"
+            func={{onClick: gorFoward}}
+            children={<Icon name="Arrow"/>}
+          />
+        </Block>
+        <Text type="h2" name="text-thin-small">
+          {form.infos[index].subtitle}
+        </Text>
+        <Text type="h1" name="text-big">
+          {form.infos[index].title}
+        </Text>
+        <Text type="h2" name="text-thin">
+          {form.infos[index].body}
+        </Text>
+      </Block>
+      <Block type="form" blockRef={parentRef} name="block-form">
+        <refContext.Provider value={expandedRef}>
           <InputBlock
-            name={inputs[0].name}
-            text={inputs[0].text}
-            type={inputs[0].type}
+            name={form.inputs[0].name}
+            text={form.inputs[0].text}
+            type={form.inputs[0].type}
           />
           <SelectBlock
-            name={selections[0].name}
-            optionList={selections[0].optionList}
-            text={selections[0].text}
-            setIsActive={() => setActive(1)}
-            setStyle={s => setStyle(s)}
-            isMobile={isMobile}
+            item={form.selections[0]}
+            setItem={() => setItem(1)}
+            setRef={(s) => setRef(s)}
           />
           <SelectBlock
-            name={selections[1].name}
-            optionList={selections[1].optionList}
-            text={selections[1].text}
-            setIsActive={() => setActive(2)}
-            setStyle={s => setStyle(s)}
-            isMobile={isMobile}
-          />
-        </Block>
-        <Block 
-          type="div"
-          blockRef={secondFormRef}
-          name="block-wrapper-form block-black"
-        >
-          <SelectBlock
-            name={selections[2].name}
-            optionList={selections[2].optionList}
-            text={selections[2].text}
-            setIsActive={() => setActive(3)}
-            setStyle={s => setStyle(s)}
-            isMobile={isMobile}
+            item={form.selections[1]}
+            setItem={() => setItem(2)}
+            setRef={(s) => setRef(s)}
           />
           <SelectBlock
-            name={selections[3].name}
-            optionList={selections[3].optionList}
-            text={selections[3].text}
-            setIsActive={() => setActive(4)}
-            setStyle={s => setStyle(s)}
-            isMobile={isMobile}
+            item={form.selections[2]}
+            setItem={() => setItem(3)}
+            setRef={(s) => setRef(s)}
           />
           <SelectBlock
-            name={selections[4].name}
-            optionList={selections[4].optionList}
-            text={selections[4].text}
-            setIsActive={() => setActive(5)}
-            setStyle={s => setStyle(s)}
-            isMobile={isMobile}
+            item={form.selections[3]}
+            setItem={() => setItem(4)}
+            setRef={(s) => setRef(s)}
           />
-        </Block>
-        <SelectExpandedBlock
-          blockRef={selectedExpandedRef}
-          text={selections[selectActive].text}
-          optionList={selections[selectActive].optionList}
-          isDisplay={labelActive !== -1}
-          setSelectText={(id) => setSelectText(id)}
-          setIsActive={() => setNotActive()}
-        />
+          <SelectBlock
+            item={form.selections[4]}
+            setItem={() => setItem(5)}
+            setRef={(s) => setRef(s)}
+          />
+        </refContext.Provider>
+        <Block type="div" blockRef={expandedRef} name={expandedName}>
+          <Block blockRef={wrapperRef} type="div" name="block-wrapper">
+            <Text type="h2" name="text-thin-small">
+              {formActive.text}
+            </Text>
+            <DropdownBlock toggle={item !== -1}>
+              {formActive.optionList.map((e, i) => (
+                <Button
+                  key={i}   
+                  ariaLabel={e.name}
+                  name="button-transparent"
+                  type="h2"
+                  text={e.text}
+                  textName="text-normal-small"
+                  func={{onClick: () => expandOut(
+                    () => setSelectText(ref, formActive.optionList, i)
+                  )}}
+                />
+              ))}
+            </DropdownBlock>
+          </Block>
+        </Block> 
       </Block>
     </section>
   ) 
+}
+
+const InputBlock = (prop: InputType) => (
+  <Block type="div" name="block-label block-input">
+    <label htmlFor={prop.name}>
+      <Text type="h2" name="text-thin-small" children={prop.text}/>
+    </label>
+    <input type={prop.type} id={prop.name} name={prop.name}/>
+  </Block>
+)
+
+const SelectBlock = (prop: SelectType) => {
+  const {item, setItem, setRef} = prop
+
+  const expandedRef = useContext(refContext)
+
+  const ref = useRef<HTMLElement>(null!)
+
+  function expandIn(e: MouseEvent) {
+    setItem()
+
+    const expanded = expandedRef.current
+      
+    remove(expanded.classList, "--none")
+
+    add(expanded.classList, "--enter") 
+
+    document.body.setAttribute("style", bodyStyle[1])
+
+    setTimeout(() => add(expanded.classList, "--show"), 5)
+
+    setRef(ref)
+  }
+
+  return (
+    <Block blockRef={ref} type="div" name="block-label block-select">
+      <label htmlFor={item.name}>
+        <Text type="h2" name="text-thin-small" children={item.text}/>
+      </label>
+      <select id={item.name} name={item.name}>    
+        <option defaultValue="disabled" style={{display: "none"}}/> 
+        {item.optionList.map((e, i) => 
+          <option key={i} value={e.name} children={e.text}/>
+        )}
+      </select>
+      <Block type="div" name="block-selected" func={{onClick: expandIn}}>
+        <Text type="h2" name="text-normal-small" children=""/>
+      </Block>
+    </Block> 
+  )
 }
 
 export default Forms

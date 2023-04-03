@@ -1,4 +1,4 @@
-import { RatingType } from "../../functions/function.types"
+import { HTMLRef, RatingType } from "../../functions/function.types"
 
 type CanvasNameType = "canvas-globe" | "canvas-values"
 
@@ -19,8 +19,6 @@ const canvasIntensityDic: intensityType = {
   "canvas-globe": 8,
   "canvas-values": 6
 }
-
-type ExpandedType = 'unset' | 'expand-enter' | 'expand-show' | 'expand-out'
 
 type StyleType = {
   isAbout: boolean,
@@ -44,24 +42,6 @@ type BlockType = {
 
 type BlockErrorType = "BLOCK_DOESNT_EXIST"
 
-type ProjectType = {
-  iconName: string
-  title: string,
-  subtitle: string,
-  isMobile: boolean,
-  onFunc: () => void,
-  setStyle: (style: StyleType) => void
-}
-
-type ProjectExpandedType = {
-  iconName: string
-  title: string,
-  subtitle: string,
-  body: string,
-  onFunc: () => void,
-  blockRef: React.LegacyRef<HTMLDivElement>
-}
-
 type DropdownType = {
   children: any,
   toggle: boolean
@@ -82,70 +62,12 @@ const inverseThemeDic: ButtonThemeDicType = {
   "block-black": "button-black"
 }
 
-type IntroType = {
-  title: string,
-  subtitle: string,
-  body: string, 
-  iconName: string
-  displayActive: number, 
-  getIsDisplay: (e: number) => boolean,
-  decrement: () => void,
-  increment: () => void
-}
-
-type InfoType = {
-  title: string,
-  subtitle: string,
-  body: string,
-  displayActive: number,
-  getIsDisplay: (e: number) => boolean,
-  decrement: () => void,
-  increment: () => void
-}
-
 type NavType = {
-  index: number,
-  pageActive: number,
-  pageFirstEntry: number,
-  sectionMap: Record<number, number>,
-  emojiAriaLabels: string[],
-  data: {
-    text: string,
-    href: string,
-    page: number,
-    theme: string
-  }[],
+  blockRef: HTMLRef,
+  lastPageDiscovered: number,
+  active: number,
+  pageMap: Record<number, number>,
   setPageActive: (s: number) => void
-  setRating: (s : RatingType) => void
-}
-
-type InputType = {
-  text: string,
-  name: string,
-  type: React.HTMLInputTypeAttribute,
-}
-
-type OptionListType = {
-  text: string,
-  name: string
-}[]
-
-type SelectType = {
-  text: string,
-  name: string,
-  isMobile: boolean,
-  optionList: OptionListType,
-  setStyle: (s: StyleType) => void,
-  setIsActive: () => void,
-}
-
-type SelectExpandedType = {
-  text: string,
-  isDisplay: boolean,
-  blockRef: React.MutableRefObject<HTMLElement>,
-  optionList: OptionListType,
-  setSelectText: (id: number) => void
-  setIsActive: () => void,
 }
 
 export{
@@ -160,16 +82,7 @@ export type {
   BlockType, 
   BlockErrorType,
   StyleType,
-  ProjectType, 
-  ProjectExpandedType,
   DropdownType,
-  ExpandedType,
-  IntroType,
-  InfoType,
   ThemeType,
   NavType,
-  InputType,
-  OptionListType,
-  SelectType,
-  SelectExpandedType
 }

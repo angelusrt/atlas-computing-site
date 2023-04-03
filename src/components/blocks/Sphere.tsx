@@ -1,137 +1,105 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 
 import { useFrame } from '@react-three/fiber'
-import { BufferGeometry } from 'three'
+import { BufferGeometry, Color } from 'three'
 
-import {
-  getCirclePoints, useRotateOnMouse, useSetGeometry
-} from '../../functions/geometry'
+import {getCirclePoints} from '../../functions/geometry'
 import { useAnimateOnView } from '../../functions/transition'
-import { trans } from "../../functions/function.types"
 
 const width = 100
 const height = 100
 const radius = 1
+const stepAmount = 8
+//const dashedLineSensibility = 1500
+const color: Color = new Color("#000000")
 
-const lineScale = 2.9
-
-const dashedLineScale = 2.51
-const dashedLineSensibility = 1500
-
-const sphereLineQuantity = 8
-const sphereLineStep = Math.PI/sphereLineQuantity
+const step = Math.PI/stepAmount
+const steps: number[] = [
+  0, step, 2*step, 3*step, 4*step, 5*step, 6*step, 7*step
+]
 
 const sphereScale = 2.5
 
 type SphereType = {
   isMobile: boolean,
   isVisible: boolean,
-  setIsVisible: (state: boolean) => void
 }
 
 const Line = () => {
   const ref = useRef<BufferGeometry>(null!)
 
-  const points = getCirclePoints(width, radius)
+  useEffect(() => {
+    const points = getCirclePoints(width, radius)
 
-  useSetGeometry({
-    ref, 
-    points, 
-    scale: lineScale, 
-    rotation: 0
-  })
-
+    const geometry = ref.current
+  
+    geometry.computeBoundingSphere()
+    geometry.setFromPoints(points) 
+    geometry.scale(2.9, 2.9, 2.9) 
+    geometry.rotateY(0)
+  }, [])
+  
   return(
     <line>
       <bufferGeometry ref={ref}/>
-      <lineBasicMaterial
-        color="#000000"
-        linewidth={3}
-      />
+      <lineBasicMaterial color={color} linewidth={3}/>
     </line>
   )
 }
 
-const DashedLine = (prop: {rotation: number, isVisible: boolean}) => {
-  const {rotation, isVisible} = prop
+const DashedLine = (
+  prop: {rotation: number, isVisible: boolean}
+) => {
+  const {rotation} = prop
   
   const lineRef = useRef<THREE.LineSegments>(null!)
   const geometryRef = useRef<BufferGeometry>(null!)
+
+  useEffect(() => {
+    const points = getCirclePoints(width, radius)
+
+    const geometry = geometryRef.current
   
-  useSetGeometry({
-    points: getCirclePoints(width, radius), 
-    rotation,
-    ref: geometryRef, 
-    scale: dashedLineScale, 
-  })
-  useRotateOnMouse({
-    isVisible,
-    ref: lineRef, 
-    sensibility: dashedLineSensibility, 
-  })
-  useFrame(
-    () => lineRef.current.rotation.y += 0.002, 
-    isVisible ? 0 : 1
-  )
+    geometry.computeBoundingSphere()
+    geometry.setFromPoints(points) 
+    geometry.scale(2.51, 2.51, 2.51) 
+    geometry.rotateY(rotation)
+  }, [])
+
+  useFrame(() => lineRef.current.rotation.y += 0.002, 0)
 
   return(
     <lineSegments ref={lineRef}>
       <bufferGeometry ref={geometryRef}/>
       <lineDashedMaterial
-        color="#000000"
-        linewidth={3}
-        dashSize={3}
-        gapSize={3}
-        scale={2}
+        color={color} linewidth={3} dashSize={3} gapSize={3} scale={2}
       />
     </lineSegments>
   )
 }
 
-const SphereLine = (prop: {isVisible: boolean}) => {
-  const {isVisible} = prop
-  const steps: number[] = []
-  
-  for (let i = 0; i < sphereLineQuantity; i++)
-    steps.push(i * sphereLineStep)
-  
-  return (
-    <React.Fragment children={ steps.map( (rot, id) =>
-      <DashedLine
-        key={id}
-        rotation={rot} 
-        isVisible={isVisible}
-      />
-    )}/>
-  )
-}
-
 const Sphere = (prop: SphereType) => {
-  const {isMobile, isVisible, setIsVisible} = prop
+  const {isMobile, isVisible} = prop
 
-  const options = {...trans, start: isMobile ? 300 : 0}
-  
-  useAnimateOnView('.canvas-globe', options)
-
-  useEffect(() => {
-    function onCanvasView() {
-      const isScrollAfterGlobe = window.scrollY > 490
-
-      if(!isScrollAfterGlobe && !isVisible)
-        setIsVisible(true)
-      else if(isScrollAfterGlobe && isVisible)
-        setIsVisible(false)
+  const options = useMemo(() => {
+    return {
+      isTransition: true,
+      isDelayChild: false,
+      delayPerItem: 0,
+      timeout: 200,
+      index: 0,
+      start: isMobile ? 300 : 0
     }
-    
-    window.addEventListener("scroll", onCanvasView)
+  },[isMobile])
 
-    return () => window.removeEventListener("scroll", onCanvasView)
-  },[isVisible, setIsVisible])
+  useAnimateOnView('.canvas-globe', options)
   
   return(
     <React.Fragment>
       <Line/>
-      <SphereLine isVisible={prop.isVisible}/> 
+      {steps.map((e, i) =>
+        <DashedLine key={i} rotation={e} isVisible={isVisible}/>
+      )}
       <mesh scale={sphereScale}>
         <sphereGeometry args={[radius, width, height]}/>
         <meshStandardMaterial/>

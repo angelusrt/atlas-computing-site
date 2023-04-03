@@ -4,7 +4,7 @@ nav{
   align-items: baseline;
 
   .block-wrapper{
-    margin-left: auto;
+    margin-right: auto;
   }
 }
 footer{
@@ -163,16 +163,6 @@ form{
   .block-emoji{
     background-color: var(--black);
   }
-  .block-intro{
-    .button-transparent:first-of-type{
-      background-color: var(--white);
-      color: var(--black);
-    }
-    .button-transparent:last-of-type{
-      background-color: var(--black);
-      color: var(--white);
-    }
-  }
   .block-info--enter{
     border-color: transparent;
   }
@@ -191,6 +181,7 @@ form{
   }
   .button-transparent{
     background-color: var(--black);
+    color: var(--white);
     border-color: transparent;
 
     .icon{
@@ -228,12 +219,6 @@ form{
   .block-info--enter{
     border-color: var(--black);
   }
-  .block-intro{
-    .button-transparent:first-of-type{
-      background-color: var(--black);
-      color: var(--white);
-    }
-  }
   .button-transparent{
     background-color: var(--white);
     border-color: transparent;
@@ -265,12 +250,6 @@ form{
   border-color: var(--black);
 }
 
-.forms{
-  display: flex;
-}
-.intro{
-  z-index: 2;
-}
 .atlas2{
   opacity: 0;
   transition: opacity 0.3s 1.2s;
@@ -417,19 +396,6 @@ form{
       margin-top: 20px;
     }
   }
-
-  .intro{
-    min-height: calc(100vh - 60px);
-  }
-  .forms{
-    flex-flow: column;
-    
-    .block-info{
-      max-width: 100vw;
-      margin: 0 -20px 80px -20px;
-      border-bottom: 2px solid var(--white);
-    }
-  }
 }
 
 @media (min-width: 725px){
@@ -485,23 +451,6 @@ form{
       &:first-of-type{
         margin-right: 20px;
       }
-    }
-  }
-
-  .intro{
-    min-height: calc(100vh - 80px);
-  }
-  .forms{
-    justify-content: center;
-    flex-flow: row;
-    height: calc(100vh - 80px);
-    flex-wrap: wrap;
-    overflow: auto;
-  
-    .block-info{
-      margin: auto 0;
-      max-width: calc(400px - 100px);
-      border-bottom-style: none;
     }
   }
 }

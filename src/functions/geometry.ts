@@ -1,8 +1,7 @@
-import { useEffect } from "react"
 import { Vector3 } from "three"
 import { Err, Ok, Result } from "ts-results"
 import { BlockErrorType } from "../components/blocks/Blocks.types"
-import { GeometryType, RotationType } from "./function.types"
+import { RotationType } from "./function.types"
 
 const z = 0
 const circumference = 2 * Math.PI
@@ -21,22 +20,8 @@ function getCirclePoints(subdivisions: number, radius: number): Vector3[]{
   return points
 }
 
-function setGeometry(prop: GeometryType): Result<"Successfull", BlockErrorType>{
-  const {points, ref, rotation, scale} = prop
-  const geometry = ref.current
-
-  if(!geometry) return Err("BLOCK_DOESNT_EXIST")
-
-  geometry.computeBoundingSphere()
-  geometry.setFromPoints(points) 
-  geometry.scale(scale, scale, scale) 
-  geometry.rotateY(rotation)
-
-  return Ok("Successfull")
-}
-
 function rotateOnMouse(prop: RotationType){
-  const {isVisible, ref, sensibility} = prop
+  const {isVisible, isMobile, ref, sensibility} = prop
 
   const onMouse = (e: MouseEvent): Result<"Successfull", BlockErrorType> => {
     const line = ref.current 
@@ -48,25 +33,10 @@ function rotateOnMouse(prop: RotationType){
     return Ok("Successfull")
   }
 
-  if(isVisible)
+  if(isVisible && !isMobile)
     window.addEventListener('mousemove', onMouse)
-  else  
+  else if(!isVisible && !isMobile)
     window.removeEventListener('mousemove', onMouse)
 }
 
-function useSetGeometry(prop: GeometryType){
-  useEffect(() => {setGeometry(prop)},[])
-}
-
-function useRotateOnMouse(prop: RotationType){
-  useEffect(() => 
-    rotateOnMouse(prop),[prop.sensibility, prop.isVisible, prop]
-  )
-}
-
-export{
-  getCirclePoints,
-  setGeometry,
-  useSetGeometry,
-  useRotateOnMouse
-}
+export{getCirclePoints, rotateOnMouse}

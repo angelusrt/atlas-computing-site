@@ -32,9 +32,11 @@ function delayItem(el: Element, trans: TransitionType) {
 }
 
 function delayChildren(el: ObsEntry, trans: TransitionType) {
-  Array(...el.target.children).forEach((item, index) => 
-    delayItem(item, {...trans, index})
-  ) 
+  for(let i = 0; i < el.target.children.length; i++){
+    const item = el.target.children.item(i)
+
+    if(item) delayItem(item, {...trans, index: i})
+  }
 }
 function delay(el: ObsEntry, trans: TransitionType){
   if(trans.isDelayChild)
@@ -59,7 +61,8 @@ function observe (el: Element, className: string, trans: TransitionType) {
   }
   
   function setForEach(entries: IntersectionObserverEntry[]) {
-    entries.forEach(setTransition)
+    for(let i = 0; i < entries.length; i++) 
+      setTransition(entries[i])
   }
 
   const observer = new IntersectionObserver(setForEach)
@@ -71,11 +74,15 @@ function useAnimateOnView(query: string, trans: TransitionType){
   function effectAnimate(){  
     const itemsToAnimate = document.querySelectorAll(query)
     
-    function animate(el: Element, index: number) {
-      observe(el, getShowClass(query), {...trans, index})
-    }
+    // function animate(el: Element, index: number) {
+    //   observe(el, getShowClass(query), {...trans, index})
+    // }
 
-    itemsToAnimate.forEach(animate)
+    // for(let i = 0; i < itemsToAnimate.length; i++)
+    //   animate(itemsToAnimate[i], i)
+
+    for(let i = 0; i < itemsToAnimate.length; i++)
+      itemsToAnimate[i].classList.add(getShowClass(query))
   }
   
   //eslint-disable-next-line

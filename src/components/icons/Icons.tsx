@@ -3,8 +3,9 @@ import { trans } from "../../functions/function.types"
 import { IconType, SVGIconType } from "./Icons.types"
 import "./Icons.css"
 
-const Arrow = () => (
+const Arrow = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}
     viewBox="0 0 24 24"
     className="icon svg-arrow"
   >
@@ -16,8 +17,9 @@ const Arrow = () => (
     />
   </svg>
 )
-const Dropdown = () => (
+const Dropdown = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}
     viewBox="0 0 24 24"
     className="icon"
   >
@@ -29,8 +31,9 @@ const Dropdown = () => (
     />
   </svg>
 )
-const Menu = () => (
+const Menu = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}
     className="icon svg-menu" 
     viewBox="0 30 448 440"
   >
@@ -47,7 +50,7 @@ const Menu = () => (
 
 const Recife = (prop: SVGIconType) => (
   <svg
-    ref={prop.elRef}
+    ref={prop.blockRef}
     className="image svg-recife"
     viewBox="0 0 1374 1376"
     style={{
@@ -73,8 +76,9 @@ const Recife = (prop: SVGIconType) => (
   </svg>
 )
 
-const ReadingFlow = () => (
+const ReadingFlow = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}
     className="icon"
     viewBox="0 0 1269 603"
     style={{
@@ -157,8 +161,9 @@ const ReadingFlow = () => (
     </g>
   </svg>
 )
-const Database = () => (
+const Database = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}
     className="icon"
     viewBox="0 0 1267 590"
     style={{
@@ -214,8 +219,9 @@ const Database = () => (
     </g>
   </svg>
 )
-const Network = () => (
+const Network = (prop: SVGIconType) => (
   <svg
+    ref={prop.blockRef}  
     className="icon"
     viewBox="0 0 1186 490"
     style={{
@@ -272,7 +278,7 @@ const Network = () => (
 
 const ColumnFirst = (prop: SVGIconType) => (
   <svg
-    ref={prop.elRef}
+    ref={prop.blockRef}
     className="svg-column-first"
     viewBox="0 0 725 2571"
     style={{
@@ -335,7 +341,7 @@ const ColumnFirst = (prop: SVGIconType) => (
 )
 const ColumnSecond = (prop: SVGIconType) => (
   <svg
-    ref={prop.elRef}
+    ref={prop.blockRef}
     className="svg-column-second"
     viewBox="0 0 544 2021"
     style={{
@@ -377,31 +383,31 @@ const ColumnSecond = (prop: SVGIconType) => (
 )
 
 const Icon = (prop: IconType) => {
-  const {name, elRef} = prop
+  const {name, blockRef} = prop
 
   useAnimateOnView('.svg-recife', trans)
   useAnimateOnView('.svg-cables', trans)
 
   switch (name) {
     case 'Recife':
-      return <Recife elRef={elRef}/>
+      return <Recife blockRef={blockRef}/>
     case 'ColumnFirst':
-      return <ColumnFirst elRef={elRef}/>
+      return <ColumnFirst blockRef={blockRef}/>
     case 'ColumnSecond':
-      return <ColumnSecond elRef={elRef}/>
+      return <ColumnSecond blockRef={blockRef}/>
     case 'Dropdown':
-      return <Dropdown/>
+      return <Dropdown blockRef={blockRef}/>
     case 'Menu':
-      return <Menu/>
+      return <Menu blockRef={blockRef}/>
     case 'ReadingFlow':
-      return <ReadingFlow/>
+      return <ReadingFlow blockRef={blockRef}/>
     case 'Database':
-      return <Database/>
+      return <Database blockRef={blockRef}/>
     case 'Network':
-      return <Network/>
+      return <Network blockRef={blockRef}/>
     default:
     case 'Arrow':
-      return <Arrow/>
+      return <Arrow blockRef={blockRef}/>
   }
 } 
 

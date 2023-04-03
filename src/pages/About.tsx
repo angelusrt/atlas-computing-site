@@ -1,144 +1,161 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 
-import { Block } from "../components/blocks/Blocks"
+import { isMobileContext } from "../App"
+
+import { Icon } from "../components/icons/Icons"
+import { Button } from "../components/buttons/Buttons"
+import { Block, Canvas } from "../components/blocks/Blocks"
 import { Text } from "../components/texts/Texts"
-import { StyleType, ExpandedType } from "../components/blocks/Blocks.types"
 
-import {
-  add, addPos, getStyle, remove, setAnimation, toggleScrollOnExpanded
-} from "../functions/utils"
+import {add, getKeyframe, remove} from "../functions/utils"
 
-import Values from "./Values"
+import data from "../firstPage.json"
+import { bodyStyle, StyleType } from "../functions/function.types"
 
-type AboutType = {
-  tag: string,
-  title: string,
-  body: string,
-  valuesTag: string,
-  values: string[],
-  isMobile: boolean
+function getStyles(isMobile: boolean): StyleType {
+  let pad: string[], endPad: string[], padAux: number[], radius: string[]
+
+  if(isMobile){
+    padAux = [0, 0, 100, 40]
+    endPad = ["20px", "20px", "80px", "20px"]
+  } else{
+    padAux = [0, 0, 80, 160]
+    endPad = ["40px", "80px", "40px", "80px"]
+  }
+  
+  pad = ["0px", "0px", "0px", "0px"]
+  radius = ["50%", "0"]
+
+  return {pad, endPad, padAux, radius}
 }
 
-function getShowStyle(isMobile: boolean): string {
-  const width = window.innerWidth
-  const height = window.innerHeight
+const about = data.about
+const values = data.about.values
 
-  if(isMobile)
-    return `left: ${(width - height)/2}px`
-  else
-    return `top: ${(height - width)/2}px`
-}
+const About = () => {
+  const isMobile = useContext(isMobileContext)
 
-const About = (prop: AboutType) => {
-  const {tag, title, body, valuesTag, values, isMobile} = prop
+  const [index, setIndex] = useState(0)
+  const [canvasActive, setCanvasActive] = useState(false)
 
-  const [isExpanded, setIsExpanded] = useState<ExpandedType>('unset')
-  const [style, setStyle] = useState<StyleType>()
-  const [currentValue, setCurrentValue] = useState(0)
-
-  const ref = useRef<HTMLDivElement>(null!)
+  const parentRef = useRef<HTMLElement>(null!)
+  const expandedRef = useRef<HTMLDivElement>(null!)
   const blockRef = useRef<HTMLDivElement>(null!)
   const sectionRef = useRef<HTMLDivElement>(null!)
 
-  const valuesOptions = {
-    values,
-    valuesTag,
-    currentValue,
-    isMobile,
-    blockRef: sectionRef,
-    decrement, 
-    increment,
-  }
-
-  function decrement() {
-    currentValue > 0 ?
-    setCurrentValue(currentValue - 1):
-    setIsExpanded('expand-out')
+  function goBack(e: MouseEvent) {
+    index > 0 ?
+    setIndex(index - 1):
+    expandOut(e)
   }
   
-  function increment() {
-    currentValue < 3 ?
-    setCurrentValue(currentValue + 1):
-    setIsExpanded('expand-out')
+  function goForward(e: MouseEvent) {
+    index < 3 ?
+    setIndex(index + 1):
+    expandOut(e)
   }
 
-  function getStyleOptions(): StyleType {
-    return {
-      isAbout: true,
-      parentTop: document.getElementById('about')?.offsetTop,
-      offsetTop: blockRef.current.offsetTop,
-      offsetLeft: blockRef.current.offsetLeft,
-      scrollY: window.scrollY
-    }
+  function expandIn(e: MouseEvent) {
+    const block = blockRef.current
+    const expanded = expandedRef.current
+    const wrapper = sectionRef.current
+    const parent = parentRef.current
+
+    const isEnter: boolean = true
+    const keyAmount: number = 3
+
+    const styles = getStyles(isMobile)
+
+    wrapper.animate(
+      getKeyframe({
+        block, parent, isEnter, keyAmount, ...styles 
+      }), 
+      {duration: 300, iterations: 1, easing: "ease-in-out"}
+    )
+      
+    add(expanded.classList, "--enter") 
+
+    document.body.setAttribute("style", bodyStyle[1])
+
+    setTimeout(() => add(expanded.classList, "--show"), 5)
+
+    setTimeout(() => setCanvasActive(true), 300)
   }
 
-  function onClick() {
-    setIsExpanded('expand-enter')
-    setStyle(getStyleOptions)
+  function expandOut(e: MouseEvent) {
+    const block = blockRef.current
+    const expanded = expandedRef.current
+    const wrapper = sectionRef.current
+    const parent = parentRef.current
+
+    const isEnter: boolean = false
+    const keyAmount: number = 3
+
+    const styles = getStyles(isMobile)
+    
+    wrapper.animate(
+      getKeyframe({
+        block, parent, isEnter, keyAmount, ...styles
+      }), 
+      {duration: 800, iterations: 1, easing: "ease-in-out"}
+    )
+
+    remove(expanded.classList, "--show")
+
+    setTimeout(() => {
+      remove(expanded.classList, "--enter")
+
+      document.body.setAttribute("style", bodyStyle[0])
+
+      setCanvasActive(false)
+    }, 800)
   }
-
-  useEffect(() => {
-    const classList = ref.current.classList
-    const section = sectionRef.current
-
-    setAnimation({
-      onEnter: () => {
-        addPos(ref, getStyle(style))
-        add(classList, "--enter")   
-      },
-      onEnterTimeout: () => {
-        add(classList, "--show")
-        addPos(ref, getShowStyle(isMobile))
-        section.setAttribute('style', getShowStyle(isMobile)) 
-      },
-      onExit: () => {
-        remove(classList, "--show")       
-        addPos(ref, getStyle(style))
-        section.setAttribute('style', getStyle(style)) 
-      },
-      onExitTimeout: () => {
-        remove(classList, "--enter")
-        setIsExpanded('unset')
-        setCurrentValue(0)
-      },
-      exitTimeoutTime: 1000,
-      isExpanded
-    })
-
-    toggleScrollOnExpanded(isExpanded)
-  },[isExpanded, isMobile, style])
 
   return(
-    <section id="about" className="block-blue">
-      <Text 
-        name="text-title" 
-        type='h1'
-        children={tag}
-      />
+    <section ref={parentRef} id="about" className="block-blue">
+      <Text type='h1' name="text-title" children={about.tag}/>
       <Block type="div" name="block-about">
         <Block 
           type="div"
           name="block-values" 
           blockRef={blockRef}
-          func={{onClick: onClick}}
+          func={{onClick: expandIn}}
         />
-        <Text
-          type="h1"
-          name="text-big"
-          children={title}
-        />
-        <Text 
-          type='p' 
-          name="text-normal"
-          children={body}
-        />
+        <Text type="h1" name="text-big" children={about.title}/>
+        <Text type='p' name="text-normal" children={about.body[0]}/>
       </Block>
-      <Block 
-        type="div"
-        blockRef={ref} 
-        name="block-values-expand"
-        children={Values(valuesOptions)}
-      />
+      <Block type="div" blockRef={expandedRef} name="block-values-expand">
+        <section ref={sectionRef} id="values" className="block-wrapper">
+          <Block type="div" name="block-wrapper-content">
+            <Text type="h1" name="text-title">
+              {values.tag}
+            </Text>
+            <Text type='h1' name="text-big-subtitle">
+              {values.body[index]}
+            </Text>
+            <Block type="div" name="block-wrapper-button">
+              <Button
+                type="h2"
+                name="button-white"
+                ariaLabel="Voltar"
+                func={{onClick: goBack}}
+                children={<Icon name="arrow"/>}
+              />
+              <Button
+                type="h2"
+                name="button-white"
+                ariaLabel="Próximo"
+                func={{onClick: goForward}}
+                children={<Icon name="arrow"/>}
+              />
+            </Block>
+          </Block>
+          {
+            canvasActive &&
+            <Canvas isMobile={isMobile} name="canvas-values"/>
+          }
+        </section>
+      </Block>
     </section>
   )
 }
