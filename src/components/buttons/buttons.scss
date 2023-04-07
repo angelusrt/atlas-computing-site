@@ -1,4 +1,4 @@
-button, a{
+button, a, .block-button{
   position: relative;
   display: inline-block;
   z-index: 4;
@@ -27,7 +27,7 @@ button, a{
   }
 }
 
-.button-white{
+.button-white, .block-button{
   background-color: var(--white);
   color: var(--black);
 }
@@ -41,6 +41,10 @@ button, a{
     fill: var(--white);
     transition: fill 0.5s;
   }
+}
+.button-transparent{
+  background-color: transparent;
+  border-color: transparent;
 }
 .button-index{
   z-index: 4;
@@ -59,7 +63,7 @@ button, a{
     background-color: var(--white);
     border: 2px solid var(--black);
   }
-  .button-white{
+  .button-white, .block-button{
     margin-right: 0px;
   }
   .svg-menu{
@@ -73,8 +77,8 @@ button, a{
     transition: all 0.5s;
   }
 }
-.button-transparent{
-  background-color: transparent;
+.block-button{
+  border-style: dashed;
   border-color: transparent;
 }
 
@@ -97,7 +101,8 @@ button, a{
 .button-link,
 .button-black,
 .button-white,
-.button-transparent{
+.button-transparent,
+.block-button{
   &:hover{
     background-color: var(--blue);
     color: var(--black);

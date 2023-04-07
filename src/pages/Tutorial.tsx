@@ -24,14 +24,14 @@ const Tutorial = (prop: TutorialType) => {
 
   function goBack() {
     index === 0 ? 
-    setExit(blockRef, decrement, 1000) : 
-    setTransEnter(blockRef, () => setIndex(s => s - 1), 250)
+    setExit(blockRef, 1000, decrement) : 
+    setTransEnter(blockRef, 250, () => setIndex(s => s - 1))
   }
 
   function goForward() {
     index === 2 ? 
-    setExit(blockRef, increment, 1000) : 
-    setTransEnter(blockRef, () => setIndex(s => s + 1), 250)
+    setExit(blockRef, 1000, increment) : 
+    setTransEnter(blockRef, 250, () => setIndex(s => s + 1))
   }
 
   useEffect(() => {setTransExit(blockRef, 250)}, [index])

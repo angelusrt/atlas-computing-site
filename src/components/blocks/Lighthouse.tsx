@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { useEffect, useRef } from "react"
+import { Suspense, useEffect, useRef } from "react"
 import { Group, DoubleSide, Color } from "three"
 
 const Lighthouse = (prop: {isMobile: boolean}) => {
@@ -20,42 +20,44 @@ const Lighthouse = (prop: {isMobile: boolean}) => {
   },[isMobile])
 
   return (
-    <group ref={ref} position={[0, 0, -2.5]} rotation={[0, 2.5, 0]}>
-      <group scale={isMobile ? 1.25 : 1.5} dispose={null}>
-        <mesh 
-          geometry={Cube.geometry} 
-          material={Material} 
-          position={[0, 0.81, 0]} 
-          scale={[1, 0.8, 1]}
-        />
-        <mesh 
-          geometry={Cylinder.geometry} 
-          material={Material} 
-          position={[0, 2.01, 0]} 
-          scale={0.8} 
-        />
-        <mesh 
-          geometry={Cylinder001.geometry} 
-          material={Material} 
-          position={[0, 4.81, 0]} 
-          scale={0.8} 
-        />
-        <mesh 
-          geometry={Cube001.geometry} 
-          material={Material} 
-          position={[1.28, 0.44, -1.78]} 
-          rotation={[-Math.PI / 2, 0, 0]} 
-          scale={0.5} 
-        />
+    <Suspense>
+      <group ref={ref} position={[0, 0, -2.5]} rotation={[0, 2.5, 0]}>
+        <group scale={isMobile ? 1.25 : 1.5} dispose={null}>
+          <mesh 
+            geometry={Cube.geometry} 
+            material={Material} 
+            position={[0, 0.81, 0]} 
+            scale={[1, 0.8, 1]}
+          />
+          <mesh 
+            geometry={Cylinder.geometry} 
+            material={Material} 
+            position={[0, 2.01, 0]} 
+            scale={0.8} 
+          />
+          <mesh 
+            geometry={Cylinder001.geometry} 
+            material={Material} 
+            position={[0, 4.81, 0]} 
+            scale={0.8} 
+          />
+          <mesh 
+            geometry={Cube001.geometry} 
+            material={Material} 
+            position={[1.28, 0.44, -1.78]} 
+            rotation={[-Math.PI / 2, 0, 0]} 
+            scale={0.5} 
+          />
+        </group>
+        <mesh rotation={[-0.5 * Math.PI, 0, 0]}>
+          <planeGeometry args={[size, size, 1, 1]}/>
+          <meshBasicMaterial color={new Color(0x000000)} side={DoubleSide}/>
+        </mesh>
       </group>
-      <mesh rotation={[-0.5 * Math.PI, 0, 0]}>
-        <planeGeometry args={[size, size, 1, 1]}/>
-        <meshBasicMaterial color={new Color(0x000000)} side={DoubleSide}/>
-      </mesh>
-    </group>
+    </Suspense>
   )
 }
 
 useGLTF.preload('/lighthouse.gltf')
 
-export {Lighthouse}
+export default Lighthouse

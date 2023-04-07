@@ -43,19 +43,19 @@ const About = () => {
   const blockRef = useRef<HTMLDivElement>(null!)
   const sectionRef = useRef<HTMLDivElement>(null!)
 
-  function goBack(e: MouseEvent) {
+  function goBack() {
     index > 0 ?
     setIndex(index - 1):
-    expandOut(e)
+    expandOut()
   }
   
-  function goForward(e: MouseEvent) {
+  function goForward() {
     index < 3 ?
     setIndex(index + 1):
-    expandOut(e)
+    expandOut()
   }
 
-  function expandIn(e: MouseEvent) {
+  function expandIn() {
     const block = blockRef.current
     const expanded = expandedRef.current
     const wrapper = sectionRef.current
@@ -82,7 +82,7 @@ const About = () => {
     setTimeout(() => setCanvasActive(true), 300)
   }
 
-  function expandOut(e: MouseEvent) {
+  function expandOut() {
     const block = blockRef.current
     const expanded = expandedRef.current
     const wrapper = sectionRef.current

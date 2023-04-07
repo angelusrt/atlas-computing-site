@@ -1,4 +1,4 @@
-button, a {
+button, a, .block-button {
   position: relative;
   display: inline-block;
   z-index: 4;
@@ -9,23 +9,23 @@ button, a {
   vertical-align: text-bottom;
   transition: all 0.5s;
 }
-button h1, button h2, a h1, a h2 {
+button h1, button h2, a h1, a h2, .block-button h1, .block-button h2 {
   display: inline;
 }
-button .icon, a .icon {
+button .icon, a .icon, .block-button .icon {
   width: 30px;
   vertical-align: bottom;
   display: inline;
   fill: var(--black);
   transition: fill 0.5s;
 }
-button .block-dropdown, a .block-dropdown {
+button .block-dropdown, a .block-dropdown, .block-button .block-dropdown {
   bottom: 80px;
   left: 80px;
   transition: all 0.5s 0.2s;
 }
 
-.button-white {
+.button-white, .block-button {
   background-color: var(--white);
   color: var(--black);
 }
@@ -39,6 +39,11 @@ button .block-dropdown, a .block-dropdown {
 .button-black .icon {
   fill: var(--white);
   transition: fill 0.5s;
+}
+
+.button-transparent {
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .button-index {
@@ -59,7 +64,7 @@ button .block-dropdown, a .block-dropdown {
   background-color: var(--white);
   border: 2px solid var(--black);
 }
-.button-index .button-white {
+.button-index .button-white, .button-index .block-button {
   margin-right: 0px;
 }
 .button-index .svg-menu {
@@ -73,8 +78,8 @@ button .block-dropdown, a .block-dropdown {
   transition: all 0.5s;
 }
 
-.button-transparent {
-  background-color: transparent;
+.block-button {
+  border-style: dashed;
   border-color: transparent;
 }
 
@@ -100,7 +105,8 @@ button .block-dropdown, a .block-dropdown {
 .button-link:hover,
 .button-black:hover,
 .button-white:hover,
-.button-transparent:hover {
+.button-transparent:hover,
+.block-button:hover {
   background-color: var(--blue);
   color: var(--black);
   border-color: var(--black);

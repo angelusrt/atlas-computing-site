@@ -9,13 +9,14 @@ import data from "../secondPage.json"
 type Atlas2Type = {
   blockRef: DivRef,
   decrement: () => void,
-  increment: () => void
+  increment: () => void,
+  hideNav: (s: () => void) => void
 }
 
 const atlas2 = data.atlas2
 
 const Atlas2 = (prop: Atlas2Type) => {
-  const {blockRef, decrement, increment} = prop
+  const {blockRef, decrement, increment, hideNav} = prop
 
   return (
     <section ref={blockRef} className="atlas2 block-black" id="atlas2">  
@@ -30,7 +31,7 @@ const Atlas2 = (prop: Atlas2Type) => {
           ariaLabel="Continuar"
           textName="text-bold-small"
           text="Continuar"
-          func={{onClick: () => setExit(blockRef, increment, 1500)}}
+          func={{onClick: () => setExit(blockRef, 1500, increment)}}
         />
         <Button
           type="h2"
@@ -38,7 +39,7 @@ const Atlas2 = (prop: Atlas2Type) => {
           ariaLabel="Voltar"
           textName="text-bold-small"
           text="Voltar"
-          func={{onClick: () => setExit(blockRef, decrement, 1500)}}
+          func={{onClick: () => hideNav(() => setExit(blockRef, 1500, decrement))}}
         />
       </Block>
       <Icon name="ColumnFirst"/>

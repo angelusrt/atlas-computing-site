@@ -9,13 +9,7 @@ const Footer = () => {
   return(
     <footer id="footer" className="block-black"> 
       {footer.buttons.map((e, i) => 
-        <Link 
-          isNewTab={true}
-          key={i}
-          href={e.href}
-          text={e.title}
-          ariaLabel={e.title}
-        />
+        <Link key={i} isNewTab={true} href={e.href} text={e.title}/>
       )}
       <Text type="h2" name="text-thin-small" children={footer.body}/>
     </footer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { Suspense, useEffect, useMemo, useRef } from 'react'
 
 import { useFrame } from '@react-three/fiber'
 import { BufferGeometry, Color } from 'three'
@@ -95,7 +95,7 @@ const Sphere = (prop: SphereType) => {
   useAnimateOnView('.canvas-globe', options)
   
   return(
-    <React.Fragment>
+    <Suspense>
       <Line/>
       {steps.map((e, i) =>
         <DashedLine key={i} rotation={e} isVisible={isVisible}/>
@@ -104,8 +104,8 @@ const Sphere = (prop: SphereType) => {
         <sphereGeometry args={[radius, width, height]}/>
         <meshStandardMaterial/>
       </mesh>
-    </React.Fragment>
+    </Suspense>
   ) 
 }
 
-export {Sphere}
+export default Sphere

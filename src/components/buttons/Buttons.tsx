@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react"
 
 import { useAnimateOnView } from "../../functions/transition"
 
-import { ButtonType, LinkType, NavType } from "./Buttons.types"
+import { BlockButtonType, ButtonType, LinkType, NavType } from "./Buttons.types"
 
 import { Text } from "../texts/Texts"
-import { DropdownBlock } from "../blocks/Blocks"
+import { Block } from "../blocks/Blocks"
 import { Icon } from "../icons/Icons"
 
 import "./buttons.css"
+import { add, remove } from "../../functions/utils"
 
 const transLink = {
   isTransition: true,
@@ -42,7 +43,7 @@ const Button = (prop: ButtonType) => {
 
   useAnimateOnView('.button-black', transButton)
   useAnimateOnView('.button-white', transButton)
-  useAnimateOnView('.button-index', transIndex)
+  // useAnimateOnView('.button-index', transIndex)
   useAnimateOnView('.button-transparent', transIndex)
 
   return(
@@ -63,7 +64,7 @@ const Button = (prop: ButtonType) => {
 }
 
 const Link = (prop: LinkType) => {
-  const {href, isNewTab, text, ariaLabel} = prop
+  const {href, isNewTab, text} = prop
 
   useAnimateOnView('#footer .button-link', transLink)
 
@@ -73,7 +74,7 @@ const Link = (prop: LinkType) => {
       href={href} 
       target={isNewTab ? "_blank" : "_self"}
       rel="noreferrer"
-      aria-label={ariaLabel}
+      aria-label={text}
     >
       <Text type='h2' children={text}/>
     </a>
@@ -81,11 +82,12 @@ const Link = (prop: LinkType) => {
 }
 
 const NavButton = (prop: NavType) => {
-  const {index, isMobile} = prop
+  const {blockRef, children, isMobile } = prop
 
   const [isToggle, setToggle] = useState(false)
-  
-  const ref = useRef<HTMLButtonElement>(null!)
+  const [time , setTime] = useState<NodeJS.Timeout>()
+
+  const dropdownRef = useRef<HTMLElement>(null!)
 
   function getFunc() {
     if(isMobile)
@@ -101,17 +103,28 @@ const NavButton = (prop: NavType) => {
   }
 
   useEffect(() => {
-    const button = ref.current.classList
+    const button = blockRef.current
+    const dropdown = dropdownRef.current
 
-    if(isToggle)
-      button.add("button-index--hover")
-    else
-      button.remove("button-index--hover")
+    if(time) clearTimeout(time)
+
+    if(isToggle){
+      add(button.classList, "--hover")
+
+      remove(dropdown.classList, "--none")
+      setTime(setTimeout(() => add(dropdown.classList, "--show"), 10))
+    }
+    else{
+      remove(button.classList, "--hover")
+
+      remove(dropdown.classList, "--show")
+      setTime(setTimeout(() => add(dropdown.classList, "--none"), 1000))
+    }
   }, [isToggle])
 
   return (
     <Button
-      blockRef={ref} 
+      blockRef={blockRef} 
       type='h2'
       name="button-index"
       textName="text-bold-small"
@@ -119,19 +132,21 @@ const NavButton = (prop: NavType) => {
       func={getFunc()}
     >
       <Icon name="Menu"/>
-      <DropdownBlock toggle={isToggle}>
-        {index.map((e, i) =>
-          <Link
-            key={i}
-            isNewTab={false}
-            href={e.href}
-            text={e.text}
-            ariaLabel={e.text}
-          />
-        )}
-      </DropdownBlock>
+      <Block type="div" blockRef={dropdownRef} name="block-dropdown">
+        {children}
+      </Block>
     </Button>
   )
 }
 
-export{Button, Link, NavButton}
+const BlockButton = (prop: BlockButtonType) => {
+  const {text, func} = prop
+
+  return (
+    <Block type="div" name={"block-button"} func={{onClick: func}}>
+      <Text type="h2">{text}</Text>
+    </Block>
+  )
+}
+
+export{Button, Link, NavButton, BlockButton}

@@ -34,7 +34,7 @@ const Intro = (prop: IntroType) => {
         text="Continuar" 
         textName="text-bold-small"
         name={isBlack ? "button-white" : "button-black"}
-        func={{onClick: () => setExit(blockRef, increment, 1000)}}
+        func={{onClick: () => setExit(blockRef, 1000, increment)}}
       />
       <Button 
         type="h2" 
@@ -42,7 +42,7 @@ const Intro = (prop: IntroType) => {
         text="Voltar" 
         textName="text-bold-small"
         name="button-transparent"
-        func={{onClick: () => setExit(blockRef, decrement, 1000)}}
+        func={{onClick: () => setExit(blockRef, 1000, decrement)}}
       />
     </section>
   )

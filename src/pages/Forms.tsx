@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 import { Text } from "../components/texts/Texts"
-import { Block, DropdownBlock } from "../components/blocks/Blocks"
+import { Block } from "../components/blocks/Blocks"
 import { Button } from "../components/buttons/Buttons"
 import { Icon } from "../components/icons/Icons"
 
@@ -52,13 +52,13 @@ const Forms = (prop: FormsType) => {
 
   function goBack() {
     index === 0 ? 
-    setExit(blockRef, decrement, 700) : 
-    setTransEnter(blockRef, () => setIndex(0), 450)
+    setExit(blockRef, 700, decrement) : 
+    setTransEnter(blockRef, 450, () => setIndex(0))
   } 
-  function gorFoward() {
+  function goForward() {
     index === 1 ? 
-    setExit(blockRef, increment, 700) : 
-    setTransEnter(blockRef, () => setIndex(1), 450)
+    setExit(blockRef, 700, increment) : 
+    setTransEnter(blockRef, 450, () => setIndex(1))
   }
 
   function expandOut(func: () => void) {
@@ -109,7 +109,7 @@ const Forms = (prop: FormsType) => {
             name="button-transparent"
             ariaLabel="Continuar"
             textName="text-bold-small"
-            func={{onClick: gorFoward}}
+            func={{onClick: goForward}}
             children={<Icon name="Arrow"/>}
           />
         </Block>
@@ -161,7 +161,7 @@ const Forms = (prop: FormsType) => {
             <Text type="h2" name="text-thin-small">
               {formActive.text}
             </Text>
-            <DropdownBlock toggle={item !== -1}>
+            <Block type="div" name="block-dropdown block-dropdown--show">
               {formActive.optionList.map((e, i) => (
                 <Button
                   key={i}   
@@ -175,7 +175,7 @@ const Forms = (prop: FormsType) => {
                   )}}
                 />
               ))}
-            </DropdownBlock>
+            </Block>
           </Block>
         </Block> 
       </Block>

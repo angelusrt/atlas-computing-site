@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useRef, useState } from 'react'
 
-import { Block, NavBlock } from './components/blocks/Blocks'
-import { NavButton } from './components/buttons/Buttons'
+import { Block } from './components/blocks/Blocks'
+import { Link, NavButton, BlockButton } from './components/buttons/Buttons'
 
-import { setEnter, getIndex, setLocation, remove, add, getInitialPage } from './functions/utils'
+import { setEnter, getIndex, setLocation, remove, add, getInitialPage, setExit } from './functions/utils'
 import { DivRef } from './functions/function.types'
 
 import Atlas from './pages/Atlas'
@@ -22,85 +22,113 @@ import secondData from "./secondPage.json"
 
 import "./App.css"
 
-const pageMap: Record<number, number> = {
-  0: 1, 1: 1, 2: 1, 3: 1, 
-  4: 2, 5: 2, 
-  6: 3, 7: 3,
-}
-
 const isMobileContext = createContext<boolean>(false)
 
 const intros = [2, 4, 6]
-const navs = [3, 5, 7] 
+const pages = [1, 2, 4, 6]
 
 const App = () => {
   const[isMobile, setIsMobile] = useState(window.innerWidth < 725)
-  const[active, setActive] = useState(getInitialPage())
-  const[lastPageDiscovered, setLastPageDiscovered] = useState(0)
+
+  const[pageActive, setPageActive] = useState(getInitialPage())
+  const[active, setActive] = useState(1)
+  const[lastPageDiscovered, setLastPageDiscovered] = useState(1)
+  
+  const[emoji, setEmoji] = useState<{emoji: number, section: number }[]>([])
+  
+  const firstRef = useRef<HTMLDivElement>(null!)
+  const secondRef = useRef<HTMLDivElement>(null!)
 
   const atlas2Ref = useRef<HTMLDivElement>(null!)
   const introRef = useRef<HTMLDivElement>(null!)
   const tutorialRef = useRef<HTMLDivElement>(null!)
   const formsRef = useRef<HTMLDivElement>(null!)
-  const navRef = useRef<HTMLElement>(null!)
-  const firstRef = useRef<HTMLDivElement>(null!)
-  const secondRef = useRef<HTMLDivElement>(null!)
 
-  const index = getIndex(intros, active)
+  const firstNavRef = useRef<HTMLButtonElement>(null!)
+  const secondNavRef = useRef<HTMLButtonElement>(null!)
+  const emojiRef = useRef<HTMLButtonElement>(null!)
 
   const refMap: [DivRef, number][] = [
     [atlas2Ref, 1500],
+    [atlas2Ref, 1500],
+    [introRef, 1000],
     [tutorialRef, 1000],
+    [introRef, 1000],
     [formsRef, 1000],
-    [formsRef, 1000],
+    [introRef, 1000]
   ]
-
-  function decrement(ref: DivRef, delay: number) {
+  
+  function decrement(index: number = 2) {
     setActive(s => s - 1)
-    setEnter(ref, delay)
+
+    setEnter(refMap[index][0], refMap[index][1])
+    changeIntrosTheme(index)
   }
-  function increment(ref: DivRef, delay: number) {
+  function increment(index: number = 2) {
     setActive(s => s + 1)
     setLastPageDiscovered(s => active + 1 > s ? active + 1 : s)
-    setEnter(ref, delay)
+    
+    setEnter(refMap[index][0], refMap[index][1])
+    changeIntrosTheme(index)
   }
+
   function decrementPage() {
-    setActive(0)
-    setLocation('/0/')
-  }
-  function incrementPage() {
-    setActive(1)
-    setLocation('/1/')
-    setEnter(atlas2Ref, 1500)
-  }
-  
-  useEffect(() => {
-    const isFirstPage = active === 0    
-
-    if(!isFirstPage) setEnter(atlas2Ref, 1500)  
-  }, [])
-
-  useEffect(() => {
     const first = firstRef.current
     const second = secondRef.current
-    const nav = navRef.current
+
+    setPageActive(0)
+    setLocation('/0/')
+ 
+    remove(first.classList, "--none")
+    add(second.classList, "--none")
+
+    setTimeout(() => {
+      add(firstNavRef.current.classList, "--show")
+    }, 300)
+  }
+  function incrementPage() {
+    const first = firstRef.current
+    const second = secondRef.current
+
+    setPageActive(1)
+    setLocation('/1/')
+
+    add(first.classList, "--none")
+    remove(second.classList, "--none") 
+
+    remove(firstNavRef.current.classList, "--show")
+    setEnter(atlas2Ref, 1500)
+
+    setTimeout(() => {
+      add(secondNavRef.current.classList, "--show")
+      add(emojiRef.current.classList, "--show")
+    }, 1505)
+  }
+  
+  function hideNav(func: () => void) {
+    remove(secondNavRef.current.classList, "--show")
+    remove(emojiRef.current.classList, "--show")
+    func()
+  }
+
+  function setPage(index: number, active: number) {
+    setExit(
+      refMap[active][0], refMap[active][1], 
+      () => {
+        setActive(pages[index])
+        setEnter(refMap[pages[index]][0], refMap[pages[index]][1])
+      }
+    )
+  }
+  function setReaction(emoji: number, section: number) {
+    setEmoji([{emoji, section}])
+  }
+
+  function changeIntrosTheme(index: number) {
     const intro = introRef.current
 
-    //Trocar visibilidade da página 1 e 2
-    const isFirstPage = active === 0    
-
-    if(isFirstPage){
-      remove(first.classList, "--none")
-      add(second.classList, "--none")
-    }
-    else {
-      add(first.classList, "--none")
-      remove(second.classList, "--none") 
-    }
-
-    //Trocar o tema do 'Intro'
-    if(intros.includes(active)){
-      const theme = secondData.intro[index].theme
+    if(intros.includes(index)){
+      const theme = secondData.intro[getIndex(intros, index)].theme
       const isBlack = theme === "block-black"
     
       intro.classList.remove(isBlack ? "block-white" : "block-black")
@@ -110,67 +138,75 @@ const App = () => {
       intro.classList.remove("block-black")
       intro.classList.remove("block-white") 
     }
+  }
 
-    //Trocar visibilidade do 'NavBlock'
-    if(navs.includes(active)){
-      remove(nav.classList, "--none")
-      
-      //Trocar o tema do 'NavBlock'
-      const theme = secondData.nav[pageMap[active] - 1].theme
-      const isBlack = theme === "block-black"
-  
-      nav.classList.remove(isBlack ? "block-white" : "block-black")
-      nav.classList.add(isBlack ? "block-black" : "block-white")
+  useEffect(() => {
+    const first = firstRef.current
+    const second = secondRef.current
+
+    if(active === 0) {
+      add(firstNavRef.current.classList, "--show") 
+      remove(first.classList, "--none")
+      add(second.classList, "--none")
     }
-    else{
-      add(nav.classList, "--none")
-    }
-  }, [active])
+    else if(active === 1) {
+      add(secondNavRef.current.classList, "--show")
+      add(emojiRef.current.classList, "--show") 
+      setEnter(atlas2Ref, 1500)
+      add(first.classList, "--none")
+      remove(second.classList, "--none") 
+    } 
+  }, [])
 
   return(
     <main className="App">
       <isMobileContext.Provider value={isMobile}>
         <Block type='div' blockRef={firstRef} name="section first-page">
           <Atlas/>
-          <Discover active={active}/>
+          <Discover active={pageActive}/>
           <Projects/>
           <About/>
           <World setPage={incrementPage}/>
           <Footer/>
-          <NavButton index={firstData.index} isMobile={isMobile}/>
+          <NavButton blockRef={firstNavRef} isMobile={isMobile}>
+            {firstData.index.map((e, i) =>
+              <Link key={i} isNewTab={false} href={e.href} text={e.text}/>
+            )}
+          </NavButton>
         </Block>
         <Block type='div' blockRef={secondRef} name="section second-page">
           <Atlas2
             blockRef={atlas2Ref}
             decrement={decrementPage} 
-            increment={() => increment(introRef, 1000)}
+            increment={increment}
+            hideNav={hideNav}
           />
           <Intro
-            index={index}
+            index={getIndex(intros, active)}
             blockRef={introRef}
-            decrement={() => decrement(...refMap[index])}
-            increment={() => increment(...refMap[index + 1])}
+            decrement={() => decrement(active - 1)}
+            increment={() => increment(active + 1)}
           />
           <Tutorial
             blockRef={tutorialRef}
-            decrement={() => decrement(introRef, 1000)}
-            increment={() => increment(introRef, 1000)} 
+            decrement={decrement}
+            increment={increment} 
           />
           <Forms
             blockRef={formsRef}
-            decrement={() => decrement(introRef, 1000)}
-            increment={() => increment(introRef, 1000)}
+            decrement={decrement}
+            increment={increment}
           />
-          <NavBlock
-            blockRef={navRef}
-            pageMap={pageMap}
-            active={active}
-            lastPageDiscovered={lastPageDiscovered}
-            setPageActive={(s) => {
-              setActive(s)
-              setEnter(...refMap[getIndex(intros, s) + 1])
-            }}
-          />
+          <NavButton blockRef={secondNavRef} isMobile={isMobile}>
+            {secondData.index.map((e, i) => 
+              <BlockButton key={i} text={e.text} func={() => setPage(i, active)}/>
+            ).filter((e, i) => pages[i] <= lastPageDiscovered)}
+          </NavButton>
+          <NavButton blockRef={emojiRef} isMobile={isMobile}>
+            {secondData.emojiAriaLabels.map((e, i) => 
+              <BlockButton key={i} text={e} func={() => setReaction(i, active)}/>
+            )}
+          </NavButton>
         </Block>
       </isMobileContext.Provider>
     </main>

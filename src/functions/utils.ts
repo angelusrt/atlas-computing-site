@@ -1,5 +1,5 @@
 import { Err, Ok, Result } from "ts-results"
-import { BlockErrorType, ThemeType } from "../components/blocks/Blocks.types"
+import { BlockErrorType } from "../components/blocks/Blocks.types"
 import { DivRef, HTMLRef, KeyframeType, OptionListType } from "./function.types"
 
 function remove(classList: DOMTokenList, mod: string) {
@@ -28,7 +28,7 @@ function setEnter(ref: DivRef, delay: number) {
   setTimeout(() => add(block.classList, "--show"), delay)
 }
 
-function setExit(blockRef: DivRef, func: () => void, delay: number) {
+function setExit(blockRef: DivRef, delay: number, func: () => void) {
   const block = blockRef.current
 
   remove(block.classList, "--show")
@@ -40,7 +40,7 @@ function setExit(blockRef: DivRef, func: () => void, delay: number) {
   }, delay)
 }
 
-function setTransEnter(blockRef: DivRef, func: () => void, delay: number) {
+function setTransEnter(blockRef: DivRef, delay: number, func: () => void) {
   const block = blockRef.current
 
   add(block.classList, "--trans-enter")
@@ -104,13 +104,6 @@ function getIndex(source: number[], number: number): number {
   return index === -1 ? 0 : index
 }
 
-function getTheme(theme: string): ThemeType {
-  if(theme === 'block-white' || theme === 'block-black')
-    return theme
-  else
-    return "block-white"
-}
-
 function getKeyframe(prop: KeyframeType): Keyframe[] {
   const {
     isEnter, block, parent, pad, 
@@ -166,7 +159,6 @@ export{
   remove,
   add,
   setLocation,
-  getTheme,
   getIndex,
   getShowClass,
   getKeyframe,

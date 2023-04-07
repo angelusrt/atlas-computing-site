@@ -1,3 +1,4 @@
+import { ButtonRef } from "../../functions/function.types"
 import { TextNameType } from "../texts/Texts.types"
 
 type ButtonName = (
@@ -11,7 +12,7 @@ type ButtonType = {
   type: 'h1' | 'h2',
   ariaLabel: string,
   name: ButtonName,
-  blockRef ?: React.LegacyRef<HTMLButtonElement>,
+  blockRef ?: ButtonRef,
   textName ?: TextNameType, 
   text ?: string,
   children ?: any,
@@ -21,16 +22,18 @@ type ButtonType = {
 type LinkType = {
   text: string,
   href: string,
-  isNewTab: boolean,
-  ariaLabel: string
+  isNewTab: boolean
 } 
 
 type NavType = {
-  index: {
-    text: string,
-    href: string
-  }[],
-  isMobile: boolean
+  blockRef: ButtonRef,
+  children: any,
+  isMobile: boolean,
 }
 
-export type {ButtonType, LinkType, NavType}
+type BlockButtonType = {
+  text: string, 
+  func: () => void
+}
+
+export type {ButtonType, LinkType, NavType, BlockButtonType}

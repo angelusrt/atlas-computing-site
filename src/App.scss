@@ -250,6 +250,11 @@ form{
   border-color: var(--black);
 }
 
+.second-page{
+  .button-index:last-of-type{
+    left: calc(50px + 15px);
+  }
+}
 .atlas2{
   opacity: 0;
   transition: opacity 0.3s 1.2s;

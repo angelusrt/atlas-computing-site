@@ -2,6 +2,7 @@ type ObsEntry = IntersectionObserverEntry
 
 type HTMLRef = React.MutableRefObject<HTMLElement>
 type DivRef = React.MutableRefObject<HTMLDivElement>
+type ButtonRef = React.MutableRefObject<HTMLButtonElement>
 
 const bodyStyle = [
   'overflow: auto; height: auto;',
@@ -33,15 +34,6 @@ type RotationType = {
   sensibility: number
 }
 
-type RatingType = {
-  emoji: number,
-  pageActive: number
-}
-
-type UserType = {
-  rating: RatingType[] | null
-}
-
 type StyleType = {
   pad: string[], 
   endPad: string[], 
@@ -70,10 +62,9 @@ export type {
   ObsEntry,
   HTMLRef,
   DivRef,
+  ButtonRef,
   TransitionType,
   RotationType,
-  RatingType,
-  UserType,
   KeyframeType,
   StyleType,
   OptionListType,
