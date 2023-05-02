@@ -1,0 +1,113 @@
+.intro{
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.intro h1{
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+.intro h2:first-of-type{
+  margin-bottom: 20px;
+}
+.intro h2:last-of-type{
+  margin-bottom: 40px;
+}
+.intro button{
+  padding-left: 40px;
+  padding-right: 40px;
+}
+/* .intro .icon{
+  width: 90px;
+} */
+
+.intro h1, 
+.intro h2:first-of-type, 
+.intro h2:last-of-type,
+.intro button:first-of-type, 
+.intro button:last-of-type{
+  opacity: 0;
+  transform: translateX(-10%);
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.intro--enter{
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.intro--enter h1, 
+.intro--enter h2:first-of-type, 
+.intro--enter h2:last-of-type,
+.intro--enter button:first-of-type, 
+.intro--enter button:last-of-type, 
+.intro--enter .icon{
+  opacity: 1;
+  transform: translateX(0%);
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+
+.intro h1, .intro--enter h1{
+  transition-delay: 0s;
+}
+.intro h2:first-of-type, .intro--enter h2:first-of-type{
+  transition-delay: 0.1s;
+}
+.intro h2:last-of-type, .intro--enter h2:last-of-type{
+  transition-delay: 0.2s;
+}
+.intro button:first-of-type, .intro--enter button:first-of-type{
+  transition-delay: 0.3s;
+}
+.intro button:last-of-type, .intro--enter button:last-of-type{
+  transition-delay: 0.4s;
+}
+
+.intro--none{
+  display: none;
+}
+
+.intro--show h1, 
+.intro--show h2:first-of-type, 
+.intro--show h2:last-of-type,
+.intro--show button:first-of-type, 
+.intro--show button:last-of-type{    
+  transition-delay: 0s;
+}
+
+@media (min-width: 0) {
+  .intro{
+    min-height: calc(100vh - 60px);
+    padding: 40px 20px;
+  }
+  .intro button:last-of-type{
+    display: block;
+    margin-top: 20px;
+  }
+  .intro .text-normal{
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 725px) {
+  .intro{
+    min-height: calc(100vh - 80px);
+    padding: 40px 20%;
+  }
+  .intro h1 {
+    margin-top: 100px;
+  }
+  .intro button:last-of-type{
+    display: inline;
+    margin-left: 20px;
+    margin-top: 0;
+  }
+  .intro .text-thin-small{
+    font-size: 35px
+  }
+  .intro .text-normal{
+    font-size: 25px;
+  }
+}

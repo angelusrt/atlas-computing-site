@@ -1,0 +1,28 @@
+#atlas .title-big{
+  text-align: center;
+}
+
+@media (min-width: 0px) {
+  #atlas{
+    padding-top: 80px;
+  }
+  
+  #atlas .wrapper-canvas{
+    height: 400px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 725px){
+  #atlas{
+    padding: 80px 0px;
+  }
+
+  #atlas .wrapper{
+    margin: 0 auto;
+    width: min-content;
+  }
+  #atlas .wrapper-canvas{
+    display: none;
+  }
+} 

@@ -1,8 +1,9 @@
 import { useContext, useEffect, useRef } from "react"
-import { isMobileContext } from "../App"
-import { Icon } from "../components/icons/Icons"
-import { Text } from "../components/texts/Texts"
-import data from "../firstPage.json"
+import { isMobileContext } from "../../App"
+import { Icon } from "../../components/icons/Icons"
+import { H1 } from "../../components/texts/Texts"
+import data from "../../firstPage.json"
+import "./Discover.css"
 
 const discover = data.discover
 
@@ -58,11 +59,9 @@ const Discover = (prop: {active: number}) => {
 
   return(
     <section id="discover" ref={sectionRef} className="block-black">
-      <Text type='h1' name="text-title" children={discover.tag}/>
+      <H1 name="title">{discover.tag}</H1>
       <Icon blockRef={recifeRef} name="Recife"/>
-      <Text textRef={textRef} type="h1" name="text-big-subtitle">
-        Recife
-      </Text>
+      <H1 textRef={textRef} name="subtitle-big">Recife</H1>
     </section>
   )
 }

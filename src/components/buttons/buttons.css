@@ -9,19 +9,28 @@ button, a, .block-button {
   vertical-align: text-bottom;
   transition: all 0.5s;
 }
-button h1, button h2, a h1, a h2, .block-button h1, .block-button h2 {
+button h1, 
+button h2, 
+a h1, 
+a h2, 
+.block-button h1, 
+.block-button h2 {
   display: inline;
 }
-button .icon, a .icon, .block-button .icon {
+button .icon, 
+a .icon, 
+.block-button .icon {
   width: 30px;
   vertical-align: bottom;
   display: inline;
   fill: var(--black);
   transition: fill 0.5s;
 }
-button .block-dropdown, a .block-dropdown, .block-button .block-dropdown {
-  bottom: 80px;
-  left: 80px;
+button .block-dropdown, 
+a .block-dropdown, 
+.block-button .block-dropdown {
+  bottom: 60px;
+  left: 0px;
   transition: all 0.5s 0.2s;
 }
 
@@ -64,7 +73,8 @@ button .block-dropdown, a .block-dropdown, .block-button .block-dropdown {
   background-color: var(--white);
   border: 2px solid var(--black);
 }
-.button-index .button-white, .button-index .block-button {
+.button-index .button-white, 
+.button-index .block-button {
   margin-right: 0px;
 }
 .button-index .svg-menu {
@@ -83,25 +93,6 @@ button .block-dropdown, a .block-dropdown, .block-button .block-dropdown {
   border-color: transparent;
 }
 
-.button-index,
-.button-link,
-.button-black,
-.button-white,
-.button-transparent {
-  opacity: 0;
-  transform: translateY(-10%);
-  transition: all 0.5s;
-}
-.button-index--show,
-.button-link--show,
-.button-black--show,
-.button-white--show,
-.button-transparent--show {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.5s;
-}
-
 .button-link:hover,
 .button-black:hover,
 .button-white:hover,
@@ -111,4 +102,4 @@ button .block-dropdown, a .block-dropdown, .block-button .block-dropdown {
   color: var(--black);
   border-color: var(--black);
   transition: all 0.5s;
-}/*# sourceMappingURL=buttons.css.map */
+}

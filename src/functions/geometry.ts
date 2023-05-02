@@ -1,7 +1,6 @@
 import { Vector3 } from "three"
 import { Err, Ok, Result } from "ts-results"
-import { BlockErrorType } from "../components/blocks/Blocks.types"
-import { RotationType } from "./function.types"
+import { RotationType, BlockErrorType } from "./types"
 
 const z = 0
 const circumference = 2 * Math.PI

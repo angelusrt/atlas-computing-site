@@ -1,39 +1,34 @@
-import { useAnimateOnView } from "../../functions/transition"
-import { trans } from "../../functions/function.types"
-import { TextType } from "./Texts.types"
-
 import "./texts.css"
 
-const transTitle = {
-  isTransition: true,
-  isDelayChild: false,
-  delayPerItem: 100,
-  timeout: 200,
-  start: 0,
-  index: 0
-}
-const transOthers = {
-  isTransition: true,
-  isDelayChild: false,
-  delayPerItem: 0,
-  timeout: 200,
-  start: 200,
-  index: 0
-}
+type TextNameType = (
+  'title' |
+  'title-big' |
+  'subtitle-big' |
+  'text-big' |
+  'text-thin-small' |
+  'text-bold-small' |
+  'text-normal' |
+  'text-thin' | 
+  'text-normal-small'
+)
 
-const Text = (prop: TextType) => {
-  const {textRef, name, children} = prop
-  
-  useAnimateOnView('.text-title', trans)
-  useAnimateOnView('.text-big-title', transTitle)
-  useAnimateOnView('.text-big-subtitle', transOthers)
-  useAnimateOnView('.text-thin-small', transOthers)
-
-  return (
-    <prop.type ref={textRef} className={name}>
-      {children}
-    </prop.type>
-  )
+type TextType = {
+  children: string,
+  textRef ?: React.LegacyRef<HTMLParagraphElement>,
+  name ?: TextNameType
 }
 
-export {Text}
+const H1 = (prop: TextType) => (
+  <h1 ref={prop.textRef} className={prop.name}>{prop.children}</h1>
+)
+
+const H2 = (prop: TextType) => (
+  <h2 ref={prop.textRef} className={prop.name}>{prop.children}</h2>
+) 
+
+const P = (prop: TextType) => (
+  <p ref={prop.textRef} className={prop.name}>{prop.children}</p>
+)
+
+export {H1, H2, P}
+export type {TextType, TextNameType}

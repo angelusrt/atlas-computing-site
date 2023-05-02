@@ -1,16 +1,13 @@
 import React, { useContext, useRef, useState } from "react"
-
-import { isMobileContext } from "../App"
-
-import { Button } from "../components/buttons/Buttons"
-import { Block } from "../components/blocks/Blocks"
-import { Icon } from "../components/icons/Icons"
-import { Text } from "../components/texts/Texts"
-
-import {add, getKeyframe, remove} from "../functions/utils"
-import { bodyStyle, StyleType } from "../functions/function.types"
-
-import data from "../firstPage.json"
+import { isMobileContext } from "../../App"
+import { Button } from "../../components/buttons/Buttons"
+import { Block } from "../../components/blocks/Blocks"
+import { Icon } from "../../components/icons/Icons"
+import { H1, H2, P } from "../../components/texts/Texts"
+import {add, getKeyframe, remove} from "../../functions/utils"
+import { bodyStyle, StyleType } from "../../functions/types"
+import data from "../../firstPage.json"
+import "./Projects.css"
 
 function getStyles(isMobile: boolean): StyleType {
   let pad: string[], endPad: string[], padAux: number[], radius: string[]
@@ -90,10 +87,8 @@ const Projects = () => {
 
   return(
     <section ref={parentRef} id="projects" className="block-white">
-      <Text type='h1' name="text-title">
-        {data.projects.tag}
-      </Text>
-      <Block blockRef={wrapperBlockRef} type="div" name="block-grid">
+      <H1 name="title">{data.projects.tag}</H1>
+      <Block blockRef={wrapperBlockRef} name="block-grid">
         {itens.map((e, i) => 
           <ProjectBlock
             blockRef={expandedRef}
@@ -106,24 +101,17 @@ const Projects = () => {
           />
         )}
       </Block>
-      <Block type="div" blockRef={expandedRef} name="block-project-expanded">
-        <Block blockRef={wrapperRef} type="div" name="block-wrapper">
+      <div ref={expandedRef} className="project-expanded">
+        <div ref={wrapperRef} className="wrapper">
           <Icon name={itens[index].icon}/>
-          <Text type="h1" name="text-big" children={itens[index].title}/>
-          <Text type="p" name="text-thin-small" children={itens[index].subtitle}/>
-          <Text type="p" name="text-normal" children={itens[index].body}/>
-          <Button
-            type="h2"
-            name="button-white"
-            func={{onClick: expandOut}}
-            ariaLabel="Voltar"
-            text="Voltar"
-            textName="text-bold-small"
-          >
-            <Text type="h2" name="text-bold-small" children="Ver mais"/>
+          <H1 name="text-big">{itens[index].title}</H1>
+          <P name="text-thin-small">{itens[index].subtitle}</P>
+          <P name="text-normal">{itens[index].body}</P>
+          <Button name="button-white" text="Voltar" func={{onClick: expandOut}}>
+            <H2 name="text-bold-small">Ver mais</H2>
           </Button>
-        </Block>
-      </Block>
+        </div>
+      </div>
     </section>
   )
 }
@@ -162,19 +150,12 @@ const ProjectBlock = (prop: ProjectType) => {
   }
 
   return(
-    <Block type='div' blockRef={ref} name="block-project">
+    <div ref={ref} className="project">
       <Icon name={item.icon}/>
-      <Text type="h1" name="text-big" children={item.title}/>
-      <Text type="p" name="text-thin-small" children={item.subtitle}/>
-      <Button
-        type="h2"
-        name="button-white"
-        func={{onClick: expandIn}}
-        text="Ver mais"
-        ariaLabel="Ver mais"
-        textName="text-bold-small"
-      />
-    </Block>
+      <H1 name="text-big">{item.title}</H1>
+      <P name="text-thin-small">{item.subtitle}</P>
+      <Button name="button-white" text="Ver mais" func={{onClick: expandIn}}/>
+    </div>
   )
 }
 export default Projects

@@ -1,8 +1,13 @@
+const host = process.env.REACT_APP_HOST
+
 type ObsEntry = IntersectionObserverEntry
 
 type HTMLRef = React.MutableRefObject<HTMLElement>
 type DivRef = React.MutableRefObject<HTMLDivElement>
 type ButtonRef = React.MutableRefObject<HTMLButtonElement>
+type SVGRef = React.MutableRefObject<SVGSVGElement> 
+
+type BlockErrorType = "BLOCK_DOESNT_EXIST"
 
 const bodyStyle = [
   'overflow: auto; height: auto;',
@@ -52,20 +57,22 @@ type KeyframeType = {
   isEnter: boolean
 }
 
-type OptionListType = {
+type OptionsType = {
   text: string,
   name: string
 }[]
 
-export {trans, bodyStyle}
+export {host, trans, bodyStyle}
 export type {
   ObsEntry,
   HTMLRef,
   DivRef,
   ButtonRef,
+  SVGRef,
   TransitionType,
   RotationType,
   KeyframeType,
   StyleType,
-  OptionListType,
+  OptionsType,
+  BlockErrorType
 }

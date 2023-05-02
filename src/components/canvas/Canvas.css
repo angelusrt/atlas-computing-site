@@ -1,0 +1,30 @@
+@media (min-width: 0px) {
+  .canvas-globe {
+    position: relative;
+    height: 400px;
+    z-index: 4;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .canvas-globe--show {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+}
+
+@media (min-width: 725px) {
+  .canvas-globe {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    left: calc(50vw - 375px);
+    z-index: 5;
+    display: none;
+  }
+  .canvas-globe--show {
+    opacity: 1;
+    top: 320px;
+    transform: scale(1);
+  }
+}

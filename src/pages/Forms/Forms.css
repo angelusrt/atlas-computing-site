@@ -1,0 +1,342 @@
+form{
+  display: flex;
+}
+
+.info {
+  display: flex;
+  flex-flow: column;
+  border-style: solid;
+  border-width: 2px;
+  max-width: 300px;
+}
+.info h2:last-of-type {
+  margin-top: 40px;
+  max-height: 150px;
+}
+.info .button-transparent {
+  margin-bottom: 20px;
+}
+.info .button-transparent:first-of-type {
+  margin-right: 10px;
+}
+.info .button-transparent:first-of-type .icon {
+  transform: rotate(0);
+}
+.info .button-transparent:last-of-type .icon {
+  transform: rotate(180deg);
+}
+
+.info {
+  border-color: transparent !important;
+}
+.info h1, .info h2:first-of-type, .info h2:last-of-type,
+.info button:first-of-type, .info button:last-of-type {
+  opacity: 0;
+  transform: translateX(-10%);
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.info--enter {
+  border-color: var(--black) !important;
+}
+.info--enter h1, .info--enter h2:first-of-type, .info--enter h2:last-of-type,
+.info--enter button:first-of-type, .info--enter button:last-of-type, .info--enter .icon {
+  opacity: 1;
+  transform: translateX(0%);
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.info--trans-enter h1, .info--trans-enter h2:first-of-type, .info--trans-enter h2:last-of-type {
+  opacity: 0.5;
+  max-height: 80px;
+  transition: all 0.25s;
+}
+.info--trans-exit h1, .info--trans-exit h2:first-of-type, .info--trans-exit h2:last-of-type {
+  opacity: 1;
+  max-height: 200px;
+  transition: all 0.25s;
+}
+
+.info, .info--enter {
+  transition: border-color 0.5s;
+}
+.info button:first-of-type, .info--enter button:first-of-type {
+  transition-delay: 0.1s;
+}
+.info button:last-of-type, .info--enter button:last-of-type {
+  transition-delay: 0.2s;
+}
+.info h2:first-of-type, .info--enter h2:first-of-type {
+  transition-delay: 0.3s;
+}
+.info h1, .info--enter h1 {
+  transition-delay: 0.4s;
+}
+.info h2:last-of-type, .info--enter h2:last-of-type {
+  transition-delay: 0.5s;
+}
+
+.info--none {
+  display: none;
+}
+.info--none a {
+  display: none;
+}
+
+.info--show button:first-of-type, .info--show button:last-of-type,
+.info--show .icon, .info--show .form:nth-child(n) {
+  transition-delay: 0s;
+}
+
+.form{
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+.block-label{ 
+  position: relative;
+  margin-bottom: 40px;
+  z-index: 2; 
+}
+.block-label:last-of-type{
+  margin-bottom: 0;
+}
+.block-label label{
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  display: block;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+.block-label input{
+  width: calc(100% - 39px);
+  height: 30px;
+  padding: 20px 17.5px;
+  border-radius: 15px;
+  border-width: 2px;
+  border-style: solid;
+  outline: none;
+  display: block;
+}
+.block-label select{
+  width: 100%;
+  height: 75px;
+  padding: 20px 17.5px;
+  border-radius: 15px;
+  border-width: 2px;
+  border-style: solid;
+  outline: none;
+  display: block;
+}
+
+.forms{
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.forms--show .info h1, 
+.forms--show .info h2:first-of-type, 
+.forms--show .info h2:last-of-type,
+.forms--show .info button:first-of-type, 
+.forms--show .info button:last-of-type, 
+.forms--show .info .icon, 
+.forms--show .info .form:nth-child(n){
+  transition-delay: 0ms;
+}
+
+.forms--enter{
+  opacity: 1;
+  transition: opacity 0.3s;
+} 
+.forms--enter .info{
+  transition: border-color 0.5s;
+}
+.forms--enter .info button:first-of-type{
+  transition: all 0.5s 0.1s;
+}
+.forms--enter .info button:last-of-type{
+  transition: all 0.5s 0.2s;
+}
+.forms--enter .info h2:first-of-type{
+  transition: all 0.5s 0.3s;
+}
+.forms--enter .info h1{
+  transition: all 0.5s 0.4s;
+}
+.forms--enter .info h2:last-of-type{
+  transition: all 0.5s 0.5s;
+}
+.forms--enter .info h1, 
+.forms--enter .info h2:first-of-type, 
+.forms--enter .info h2:last-of-type,
+.forms--enter .info button:first-of-type, 
+.forms--enter .info button:last-of-type, 
+.forms--enter .info .icon{
+  opacity: 1;
+  transform: translateX(0%);
+}
+.forms--enter .form .block-label:nth-child(1){
+  transition: all 0.5s 0.6s;
+}
+.forms--enter .form .block-label:nth-child(2){
+  transition: all 0.5s 0.7s;
+}
+.forms--enter .form .block-label:nth-child(3){
+  transition: all 0.5s 0.8s;
+}
+.forms--enter .form .block-label:nth-child(1), 
+.forms--enter .form .block-label:nth-child(2), 
+.forms--enter .form .block-label:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.forms--trans-enter .info h1, 
+.forms--trans-enter .info h2:first-of-type, 
+.forms--trans-enter .info h2:last-of-type{
+  opacity: 0.5;
+  max-height: 80px;
+  transition: all 0.25s;
+}
+.forms--trans-enter .form .block-label:nth-child(1),
+.forms--trans-enter .form .block-label:nth-child(4){
+  transition: opacity 0.25s 0.2s;
+}
+.forms--trans-enter .form .block-label:nth-child(2),
+.forms--trans-enter .form .block-label:nth-child(5){
+  transition: opacity 0.25s 0.1s;
+}
+.forms--trans-enter .form .block-label:nth-child(3),
+.forms--trans-enter .form .block-label:nth-child(6){
+  transition: opacity 0.25s 0s;
+}
+.forms--trans-enter .form .block-label:nth-child(1), 
+.forms--trans-enter .form .block-label:nth-child(2), 
+.forms--trans-enter .form .block-label:nth-child(3),
+.forms--trans-enter .form .block-label:nth-child(4), 
+.forms--trans-enter .form .block-label:nth-child(5), 
+.forms--trans-enter .form .block-label:nth-child(6){
+  opacity: 0.5;
+}
+
+.forms--trans-exit .info h1, 
+.forms--trans-exit .info h2:first-of-type, 
+.forms--trans-exit .info h2:last-of-type{
+  opacity: 1;
+  max-height: 200px;
+  transition: all 0.25s;
+}
+.forms--trans-exit .form .block-label:nth-child(1),
+.forms--trans-exit .form .block-label:nth-child(4){
+  transition: opacity 0.25s 0s;
+}
+.forms--trans-exit .form .block-label:nth-child(2),
+.forms--trans-exit .form .block-label:nth-child(5){
+  transition: opacity 0.25s 0.1s;
+}
+.forms--trans-exit .form .block-label:nth-child(3),
+.forms--trans-exit .form .block-label:nth-child(6){
+  transition: opacity 0.25s 0.2s;
+}
+.forms--trans-exit .form .block-label:nth-child(1), 
+.forms--trans-exit .form .block-label:nth-child(2), 
+.forms--trans-exit .form .block-label:nth-child(3),
+.forms--trans-exit .form .block-label:nth-child(4), 
+.forms--trans-exit .form .block-label:nth-child(5), 
+.forms--trans-exit .form .block-label:nth-child(6){
+  opacity: 1;
+}
+
+.forms--none{
+  display: none;
+}
+
+.form .block-label:nth-child(1){
+  transition: all 0.5s 0.1s;
+}
+.form .block-label:nth-child(2){
+  transition: all 0.5s 0.2s;
+}
+.form .block-label:nth-child(3){
+  transition: all 0.5s 0.3s;
+}
+.form .block-label:nth-child(n + 4){
+  display: none;
+}
+
+.form .block-label:nth-child(1), 
+.form .block-label:nth-child(2), 
+.form .block-label:nth-child(3){
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+
+.form--next .block-label:nth-child(n){
+  display: none; 
+}
+.form--next .block-label:nth-child(n + 4){
+  display: block;  
+}
+
+.form--none{
+  display: none;
+}
+
+.form--active label h2,
+.form--active select h2 {
+  color: var(--transparent-white);
+}
+.form--active .block-label input,
+.form--active .block-label select{
+  border-color: var(--transparent-white);
+}
+
+@media (min-width: 0px){
+  .info {
+    padding: 20px;
+    margin: 60% auto 20px auto;
+  }
+
+  .forms{
+    flex-flow: column;  
+  }
+  .forms .info{
+    max-width: 100vw;
+    margin: 0 -20px 80px -20px;
+    border-bottom: 2px solid var(--white);
+  }
+  
+  .form{
+    margin-bottom: 200px; 
+    width: 100%;
+  }
+}
+
+@media (min-width: 725px){
+  .info {
+    margin: auto 0;
+    padding: 60px;
+  }
+  
+  .forms{
+    justify-content: center;
+    flex-flow: row;
+    height: calc(100vh - 80px);
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+  .forms .info{
+    margin: auto 0;
+    max-width: calc(400px - 100px);
+    border-bottom-style: none;
+  }
+  
+  .form{
+    margin: auto 0;
+    padding: 40px 60px;
+    min-width: 250px; 
+    width: 300px;
+  }
+}

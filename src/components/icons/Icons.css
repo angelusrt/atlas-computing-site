@@ -1,37 +1,3 @@
 .svg-arrow {
   transform: rotate(180deg);
 }
-
-.svg-column-first {
-  z-index: 3;
-}
-
-.svg-column-first,
-.svg-column-second {
-  position: absolute;
-  stroke: var(--white);
-}
-
-@media (min-width: 0px) {
-  .svg-column-first {
-    height: 500px;
-    right: -40px;
-    bottom: -100px;
-  }
-  .svg-column-second {
-    display: none;
-  }
-}
-@media (min-width: 725px) {
-  .svg-column-first {
-    height: 700px;
-    right: 290px;
-    bottom: -140px;
-  }
-  .svg-column-second {
-    height: 500px;
-    right: 200px;
-    bottom: -120px;
-    display: block;
-  }
-}/*# sourceMappingURL=Icons.css.map */

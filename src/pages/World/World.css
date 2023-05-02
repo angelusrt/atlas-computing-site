@@ -1,0 +1,19 @@
+#world{
+  text-align: center;
+}
+#world .button-black{
+  margin-top: 40px;
+  margin-left: 0;
+  transform: rotate(0deg) scale(1);
+  transition: all 1s; 
+}
+#world .button-black:hover{
+  transform: rotate(-10deg) scale(1.5);
+  transition: all 1s;
+}
+#world .button-black:hover .icon{
+  fill: var(--black);
+  transition: fill 0.5s;
+}
+
+

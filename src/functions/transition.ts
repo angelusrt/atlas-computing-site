@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { ObsEntry, TransitionType } from "./function.types"
+import { ObsEntry, TransitionType } from "./types"
 import { getShowClass } from "./utils"
 
 function setAttribute(el: Element, trans: TransitionType){

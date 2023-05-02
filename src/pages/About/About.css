@@ -1,0 +1,126 @@
+#about p{
+  margin-bottom: 40px;
+}
+
+#about .text-big{
+  text-align: center;
+}
+#about .wrapper{
+  margin: 0 auto;
+}
+
+.block-about h1, .block-about--show h1{
+  transition-delay: 400ms; 
+}
+.block-about p, .block-about--show p{
+  transition-delay: 500ms;
+}
+.block-about .block-values, 
+.block-about--show .block-values{
+  transition-delay: 300ms;
+}
+
+.block-values{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  background-color: var(--white);
+}
+
+.block-values-expand{
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: none;
+}
+.block-values-expand .wrapper{
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  background-color: var(--white);
+  position: absolute;
+  overflow: visible;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.block-values-expand .canvas-values{
+  position: absolute;
+  margin: auto;
+  inset: 0;
+} 
+.block-values-expand .title{
+  text-align: start;
+  margin-bottom: 0;
+}
+.block-values-expand .subtitle-big{
+  margin-top: 0;
+  z-index: 2;
+}
+.block-values-expand .wrapper-button{
+  margin-bottom: 20px; 
+}
+.block-values-expand .wrapper-button .button-white:first-of-type{
+  margin-right: 20px; 
+}
+.block-values-expand .wrapper-button .button-white:first-of-type .icon{
+  transform: rotate(0deg);
+}
+
+.block-values-expand--enter{
+  display: block;
+  background-color: transparent;
+  transition: background-color 0.3s 0.3s;  
+}
+.block-values-expand--enter .wrapper{
+  border-color: var(--black);
+  transition: border-color 0.3s;
+}
+.block-values-expand--enter .canvas-values, 
+.block-values-expand--enter .wrapper-content{
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.block-values-expand--show{
+  background-color: var(--white);
+  transition: background-color 0.3s;    
+}
+.block-values-expand--show .wrapper{
+  border-color: transparent;
+  border-radius: 0;
+  transition: border-color 0.3s;
+}
+.block-values-expand--show .wrapper-content{
+  opacity: 1;
+  transition: opacity 0.5s 0.3s;
+}
+.block-values-expand--show .canvas-values{
+  opacity: 1;
+  transition: opacity 0.5s 0.5s; 
+}
+
+@media (min-width: 0) {
+  #about .text-big{
+    margin: 10px 0 40px 0;
+  } 
+
+  .block-values-expand--show .wrapper{
+    padding: 20px 20px 80px 20px; 
+    width: calc(100% - 40px - 4px);
+    height: calc(100% - 100px - 4px);
+  }
+}
+
+@media (min-width: 725px){
+  #about .text-big{
+    margin: 20px 0 80px 0;
+  }
+
+  .block-values-expand--show .wrapper{
+    padding: 40px 80px;
+    width: calc(100% - 160px - 4px);
+    height: calc(100% - 80px - 4px);
+  }
+}

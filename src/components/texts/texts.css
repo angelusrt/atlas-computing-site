@@ -1,147 +1,124 @@
-p {
+p{
   line-height: 150%;
 }
 
-h1, h2, p {
-  font-family: "Roboto Condensed";
+h1, h2, p{
+  font-family: 'Roboto Condensed';
   font-weight: 300;
   margin: 0;
 }
-h1::-moz-selection, h2::-moz-selection, p::-moz-selection {
-  background-color: var(--blue);
-}
-h1::selection, h2::selection, p::selection {
+
+h1::selection, h2::selection, p::selection{
   background-color: var(--blue);
 }
 
-input, select, .text-normal-small {
-  font-family: "Roboto";
+input, select, .text-normal-small{
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  line-height: 150%;
+  line-height: 150%; 
   font-size: 20px;
 }
-input::-moz-selection, select::-moz-selection, .text-normal-small::-moz-selection {
-  color: var(--black);
-  background-color: var(--blue);
-}
-input::selection, select::selection, .text-normal-small::selection {
+
+input::selection, select::selection, .text-normal-small::selection{
   color: var(--black);
   background-color: var(--blue);
 }
 
-.text-title {
-  margin: 20px 0 40px 0;
+.title{
   z-index: 4;
+  margin: 20px 0 40px 0;
   text-align: center;
   position: relative;
 }
-
-.text-big {
-  font-family: "Poppins";
+.title-big{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  line-height: 100%;
+}
+.subtitle-big{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  line-height: 150%;
+}
+.text-big{
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 800;
   font-size: 50px;
   line-height: 75px;
   word-break: break-all;
 }
-
-.text-big-title {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 100;
-  line-height: 100%;
-}
-
-.text-big-subtitle {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 800;
-  line-height: 150%;
-}
-
-.text-thin {
-  font-family: "Roboto Condensed";
+.text-thin{
+  font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 300;
   line-height: 125%;
 }
-
-.text-thin-small {
-  font-family: "Roboto Condensed";
+.text-thin-small{
+  font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 300;
   font-size: 25px;
   line-height: 125%;
 }
-
-.text-bold-small {
-  font-family: "Roboto Condensed";
+.text-bold-small{
+  font-family: 'Roboto Condensed';
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
   line-height: 150%;
 }
-
-.text-normal {
-  font-family: "Roboto";
+.text-normal{
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-}
-
-.text-title,
-.text-big-title,
-.text-big-subtitle {
-  opacity: 0;
-  transform: translateX(-10%);
-  transition: all 0.5s;
-}
-.text-title--show,
-.text-big-title--show,
-.text-big-subtitle--show {
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.5s;
 }
 
 @media (min-width: 0px) {
-  h2, p {
+  h2, p{
     font-size: 25px;
   }
-  h1 {
+
+  h1{
     font-size: 35px;
     line-height: 125%;
   }
-  .text-big-title:first-of-type {
+
+  .title-big:first-of-type{
     font-size: 100px;
   }
-  .text-big-title:last-of-type {
+  .title-big:last-of-type{
     font-size: 50px;
     font-weight: 300;
   }
-  .text-big-subtitle {
+  .subtitle-big{
     font-size: 30px;
   }
-  .text-normal, .text-thin {
+  .text-normal, .text-thin{
     font-size: 25px;
   }
 }
+
 @media (min-width: 725px) {
   p {
     font-size: 35px;
   }
-  .text-big-title:first-of-type,
-  .text-big-title:last-of-type {
-    font-size: 150px;
+
+  .title-big:first-of-type,
+  .title-big:last-of-type{
+    font-size: 150px; 
     font-weight: 100;
     margin: 0 40px;
   }
-  .text-big-subtitle {
+  .subtitle-big{
     font-size: 50px;
     margin-top: 20px;
   }
-  .text-normal, .text-thin {
+  .text-normal, .text-thin{
     font-size: 35px;
   }
-}/*# sourceMappingURL=texts.css.map */
+}

@@ -1,0 +1,40 @@
+#discover{
+  height: 550px;
+}
+
+#discover .svg-recife{
+  position: absolute;
+  opacity: 0.6;
+  stroke: var(--white);
+}
+#discover .subtitle-big{
+  position: absolute;
+  bottom: 100px;
+}
+
+@media (min-width: 0px) {
+  #discover .svg-recife{
+    height: 1000px;
+    top: -100px;   
+    left: -455px;
+    transform: rotateZ(-10deg) rotateX(60deg) scale(1.25);
+    stroke-width: 3px;
+  }
+  #discover .subtitle-big{
+    font-size: 50px;
+    right: 40px;
+  }
+}
+
+@media (min-width: 725px){
+  #discover .svg-recife{
+    height: 1500px;  
+    top: -500px; 
+    left: -30vw;
+    stroke-width: 4px;
+  }
+  #discover .subtitle-big{
+    font-size: 120px;
+    right: 160px;
+  }
+}

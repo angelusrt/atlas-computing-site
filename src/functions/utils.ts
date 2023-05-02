@@ -1,6 +1,4 @@
-import { Err, Ok, Result } from "ts-results"
-import { BlockErrorType } from "../components/blocks/Blocks.types"
-import { DivRef, HTMLRef, KeyframeType, OptionListType } from "./function.types"
+import { DivRef, KeyframeType } from "./types"
 
 function remove(classList: DOMTokenList, mod: string) {
   classList.remove(classList[0] + mod)
@@ -23,9 +21,11 @@ function setEnter(ref: DivRef, delay: number) {
 
   remove(block.classList, "--none")
 
-  setTimeout(() => add(block.classList, "--enter"), 5)
-
-  setTimeout(() => add(block.classList, "--show"), delay)
+  setTimeout(() => {
+    add(block.classList, "--enter")
+    
+    setTimeout(() => add(block.classList, "--show"), delay)
+  }, 10)
 }
 
 function setExit(blockRef: DivRef, delay: number, func: () => void) {
@@ -62,32 +62,6 @@ function setTransExit(blockRef: DivRef, delay: number) {
       remove(block.classList, "--trans-enter")
     }, delay)
   }
-}
-
-function setSelectText(
-  ref: HTMLRef | undefined, optionList: OptionListType, id: number
-): Result<"Successfull", BlockErrorType> {
-  const blockLabel = ref?.current
-
-  if(!blockLabel) return Err("BLOCK_DOESNT_EXIST")
-  
-  const select = blockLabel.getElementsByTagName('select')[0]
-
-  if(!select) return Err("BLOCK_DOESNT_EXIST")
-
-  select.selectedIndex = id + 1
-
-  const blockSelected = blockLabel.getElementsByClassName('block-selected')[0]
-
-  if(!blockSelected) return Err("BLOCK_DOESNT_EXIST")
-
-  const textSelected = blockSelected.children.item(0)
-
-  if(!textSelected) return Err("BLOCK_DOESNT_EXIST")
-  
-  textSelected.innerHTML = optionList[id].text
-
-  return Ok("Successfull")
 }
 
 function getShowClass(query: string): string {
@@ -166,6 +140,5 @@ export{
   setExit,
   setTransEnter,
   setTransExit,
-  setSelectText,
   getInitialPage
 }

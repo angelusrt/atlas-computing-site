@@ -1,84 +1,77 @@
 import { useEffect, useRef, useState } from "react"
-
-import { useAnimateOnView } from "../../functions/transition"
-
-import { BlockButtonType, ButtonType, LinkType, NavType } from "./Buttons.types"
-
-import { Text } from "../texts/Texts"
+import { add, remove } from "../../functions/utils"
+import { ButtonRef } from "../../functions/types"
+import { TextNameType } from "../texts/Texts"
 import { Block } from "../blocks/Blocks"
 import { Icon } from "../icons/Icons"
-
+import { H2 } from "../texts/Texts"
 import "./buttons.css"
-import { add, remove } from "../../functions/utils"
 
-const transLink = {
-  isTransition: true,
-  isDelayChild: false,
-  delayPerItem: 200,
-  timeout: 200,
-  start: 0,
-  index: 0,
+type ButtonName = (
+  'button-index' | 'button-white' | 'button-black' | 'button-transparent'
+)
+
+
+type ButtonType = {
+  name: ButtonName,
+  isIcon ?: boolean,
+  ariaLabel ?: string,
+  blockRef ?: ButtonRef,
+  text ?: string,
+  children ?: any,
+  func ?: any,
+} 
+
+const Button = (prop: ButtonType) => (
+  <button 
+    type="button"
+    ref={prop.blockRef} 
+    className={prop.name || ""} 
+    aria-label={prop.ariaLabel || prop.text}
+    {...prop.func}
+  >
+    {prop.text && <H2 name="text-bold-small">{prop.text}</H2>}
+    {prop.isIcon && <Icon name="Arrow"/>}
+    {prop.children}
+  </button>
+)
+
+
+type LinkType = {
+  text: string,
+  href: string,
+  isNewTab: boolean
+} 
+
+const Link = (prop: LinkType) => (
+  <a 
+    className="button-link" 
+    href={prop.href} 
+    target={prop.isNewTab ? "_blank" : "_self"}
+    rel="noreferrer"
+    aria-label={prop.text}
+  >
+    <H2>{prop.text}</H2>
+  </a>
+)
+
+
+type BlockButtonType = {
+  text: string, 
+  func: () => void
 }
-const transButton = {
-  isTransition: true,
-  isDelayChild: false,
-  delayPerItem: 0,
-  timeout: 200,
-  start: 400,
-  index: 0,
-}
-const transIndex = {
-  isTransition: true,
-  isDelayChild: false,
-  delayPerItem: 0,
-  timeout: 200,
-  start: 600,
-  index: 0,
-}
 
-const Button = (prop: ButtonType) => {
-  const {
-    blockRef, name, type, children, func, text, textName, ariaLabel
-  } = prop
+const BlockButton = (prop: BlockButtonType) => (
+  <Block name={"block-button"} func={{onClick: prop.func}}>
+    <H2>{prop.text}</H2>
+  </Block>
+)
 
-  useAnimateOnView('.button-black', transButton)
-  useAnimateOnView('.button-white', transButton)
-  // useAnimateOnView('.button-index', transIndex)
-  useAnimateOnView('.button-transparent', transIndex)
 
-  return(
-    <button 
-      ref={blockRef} 
-      className={name || ""} 
-      aria-label={ariaLabel}
-      type="button"
-      {...func}
-    >
-      {
-        text &&
-        <Text name={textName} type={type} children={text}/>
-      }
-      {children}
-    </button>
-  )
-}
-
-const Link = (prop: LinkType) => {
-  const {href, isNewTab, text} = prop
-
-  useAnimateOnView('#footer .button-link', transLink)
-
-  return(
-    <a 
-      className="button-link" 
-      href={href} 
-      target={isNewTab ? "_blank" : "_self"}
-      rel="noreferrer"
-      aria-label={text}
-    >
-      <Text type='h2' children={text}/>
-    </a>
-  )
+type NavType = {
+  blockRef: ButtonRef,
+  children: any,
+  isMobile: boolean,
 }
 
 const NavButton = (prop: NavType) => {
@@ -123,30 +116,14 @@ const NavButton = (prop: NavType) => {
   }, [isToggle])
 
   return (
-    <Button
-      blockRef={blockRef} 
-      type='h2'
-      name="button-index"
-      textName="text-bold-small"
-      ariaLabel="Menu"
-      func={getFunc()}
-    >
+    <Button blockRef={blockRef} name="button-index" ariaLabel="Menu" func={getFunc()}>
       <Icon name="Menu"/>
-      <Block type="div" blockRef={dropdownRef} name="block-dropdown">
+      <Block blockRef={dropdownRef} name="block-dropdown">
         {children}
       </Block>
     </Button>
   )
 }
 
-const BlockButton = (prop: BlockButtonType) => {
-  const {text, func} = prop
-
-  return (
-    <Block type="div" name={"block-button"} func={{onClick: func}}>
-      <Text type="h2">{text}</Text>
-    </Block>
-  )
-}
-
 export{Button, Link, NavButton, BlockButton}
+export type {ButtonType, LinkType, NavType, BlockButtonType}

@@ -34,3 +34,17 @@ code {
 body::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
+
+@media (min-width: 0px) {
+  section {
+    padding: 20px 20px 40px 20px;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+@media (min-width: 725px) {
+  section {
+    padding: 40px 80px;
+  }
+}

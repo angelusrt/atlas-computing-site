@@ -1,0 +1,187 @@
+.project{
+  background-color: transparent;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.project .button-white{
+  width: 200px;
+  margin-top: 20px;
+  padding: 10px 40px;
+  border: 2px dashed var(--black);
+}
+.project .icon{
+  overflow: auto;
+  stroke: var(--black);
+  stroke-width: 15px;
+  margin-bottom: 10px;
+  width: 145px;
+}
+
+.project-expanded{
+  display: none;
+  position: fixed;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  inset: 0;
+  justify-content: flex-start;
+  margin: 0 auto;
+  z-index: 5; 
+}
+.project-expanded .text-normal{
+  display: none;
+}
+.project-expanded .icon{
+  overflow: auto;
+  display: table;
+  z-index: -1;
+  stroke: var(--black);
+  stroke-width: 15px;
+  margin-bottom: 10px;
+  width: 145px;
+}
+.project-expanded .button-white{
+  padding: 10px 40px;
+  border: 2px dashed var(--black);
+  overflow: hidden;
+}
+.project-expanded .text-bold-small{
+  display: inline-block;
+  height: 40px;
+  white-space: nowrap; 
+  overflow: hidden;
+}
+.project-expanded .wrapper{
+  position: absolute;
+  display: block;
+  background-color: var(--white);
+}
+
+.project-expanded--enter{
+  display: block;
+  background-color: transparent;
+  transition: background-color 0.5s;
+}
+.project-expanded--enter .icon{
+  transition: margin 0.5s ease-in-out;
+}
+.project-expanded--enter .text-normal{
+  display: block;
+  max-height: 0px;
+  opacity: 0;
+  transition: 
+    margin 0.5s ease-in-out, opacity 0.5s, max-height 0.5s ease-in-out;
+}
+.project-expanded--enter .button-white{
+  position: absolute;
+  width: 200px;
+  bottom: 70px;
+  transition: bottom 0.5s ease-in-out;
+}
+.project-expanded--enter .button-white :first-child{
+  opacity: 0.5;
+  width: 0;
+  height: 0;
+  transition: opacity 0.2s, width 0s 0.2s, height 0s 0.2s;
+}
+.project-expanded--enter .button-white :last-child{
+  opacity: 1;
+  width: 100px;
+  height: 40px;
+  transition: opacity 0.3s 0.2s, width 0s 0.2s, height 0s 0.2s;
+}
+.project-expanded--enter .wrapper{
+  margin: 0;
+  min-height: 250px;
+  transition: min-height 0.5s;
+} 
+
+.project-expanded--show{
+  overflow: auto;
+  background-color: var(--white);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s, background-color 0.2s;
+}
+.project-expanded--show .icon{
+  display: table;
+  margin: 40px 0;
+  transition: margin 0.5s ease-in-out;
+}
+.project-expanded--show .text-normal{
+  margin: 20px 0 40px 0;
+  max-height: 300px;
+  opacity: 1;
+  transition: 
+    margin 0.5s ease-in-out, opacity 0.5s, max-height 0.5s ease-in-out;
+}
+.project-expanded--show .button-white{
+  position: absolute;
+  margin-bottom: 0px;
+  width: 200px;
+  bottom: 80px;
+  transition: bottom 0.5s ease-in-out; 
+}
+.project-expanded--show .button-white :first-child{
+  opacity: 1;
+  width: 100px;
+  height: 40px;
+  transition: opacity 0.3s 0.2s, width 0s 0.2s, height 0s 0.2s;
+}
+.project-expanded--show .button-white :last-child{
+  opacity: 0.5;
+  width: 0;
+  height: 0;
+  transition: opacity 0.2s, width 0s 0.2s, height 0s 0.2s;
+}
+.project-expanded--show .wrapper{
+  transition: min-height 0.5s;
+}
+
+@media (min-width: 0px) {
+  #projects {
+    padding: 20px 0 40px 0;
+    overflow: unset;
+  }
+  #projects .title {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .project{
+    padding: 40px 20px;
+  }
+  .project-expanded--enter .wrapper{
+    padding: 40px 20px 120px 20px;
+  }
+  .project-expanded--show .wrapper{
+    min-height: calc(100% - 120px);
+    padding: 20px 20px 100px 20px;
+  }
+}
+
+@media (min-width: 725px){
+  #projects {
+    padding: 40px 80px;
+  }
+  #projects .title {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .project{
+    padding: 40px;
+  }
+  .project-expanded--enter .wrapper{
+    padding: 40px 40px 120px 40px;
+  }
+  .project-expanded--show .wrapper{
+    min-height: calc(100% - 220px);
+    padding: 80px 20% 140px 20%;
+  }
+}
