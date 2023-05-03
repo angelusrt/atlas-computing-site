@@ -1,5 +1,3 @@
-const host = process.env.REACT_APP_HOST
-
 type ObsEntry = IntersectionObserverEntry
 
 type HTMLRef = React.MutableRefObject<HTMLElement>
@@ -62,7 +60,7 @@ type OptionsType = {
   name: string
 }[]
 
-export {host, trans, bodyStyle}
+export {trans, bodyStyle}
 export type {
   ObsEntry,
   HTMLRef,

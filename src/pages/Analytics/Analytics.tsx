@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { H1, H2 } from "../../components/texts/Texts"
-import { DivRef, host } from "../../functions/types"
+import { DivRef } from "../../functions/types"
 import "./Analytics.css"
 
 type HeaderDataType = {title: string, subtitle: string}
@@ -34,7 +34,7 @@ const Analytics = (prop: AnalyticsType) => {
       mode: "cors",
     }
 
-    await fetch(`${host}/api/user/analytics/${userId}/${language}`, getHeader)
+    await fetch(`${process.env.REACT_APP_HOST}/api/user/analytics/${userId}/${language}`, getHeader)
       .then(res => res.json())
       .then((data: DataType) => setData(data))
       .catch(err => console.log(err))
