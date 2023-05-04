@@ -15,9 +15,11 @@
 #atlas2 .svg-arrow{
   transform: rotate(0deg);
 }
-#atlas2 .button-black, #atlas2 .button-white{
+#atlas2 .button-black, 
+#atlas2 .button-white{
   padding-right: 40px;
   padding-left: 40px;
+  width: fit-content;
 }
 
 .atlas2 {
@@ -39,7 +41,7 @@
 .atlas2 button:first-of-type {
   transition: all 0.5s 0.3s;
 }
-.atlas2 button:last-of-type {
+.atlas2 a {
   transition: all 0.5s 0.2s;
 }
 .atlas2 .svg-column-first {
@@ -54,7 +56,7 @@
 }
 .atlas2 h1:first-of-type, .atlas2 h1:last-of-type,
 .atlas2 h2:first-of-type, .atlas2 h2:last-of-type,
-.atlas2 button:first-of-type, .atlas2 button:last-of-type {
+.atlas2 button:first-of-type, .atlas2 a {
   opacity: 0;
   transform: translateX(-10px);
 }
@@ -80,7 +82,7 @@
 .atlas2--enter button:first-of-type {
   transition: all 0.5s 0.7s;
 }
-.atlas2--enter button:last-of-type {
+.atlas2--enter a {
   transition: all 0.5s 0.8s;
 }
 .atlas2--enter .svg-column-first {
@@ -94,7 +96,7 @@
 .atlas2--enter h2:first-of-type, 
 .atlas2--enter h2:last-of-type,
 .atlas2--enter button:first-of-type, 
-.atlas2--enter button:last-of-type,
+.atlas2--enter a,
 .atlas2--enter .svg-column-first, 
 .atlas2--enter .svg-column-second {
   opacity: 1;
@@ -105,7 +107,7 @@
 .atlas2--show h2:first-of-type, 
 .atlas2--show h2:last-of-type,
 .atlas2--show button:first-of-type, 
-.atlas2--show button:last-of-type,
+.atlas2--show a,
 .atlas2--show .svg-column-first, 
 .atlas2--show .svg-column-second {
   transition-delay: 0ms;
@@ -131,8 +133,8 @@
     margin-top: 40px;
   }
   #atlas2 .button-black{
-    display: block;
     margin-top: 20px;
+    display: block;
   }
 
   .svg-column-first {
@@ -152,7 +154,7 @@
     min-height: calc(100vh - 160px);
   }
   #atlas2 .button-black{
-    display: inline;
+    display: inline-block;
     margin-left: 20px;
   }
   #atlas2 .subtitle-big{

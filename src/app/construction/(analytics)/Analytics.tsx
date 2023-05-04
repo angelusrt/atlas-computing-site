@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from "react"
-import { H1, H2 } from "../../components/texts/Texts"
-import { DivRef } from "../../functions/types"
+import { H1, H2 } from "../../../components/texts/Texts"
+import { DivRef } from "../../../functions/types"
 import "./Analytics.css"
 
 type HeaderDataType = {title: string, subtitle: string}
@@ -34,7 +36,7 @@ const Analytics = (prop: AnalyticsType) => {
       mode: "cors",
     }
 
-    await fetch(`${process.env.REACT_APP_HOST}/api/user/analytics/${userId}/${language}`, getHeader)
+    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/analytics/${userId}/${language}`, getHeader)
       .then(res => res.json())
       .then((data: DataType) => setData(data))
       .catch(err => console.log(err))

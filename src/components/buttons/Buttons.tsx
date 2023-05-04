@@ -1,7 +1,8 @@
+"use client"
+
 import { useEffect, useRef, useState } from "react"
 import { add, remove } from "../../functions/utils"
 import { ButtonRef } from "../../functions/types"
-import { TextNameType } from "../texts/Texts"
 import { Block } from "../blocks/Blocks"
 import { Icon } from "../icons/Icons"
 import { H2 } from "../texts/Texts"

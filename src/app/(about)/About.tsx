@@ -1,5 +1,6 @@
-import { useContext, useRef, useState } from "react"
-import { isMobileContext } from "../../App"
+"use client"
+
+import {useRef, useState } from "react"
 import { Button } from "../../components/buttons/Buttons"
 import { Canvas } from "../../components/canvas/Canvas"
 import { H1, P } from "../../components/texts/Texts"
@@ -28,9 +29,7 @@ function getStyles(isMobile: boolean): StyleType {
 const about = data.about
 const values = data.about.values
 
-const About = () => {
-  const isMobile = useContext(isMobileContext)
-
+const About = ({isMobile}: {isMobile: boolean}) => {
   const [index, setIndex] = useState(0)
   const [canvasActive, setCanvasActive] = useState(false)
 

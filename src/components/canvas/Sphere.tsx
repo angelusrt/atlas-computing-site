@@ -1,7 +1,10 @@
+"use client"
+
 import React, { Suspense, useEffect, useMemo, useRef } from 'react'
 
-import { useFrame } from '@react-three/fiber'
-import { BufferGeometry, Color } from 'three'
+import { useFrame } from '@react-three/fiber/'
+import { BufferGeometry } from 'three/src/core/BufferGeometry'
+import { Color } from 'three/src/math/Color'
 
 import {getCirclePoints} from '../../functions/geometry'
 import { useAnimateOnView } from '../../functions/transition'

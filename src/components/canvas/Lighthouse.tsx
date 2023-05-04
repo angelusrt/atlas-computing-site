@@ -1,7 +1,10 @@
 import { useGLTF } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
+import { useFrame } from "@react-three/fiber/"
 import { Suspense, useEffect, useRef } from "react"
-import { Group, DoubleSide, Color } from "three"
+
+import { DoubleSide } from "three/src/constants"
+import { Group } from "three/src/objects/Group"
+import { Color } from 'three/src/math/Color'
 
 const Lighthouse = (prop: {isMobile: boolean}) => {
   const {isMobile} = prop

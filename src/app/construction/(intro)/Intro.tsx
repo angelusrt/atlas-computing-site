@@ -1,8 +1,7 @@
-import { Button } from "../../components/buttons/Buttons"
-import { Icon } from "../../components/icons/Icons"
-import { H1, H2 } from "../../components/texts/Texts"
-import { setExit } from "../../functions/utils"
-import data from "../../secondPage.json"
+import { Button } from "../../../components/buttons/Buttons"
+import { H1, H2 } from "../../../components/texts/Texts"
+import { setExit } from "../../../functions/utils"
+import data from "../../../secondPage.json"
 import "./Intro.css"
 
 type IntroType = {
@@ -22,7 +21,6 @@ const Intro = (prop: IntroType) => {
  
   return (
     <section ref={blockRef} id={intro[index].tag} className={name + intro[index].theme}>
-      {/* <Icon name={intro[index].iconName}/> */}
       <H1 name="text-big">{intro[index].title}</H1>
       <H2 name="text-thin">{intro[index].subtitle}</H2>
       <H2 name="text-normal">{intro[index].body}</H2>

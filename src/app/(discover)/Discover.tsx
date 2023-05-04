@@ -1,5 +1,6 @@
-import { useContext, useEffect, useRef } from "react"
-import { isMobileContext } from "../../App"
+"use client"
+
+import { useEffect, useRef } from "react"
 import { Icon } from "../../components/icons/Icons"
 import { H1 } from "../../components/texts/Texts"
 import data from "../../firstPage.json"
@@ -7,11 +8,7 @@ import "./Discover.css"
 
 const discover = data.discover
 
-const Discover = (prop: {active: number}) => {
-  const {active} = prop
-  
-  const isMobile = useContext(isMobileContext)
-
+const Discover = ({isMobile}: {isMobile: boolean}) => {
   const sectionRef = useRef<HTMLElement>(null!)
   const recifeRef = useRef<SVGSVGElement>(null!)
   const textRef = useRef<HTMLParagraphElement>(null!)  
@@ -51,11 +48,11 @@ const Discover = (prop: {active: number}) => {
       }
     }
 
-    if(section && recife && text && !isMobile && active === 0)
+    if(section && recife && text && !isMobile)
       window.addEventListener("scroll", onScroll)
     
     return () => window.removeEventListener("scroll", onScroll)
-  },[isMobile, active === 0])
+  },[isMobile])
 
   return(
     <section id="discover" ref={sectionRef} className="block-black">

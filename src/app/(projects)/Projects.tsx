@@ -1,5 +1,6 @@
-import React, { useContext, useRef, useState } from "react"
-import { isMobileContext } from "../../App"
+"use client"
+
+import { useRef, useState } from "react"
 import { Button } from "../../components/buttons/Buttons"
 import { Block } from "../../components/blocks/Blocks"
 import { Icon } from "../../components/icons/Icons"
@@ -41,15 +42,14 @@ type ProjectType = {
   parentRef: React.MutableRefObject<HTMLElement>,
   wrapperRef: React.MutableRefObject<HTMLDivElement>,
   item: ItensType,
+  isMobile: boolean,
   setIndex: () => void
   setRef: (s: React.MutableRefObject<HTMLDivElement>) => void
 }
 
 const itens = data.projects.itens
 
-const Projects = () => {
-  const isMobile = useContext(isMobileContext)
-
+const Projects = ({isMobile}: {isMobile: boolean}) => {
   const [index, setIndex] = useState(0)
   const [ref, setRef] = useState<React.MutableRefObject<HTMLDivElement>>()
 
@@ -94,6 +94,7 @@ const Projects = () => {
             blockRef={expandedRef}
             wrapperRef={wrapperRef}
             parentRef={parentRef}
+            isMobile={isMobile}
             key={i}
             item={e}
             setIndex={() => setIndex(i)}
@@ -117,10 +118,7 @@ const Projects = () => {
 }
 
 const ProjectBlock = (prop: ProjectType) => {
-  const {blockRef, parentRef, wrapperRef, item, setIndex, setRef} = prop
-
-  const isMobile = useContext(isMobileContext)
-
+  const {blockRef, parentRef, wrapperRef, isMobile, item, setIndex, setRef} = prop
   const ref = useRef<HTMLDivElement>(null!)
 
   function expandIn(e: MouseEvent) {

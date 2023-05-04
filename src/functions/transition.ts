@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect } from "react"
 import { ObsEntry, TransitionType } from "./types"
 import { getShowClass } from "./utils"

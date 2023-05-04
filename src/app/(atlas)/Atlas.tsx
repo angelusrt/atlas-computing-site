@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react"
-import { isMobileContext } from "../../App"
+"use client"
+
+import { useEffect, useState } from "react"
 import { Canvas } from "../../components/canvas/Canvas"
 import { H1, H2 } from "../../components/texts/Texts"
 import data from "../../firstPage.json"
@@ -7,22 +8,21 @@ import "./Atlas.css"
 
 const atlas = data.atlas
 
-const Atlas = () => {
-  const isMobile = useContext(isMobileContext)
+const Atlas = ({isMobile}: {isMobile: boolean}) => {
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     function onScroll() {
-      if(window.scrollY > 490 && isVisible)
+      if(isVisible && window.scrollY > 490)
         setIsVisible(false)
-      else if(window.scrollY < 490 && !isVisible)
+      else if(!isVisible && window.scrollY < 490)
         setIsVisible(true)
     }
 
     if(isMobile) document.addEventListener("scroll", onScroll)
 
     return () => document.removeEventListener("scroll", onScroll)
-  }, [isVisible])
+  }, [isVisible, isMobile])
 
   return(
     <section id="atlas" className="block-white">

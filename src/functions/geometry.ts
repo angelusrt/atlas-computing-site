@@ -1,6 +1,5 @@
 import { Vector3 } from "three"
-import { Err, Ok, Result } from "ts-results"
-import { RotationType, BlockErrorType } from "./types"
+import { RotationType } from "./types"
 
 const z = 0
 const circumference = 2 * Math.PI
@@ -22,14 +21,10 @@ function getCirclePoints(subdivisions: number, radius: number): Vector3[]{
 function rotateOnMouse(prop: RotationType){
   const {isVisible, isMobile, ref, sensibility} = prop
 
-  const onMouse = (e: MouseEvent): Result<"Successfull", BlockErrorType> => {
+  const onMouse = (e: MouseEvent) => {
     const line = ref.current 
 
-    if(!line) return Err("BLOCK_DOESNT_EXIST")
-
-    line.rotation.y += e.movementX / sensibility
-    
-    return Ok("Successfull")
+    if(line) line.rotation.y += e.movementX / sensibility
   }
 
   if(isVisible && !isMobile)

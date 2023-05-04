@@ -1,19 +1,18 @@
-import { Button } from "../../components/buttons/Buttons"
+import Link from "next/link"
+import { Icon } from "../../components/icons/Icons"
 import { H1, P } from "../../components/texts/Texts"
 import data from "../../firstPage.json"
 import "./World.css"
 
-type WorldType = {
-  setPage: () => void
-}
-
 const world = data.world
 
-const World = (prop: WorldType) => (
+const World = () => (
   <section id="world">
     <H1 name="title">{world.tag}</H1>
     <P name="subtitle-big">{world.title}</P>
-    <Button isIcon name="button-black" ariaLabel="Próxima página" func={{onClick: prop.setPage}}/>
+    <Link className="link button-black" href="/construction" aria-label="Próxima página">
+      <Icon name="Arrow"/>
+    </Link>
   </section>
 )
 

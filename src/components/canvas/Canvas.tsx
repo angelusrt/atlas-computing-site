@@ -1,3 +1,5 @@
+"use client"
+
 import React, { Suspense, useState } from "react"
 import { Canvas as Can } from "@react-three/fiber"
 import Lighthouse from "./Lighthouse"

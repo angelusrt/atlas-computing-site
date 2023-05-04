@@ -1,9 +1,11 @@
+"use client"
+
 import { useEffect, useRef, useState } from "react"
-import { add, remove, setExit, setTransEnter, setTransExit } from "../../functions/utils"
-import { DivRef, OptionsType } from "../../functions/types"
-import { H1, H2 } from "../../components/texts/Texts"
-import { Button } from "../../components/buttons/Buttons"
-import data from "../../secondPage.json"
+import { add, remove, setExit, setTransEnter, setTransExit } from "../../../functions/utils"
+import { DivRef, OptionsType } from "../../../functions/types"
+import { H1, H2 } from "../../../components/texts/Texts"
+import { Button } from "../../../components/buttons/Buttons"
+import data from "../../../secondPage.json"
 import "./Forms.css"
 
 type FormsType = {
@@ -60,7 +62,7 @@ const Forms = (prop: FormsType) => {
       body: JSON.stringify(Object.fromEntries(new FormData(parentRef.current))),
     }
 
-    await fetch(`${process.env.REACT_APP_HOST}/api/user/`, postHeader)
+    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/`, postHeader)
       .then(res => res.json())
       .then((res: {user: number[]}) => {
         setUserId(res.user[0])
