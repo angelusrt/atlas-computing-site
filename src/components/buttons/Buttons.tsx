@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import { add, remove } from "../../functions/utils"
 import { ButtonRef } from "../../functions/types"
 import { Block } from "../blocks/Blocks"
@@ -9,7 +9,7 @@ import { H2 } from "../texts/Texts"
 import "./buttons.css"
 
 type ButtonName = (
-  'button-index' | 'button-white' | 'button-black' | 'button-transparent'
+  'button-nav' | 'button-white' | 'button-black' | 'button-transparent'
 )
 
 
@@ -63,7 +63,10 @@ type BlockButtonType = {
 }
 
 const BlockButton = (prop: BlockButtonType) => (
-  <Block name={"block-button"} func={{onClick: prop.func}}>
+  <Block 
+    name={"block-button"} 
+    func={{onClick: prop.func}}
+  >
     <H2>{prop.text}</H2>
   </Block>
 )
@@ -78,50 +81,41 @@ type NavType = {
 const NavButton = (prop: NavType) => {
   const {blockRef, children, isMobile } = prop
 
-  const [isToggle, setToggle] = useState(false)
-  const [time , setTime] = useState<NodeJS.Timeout>()
-
+  const time = useRef<NodeJS.Timeout>(null!)
   const dropdownRef = useRef<HTMLElement>(null!)
-
-  function getFunc() {
-    if(isMobile)
-      return { 
-        onClick: () => setToggle(s => !s),
-        onMouseLeave: () => setToggle(false)
-      }
-    else
-      return { 
-        onMouseEnter: () => setToggle(true),
-        onMouseLeave: () => setToggle(false)
-      } 
+  
+  function onEnter() {
+    if(time.current) clearTimeout(time.current)
+    
+    add(blockRef, "--hover")
+    time.current = setTimeout(() => add(dropdownRef, "--show"), 10)   
   }
 
-  useEffect(() => {
-    const button = blockRef.current
-    const dropdown = dropdownRef.current
-
-    if(time) clearTimeout(time)
-
-    if(isToggle){
-      add(button.classList, "--hover")
-
-      remove(dropdown.classList, "--none")
-      setTime(setTimeout(() => add(dropdown.classList, "--show"), 10))
-    }
-    else{
-      remove(button.classList, "--hover")
-
-      remove(dropdown.classList, "--show")
-      setTime(setTimeout(() => add(dropdown.classList, "--none"), 1000))
-    }
-  }, [isToggle])
+  function onExit() {
+    if(time.current) clearTimeout(time.current)
+  
+    remove(dropdownRef, "--show")
+    time.current = setTimeout(() => remove(blockRef, "--hover"), 350)
+  }
+  
+  function getFunc() {
+    if(isMobile)
+      return { onClick: onEnter, onMouseLeave: onExit }
+    else
+      return { onMouseEnter: onEnter, onMouseLeave: onExit } 
+  }
 
   return (
-    <Button blockRef={blockRef} name="button-index" ariaLabel="Menu" func={getFunc()}>
-      <Icon name="Menu"/>
+    <Button 
+      blockRef={blockRef} 
+      name="button-nav" 
+      ariaLabel="Menu" 
+      func={getFunc()}
+    >
       <Block blockRef={dropdownRef} name="block-dropdown">
         {children}
       </Block>
+      <Icon name="Menu"/>
     </Button>
   )
 }

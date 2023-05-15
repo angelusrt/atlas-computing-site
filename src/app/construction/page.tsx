@@ -54,7 +54,8 @@ const construction = () => {
 
   function setPage(index: number) {
     setExit(
-      refMap[activeRef.current][0], refMap[activeRef.current][1], 
+      refMap[activeRef.current][0], 
+      refMap[activeRef.current][1], 
       () => {
         activeRef.current = pages[index]
         setEnter(refMap[pages[index]][0], refMap[pages[index]][1])
@@ -76,7 +77,7 @@ const construction = () => {
   }, [isMobile])
   useEffect(() => {
     setIsMobile(window.innerWidth < 725)
-    add(navRef.current.classList, "--show")
+    add(navRef, "--show")
     setEnter(atlas2Ref, 1500)
   }, [])
 

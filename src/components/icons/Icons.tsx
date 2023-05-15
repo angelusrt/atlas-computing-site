@@ -1,14 +1,4 @@
-import { SVGRef } from "../../functions/types"
 import "./Icons.css"
-
-type IconType = {
-  name?: string,
-  blockRef?: SVGRef | undefined
-}
-
-type SVGIconType = {
-  blockRef: SVGRef | undefined
-}
 
 const iconStyle: React.CSSProperties = {
   fillRule: "evenodd",
@@ -18,8 +8,8 @@ const iconStyle: React.CSSProperties = {
   strokeMiterlimit: 1.5,
 }
 
-const Arrow = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} viewBox="0 0 24 24" className="icon svg-arrow">
+const Arrow = () => (
+  <svg viewBox="0 0 24 24" className="icon svg-arrow">
     <path 
       d="M19,11H9l3.29-3.29a1,1,0,0,0,
       0-1.42,1,1,0,0,0-1.41,0l-4.29,4.3A2,2,0,
@@ -28,8 +18,8 @@ const Arrow = (prop: SVGIconType) => (
     />
   </svg>
 )
-const Dropdown = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} viewBox="0 0 24 24" className="icon">
+const Dropdown = () => (
+  <svg viewBox="0 0 24 24" className="icon">
     <path
       d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,
       4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,
@@ -38,8 +28,8 @@ const Dropdown = (prop: SVGIconType) => (
     />
   </svg>
 )
-const Menu = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="icon svg-menu" viewBox="0 30 448 440">
+const Menu = () => (
+  <svg className="icon svg-menu" viewBox="0 30 448 440">
     <path 
       d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 
       32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 
@@ -50,24 +40,30 @@ const Menu = (prop: SVGIconType) => (
     />
   </svg>
 )
-
-const Recife = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="image svg-recife" viewBox="0 0 1374 1376" style={iconStyle}>
-    <g transform="matrix(1,0,0,1,-505,-307)">
-      <g transform="matrix(0.703548,0.171488,-0.171488,0.703548,297.007,-109.761)">
-        <g transform="matrix(0.807931,-0.196931,0.196931,0.807931,775.963,583.68)">
-          <path
-            d="M66.771,1283L73.926,1274.24L80.917,1255.4L72.085,1220.28M1146.59,246.224L1224.44,298.699L1133.47,395.315L1122.95,541.721L991.341,738.511L880.959,858.218L836.374,818.633L837.652,731.97L861.763,709.565L902.846,619.88L898.015,570.651L904.976,533.557L922.705,515.082L945.771,434.432L979.245,389.655L1059.4,336.267L1146.59,246.224ZM-331.409,983.996L-317.123,1060.54L-279.732,1093.36L-141.198,1089.5L30.547,1162.19L67.214,1148.51L99.913,1150.22L120.21,1143.36L134.918,1156.26L146.792,1151.03L82.233,1080.45L108.958,1063.42L121.486,1039.77L136.518,1028.83L140.71,1019.89L741.202,971.388L759.204,957.889L820.555,885.169L777.127,832.909L768.737,798.297L791.699,608.532L762.722,585.421L731.406,587.746L700.389,604.847L648.397,636.021L601.98,682.761L566.86,700.669L466.3,707.694L421.431,717.819L394.826,746.829L371.418,782.149L361.57,803.55L295.277,850.5L261.198,852.717L200.531,823.116L89.105,719.745L33.694,683.228L-48.161,661.795L-89.811,658.209L-134.265,633.129L-174.983,653.304L-333.39,783.274L-352.858,805.995L-356.799,852.611L-334.564,897.604L-331.329,929.294L-332.349,965.967L-331.409,983.996ZM-307.536,215.793L-110.638,595.415L-81.886,633.669L-39.51,645.024L-35.207,634.905L21.421,652.332L40.784,658.523L87.691,689.079L193.394,777.807L244.11,820.855L270.274,827.207L299.726,821.16L331.282,798.936L335.883,782.424L370.228,743.682L372.853,734.368L403.826,701.419L447.287,681.737L553.142,675.323L579.169,644.529L605.718,627.569L668.822,575.37L737.477,531.951L780.052,516.155L827.17,486.849L829.515,478.164L885.615,432.692L890.073,420.008L903.816,408.92L916.897,406.857L950.824,380.343L956.697,358.077L970.244,351.111L964.899,341.959L982.873,325.2L969.031,311.015L973.032,306.848L945.866,288.011L947.496,281.322L983.069,240.631L1004.79,219.873L1130.94,132.54L1145.12,73.833L1155.37,65.273L1217.63,115.339L1235.78,122.401L1279.44,89.676L1327.79,16.6L1373.47,-13.841L1381.72,-28.269L1463.32,-80.367L1666.21,-156.747L1761.26,-118.883L1880.71,-205.732M181.852,2068.8L382.319,1672.98L384.232,1639.5L415.777,1618.27L442.846,1549.3L473.517,1536.42L529.19,1451.28L658.653,1278.19L649.248,1269.79L649.825,1260.98L678.037,1239.25L688.874,1202.62L728.392,1180.22L753.29,1161.13L881.341,995.352L872.857,993.284L731.282,1168.36L716.422,1176.87L704.129,1176.53L682.809,1190.55L672.089,1200.36L597.06,1229.08L476.968,1259.51L334.774,1277.7L326.069,1286.78L277.336,1287.37L269.557,1294.56L208.6,1290.76L163.38,1266.61L109.75,1285.22L91.45,1281.52L76.712,1288.44L58.662,1278.56L36.123,1281.46L31.569,1289.56L9.275,1290.94L1.258,1284.89L-26.072,1283.75L-60.209,1259.86L-52.776,1227.12L-67.465,1211.37L-135.373,1193.1L-143.784,1186.4L-185.99,1179.21L-197.149,1181.77L-208.93,1178.03L-280.548,1185.49L-304.29,1202.68L-323.295,1223.52L-350.993,1282.51L-378.533,1323.14L-383.293,1344.29L-388.968,1375.31L-379.226,1391.65L-345.641,1401.31L-320.13,1395.74L-283.446,1407.12L-241.788,1397.6L-216.581,1384.19L-176.711,1396.32L-169.555,1404.34L-119.539,1414.37L-106.547,1427.93L-87.401,1431.41L-84.295,1425.11L-60.804,1435.3L-90.371,1453.25L-137.596,1455.72L-158.289,1465.55L-190.161,1461.57L-198.428,1469.43L-199.993,1492.23L-194.096,1501.14L-231.667,1549.76L-239.3,1570.72L-236.482,1592.39L-218.476,1609.19L-170.146,1703.96L-108.903,1783.38M38.103,1161.69L109.75,1285.22M80.917,1150.26L153.771,1269.94M197.915,783.484L191.671,815.438M450.56,681.197L463.465,707.481M561.814,667.161L597,685.746M600.154,633.608L627.838,655.418M674.402,572.942L707.83,600.612M952.912,373.397L975.383,394.919M863.989,704.331L784.975,667.161M837.426,744.596L775.603,737.489M859.141,839.454L809.394,872.184"
-            style={{fill: "var(--black)"}}
-          />
-        </g>
-      </g>
-    </g>
+const Recife = () => (
+  <svg className="image svg-recife" viewBox="0 0 390 445" style={iconStyle}>
+    <path
+      d="m167.151 137.614 23.442 15.8-27.392 29.091-3.168 44.082-39.625 
+      59.252-33.236 36.044-13.424-11.919.385-26.094 7.259-6.746 12.37-27.004-1.454-14.822 
+      2.096-11.169 5.338-5.563 6.945-24.283 10.079-13.483 
+      24.133-16.074 26.252-27.112ZM25.359 236.136l9.685 8.183m73.793-68.413 6.766 
+      6.48m-33.541 93.162-23.79-11.192m15.793 23.316-18.615-2.14m25.153 30.701-14.979 
+      9.855M1.692 433.548l15.887 9.605 8.494-6.543 3.263-11.03 11.899-6.745 7.497-5.746 
+      38.555-49.916-2.554-.623-42.628 52.715-4.474 2.562-3.702-.103-6.419 4.222-3.227 
+      2.954-22.591 8.648Zm7.27-72.846 36.13-4.745 5.42-4.064 
+      18.473-21.896-13.076-15.735-2.526-10.421 6.913-57.137-8.724-6.959-9.43.7-7.098 
+      3.874m-9.685-8.183 18.611-12.491 12.82-4.756 14.187-8.824.706-2.615 16.891-13.691 
+      1.342-3.819 4.138-3.339 3.939-.621 10.215-7.983 1.768-6.704 4.079-2.098-1.609-2.755 
+      5.412-5.046-4.168-4.272 1.205-1.254-8.18-5.672.491-2.014 10.711-12.252 6.541-6.25 
+      37.981-26.295 4.271-17.677 3.086-2.577 18.745 15.075 5.465 2.126 13.146-9.854 
+      14.558-22.002 13.755-9.166 2.483-4.344 24.57-15.687 61.09-22.997 28.618 11.401 
+      35.965-26.15"
+      style={{stroke: "var(--white)", fill: "var(--black)"}}
+    />
   </svg>
 )
-
-const ReadingFlow = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="icon" viewBox="0 0 1269 603" style={iconStyle}>
+const ReadingFlow = () => (
+  <svg className="icon" viewBox="0 0 1269 603" style={iconStyle}>
     <g>
       <rect x="7.683" y="7.286" width="1253.68" height="250" style={{fill: "none"}}/>
       <rect x="7.683" y="457" width="549.886" height="137.786" style={{fill: "none"}}/>
@@ -86,8 +82,8 @@ const ReadingFlow = (prop: SVGIconType) => (
     </g>
   </svg>
 )
-const Database = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="icon" viewBox="0 0 1267 590" style={iconStyle}>
+const Database = () => (
+  <svg className="icon" viewBox="0 0 1267 590" style={iconStyle}>
     <g>
       <g>
         <rect x="7.829" y="132.286" width="500.981" height="450.022" style={{fill: "none"}}/>
@@ -101,8 +97,8 @@ const Database = (prop: SVGIconType) => (
     </g>
   </svg>
 )
-const Network = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="icon" viewBox="0 0 1186 490" style={iconStyle}>
+const Network = () => (
+  <svg className="icon" viewBox="0 0 1186 490" style={iconStyle}>
     <g>
       <path d="M36.066,453.315l169.142,-336.55l697.506,286.398l245.899,-366.526" style={{fill: "none"}}/>
       <circle cx="902.669" cy="403.163" r="29.42" style={{fill: "#fff"}}/>
@@ -113,8 +109,8 @@ const Network = (prop: SVGIconType) => (
   </svg>
 )
 
-const ColumnFirst = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="svg-column-first" viewBox="0 0 725 2571" style={iconStyle}>
+const ColumnFirst = () => (
+  <svg className="svg-column-first" viewBox="0 0 725 2571" style={iconStyle}>
     <path
       d="m32.043 37.686-.686 238.2 77.161 86.744-1.761 181.474s-1.149 11.044 3.889 22.301c5.336 11.924 11.818 17.838 11.818 17.838l3.217 1950.28 505.723 3.481-1.191-2126.41 62.63.993V183.849L615.379 31.444l-583.336 6.25Z"
       style={{fill: "#000"}}
@@ -141,8 +137,8 @@ const ColumnFirst = (prop: SVGIconType) => (
     />
   </svg>
 )
-const ColumnSecond = (prop: SVGIconType) => (
-  <svg ref={prop.blockRef} className="svg-column-second" viewBox="0 0 544 2021" style={iconStyle}>
+const ColumnSecond = () => (
+  <svg className="svg-column-second" viewBox="0 0 544 2021" style={iconStyle}>
     <path
       d="m7.497 12.16-.729 197.675 60.852 68.409-.349 139.072s-.919 8.836 3.112 17.842c4.269 9.539 9.454 14.271 9.454 14.271l2.574 1560.3 404.6 2.786-1.651-1624.74 50.874-.079-.069-48.78V230.501L421.369 7.727 7.497 12.162Z"
       style={{fill: "#000", strokeWidth: "12.5px"}}
@@ -162,20 +158,18 @@ const ColumnSecond = (prop: SVGIconType) => (
   </svg>
 )
 
-const Icon = (prop: IconType) => {
-  const {name, blockRef} = prop
-
+const Icon = ({name}: {name?: string}) => {
   switch (name) {
-    case 'Recife': return <Recife blockRef={blockRef}/>
-    case 'ColumnFirst': return <ColumnFirst blockRef={blockRef}/>
-    case 'ColumnSecond': return <ColumnSecond blockRef={blockRef}/>
-    case 'Dropdown': return <Dropdown blockRef={blockRef}/>
-    case 'Menu': return <Menu blockRef={blockRef}/>
-    case 'ReadingFlow': return <ReadingFlow blockRef={blockRef}/>
-    case 'Database': return <Database blockRef={blockRef}/>
-    case 'Network': return <Network blockRef={blockRef}/>
+    case 'Recife': return <Recife/>
+    case 'ColumnFirst': return <ColumnFirst/>
+    case 'ColumnSecond': return <ColumnSecond/>
+    case 'Dropdown': return <Dropdown/>
+    case 'Menu': return <Menu/>
+    case 'ReadingFlow': return <ReadingFlow/>
+    case 'Database': return <Database/>
+    case 'Network': return <Network/>
     default:
-    case 'Arrow': return <Arrow blockRef={blockRef}/>
+    case 'Arrow': return <Arrow/>
   }
 } 
 

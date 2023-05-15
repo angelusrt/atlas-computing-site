@@ -1,40 +1,97 @@
 #discover{
   height: 550px;
 }
-
-#discover .svg-recife{
-  position: absolute;
-  opacity: 0.6;
-  stroke: var(--white);
-}
 #discover .subtitle-big{
   position: absolute;
   bottom: 100px;
 }
 
+.svg-recife{
+  position: absolute;
+  /* opacity: 0.6; */
+  stroke-width: 1px;
+}
+
 @media (min-width: 0px) {
-  #discover .svg-recife{
-    height: 1000px;
-    top: -100px;   
-    left: -455px;
-    transform: rotateZ(-10deg) rotateX(60deg) scale(1.25);
-    stroke-width: 3px;
-  }
   #discover .subtitle-big{
     font-size: 50px;
     right: 40px;
   }
+
+  .svg-recife{
+    height: 600px;
+    top: -100px;   
+    left: 0px;
+    transform: 
+      rotateZ(-15deg)
+      rotateX(50deg) 
+      translateX(-5%)
+      translateY(25%)
+      scale(1.25);
+
+    animation: transformMobile 1s linear;   
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1.5s);
+    /* animation-iteration-count: 1;
+    animation-fill-mode: both;  */
+  }
 }
 
 @media (min-width: 725px){
-  #discover .svg-recife{
-    height: 1500px;  
-    top: -500px; 
-    left: -30vw;
-    stroke-width: 4px;
+  .svg-recife{
+    height: 900px;  
+    top: -325px; 
+    left: 150px;
+    transform: 
+      rotateZ(0)
+      rotateX(50deg) 
+      translateX(0)
+      translateY(30%)
+      scale(1.25);
+
+    animation: transformDesktop 1s linear;
+    animation-play-state: paused;
+    animation-delay: calc(var(--scroll) * -1s);
+    /* animation-iteration-count: 1;
+    animation-fill-mode: both; */
   }
   #discover .subtitle-big{
     font-size: 120px;
     right: 160px;
   }
 }
+
+@keyframes transformMobile {
+  to {
+    transform:
+      rotateZ(0)
+      rotateX(90deg) 
+      translateX(5%)
+      translateY(40%)
+      scale(2);
+  }
+}
+@keyframes transformDesktop {
+  to {
+    transform:
+      rotateZ(10deg)
+      rotateX(85deg) 
+      translateX(10%)
+      translateY(45%)
+      scale(2);
+  }
+}
+
+/* transform:
+  rotateZ(calc(var(--scroll) * 15deg - 15deg))
+  rotateX(calc(var(--scroll) * 40deg + 50deg)) 
+  translateX(calc(var(--scroll) * 10% - 5%))
+  translateY(calc(var(--scroll) * 15% + 25%))
+  scale(calc(var(--scroll) * 0.75 + 1.25)); */
+
+/* transform:
+  rotateZ(calc(var(--scroll) * 10deg))
+  rotateX(calc(var(--scroll) * 35deg + 50deg)) 
+  translateX(calc(var(--scroll) * 10%))
+  translateY(calc(var(--scroll) * 15% + 30%))
+  scale(calc(var(--scroll) * 0.75 + 1.25)); */

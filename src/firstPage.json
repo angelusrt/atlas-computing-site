@@ -26,7 +26,7 @@
       {
         "icon": "ReadingFlow", 
         "title": "Estética", 
-        "subtitle": "Interfaces visuais, artes gráficas e experiências reais", 
+        "subtitle": "Interfaces visuais, artes e experiências reais", 
         "body": "Criamos narrativas visuais que encorpam histórias individuais e inspiram mudanças."
       },
       {
@@ -51,7 +51,7 @@
     ],
     "values": {
       "tag": "Valores",
-      "body": ["INOVAÇÃO", "SUSTENTABILIDADE", "DESENVOLVIMENTO", "PROPÓSITO"]
+      "body": ["INOVAÇÃO", "SUSTENTABILIDADE", "DESENVOLVIMENTO"]
     }
   },
   "world": {

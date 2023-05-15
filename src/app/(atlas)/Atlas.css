@@ -7,9 +7,16 @@
     padding-top: 80px;
   }
   
-  #atlas .wrapper-canvas{
+  #atlas .wrapper-video{
     height: 400px;
     width: 100%;
+    text-align: center;
+  }
+
+  #atlas video{
+    width: 100%;
+    max-width: 340px;
+    margin: 30px auto;
   }
 }
 
@@ -22,7 +29,13 @@
     margin: 0 auto;
     width: min-content;
   }
-  #atlas .wrapper-canvas{
-    display: none;
+
+  #atlas .wrapper-video{
+    margin-top: -37px;
+  }
+
+  #atlas .title-big{
+    position: relative;
+    z-index: 2;
   }
 } 

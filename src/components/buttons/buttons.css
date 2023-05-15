@@ -9,25 +9,20 @@ button, a, .block-button {
   vertical-align: text-bottom;
   transition: all 0.5s;
 }
-button h1, 
-button h2, 
-a h1, 
-a h2, 
-.block-button h1, 
-.block-button h2 {
+button h1, button h2, a h1, a h2, 
+.block-button h1, .block-button h2 {
   display: inline;
 }
-button .icon, 
-a .icon, 
-.block-button .icon {
+
+button .icon, a .icon, .block-button .icon {
   width: 30px;
   vertical-align: bottom;
   display: inline;
   fill: var(--black);
   transition: fill 0.5s;
 }
-button .block-dropdown, 
-a .block-dropdown, 
+
+button .block-dropdown, a .block-dropdown, 
 .block-button .block-dropdown {
   bottom: 60px;
   left: 0px;
@@ -55,37 +50,58 @@ a .block-dropdown,
   border-color: transparent;
 }
 
-.button-index {
-  z-index: 4;
-  display: block;
+.button-nav {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  margin: 20px;
-  padding: 13.5px 15px;
-  -webkit-backdrop-filter: blur(6px);
-          backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  bottom: 20px;
+  left: 20px;
+  z-index: 4;
+  height: 55px;
+  width: 53px;
+  border: none;
+  background-color: transparent;
+  align-items: flex-start;
+  overflow: hidden;
+  
+  border-radius: 10px;
+  padding: 15px 12px;
   border: 2px solid var(--black);
-  background-color: var(--transparent-white);
-  transition: all 0.5s;
-}
-.button-index .block-dropdown {
   background-color: var(--white);
-  border: 2px solid var(--black);
+  transition: height 0.35s, width 0.35s;
 }
-.button-index .button-white, 
-.button-index .block-button {
+
+.button-nav .block-button {
   margin-right: 0px;
 }
-.button-index .svg-menu {
+.button-nav .icon {
+  width: 25px;
+  height: 21px;
   margin: 0;
-  width: 20px;
+  position: absolute;
+  /* padding: 5px; */
 }
-.button-index--hover {
-  background-color: var(--blue);
-  color: var(--black);
-  border-color: var(--black);
-  transition: all 0.5s;
+.button-nav .block-dropdown {
+  display: none;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.button-nav--hover{
+  height: 350px;
+  /* width: 155px; */
+  width: 175px;
+  transition: height 0.35s, width 0.35s;
+}
+.button-nav--hover .block-dropdown{
+  display: flex;
+  opacity: 0;
+  transition: all 0.35s;
+}
+.button-nav--hover .block-dropdown--show {
+  opacity: 1;
+  transition: all 0.35s;
 }
 
 .block-button {

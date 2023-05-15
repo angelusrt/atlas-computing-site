@@ -76,12 +76,10 @@ const Forms = (prop: FormsType) => {
   useEffect(() => {
     setTransExit(blockRef, 450)
 
-    const parent = parentRef.current
-
     if(index === 0)
-      remove(parent.classList, "--next")
+      remove(parentRef, "--next")
     else 
-      add(parent.classList, "--next")
+      add(parentRef, "--next")
   }, [index])
 
   return (

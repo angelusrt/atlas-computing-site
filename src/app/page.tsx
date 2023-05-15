@@ -14,11 +14,23 @@ import World from "./(world)/World"
 import firstData from "./../firstPage.json"
 
 const Presenting = () => {
-  const[isMobile, setIsMobile] = useState(false)
+  const[isMobile, setIsMobile] = useState(true)
   
   const navRef = useRef<HTMLButtonElement>(null!)
-
-  useEffect(() => {setIsMobile(window.innerWidth < 725)},[]) 
+  
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 725)
+    
+    window.addEventListener('scroll', () => {
+      if(window.scrollY >= 400 && window.scrollY <= 1600){
+        document.body.style.setProperty(
+          '--scroll', 
+          `${window.pageYOffset / (document.body.offsetHeight - window.innerHeight)}`
+          )
+        }
+      }, false)
+  },[]) 
+  
   useEffect(() => {
     function onResize() {
       if(isMobile && window.innerWidth >= 725)
@@ -26,7 +38,6 @@ const Presenting = () => {
       else if(!isMobile && window.innerWidth < 725)
         setIsMobile(true)
     }
-
     window.addEventListener('resize', onResize)
 
     return () => window.removeEventListener('resize', onResize)
@@ -35,9 +46,9 @@ const Presenting = () => {
   return (
     <Block name="section first-page">
       <Atlas isMobile={isMobile}/>
-      <Discover isMobile={isMobile}/>
+      <Discover/>
       <Projects isMobile={isMobile}/>
-      <About isMobile={isMobile}/>
+      <About/>
       <World/>
       <Footer/>
       <NavButton blockRef={navRef} isMobile={isMobile}>

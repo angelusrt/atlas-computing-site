@@ -1,13 +1,20 @@
-import { DivRef, KeyframeType } from "./types"
+import { DivRef, HTMLRef } from "./types"
 
-function remove(classList: DOMTokenList, mod: string) {
-  classList.remove(classList[0] + mod)
+function remove(ref: HTMLRef, mod: string) {
+  ref.current.classList.remove(ref.current.classList[0] + mod)
 }
 
-function add(classList: DOMTokenList, mod: string) {
-  classList.add(classList[0] + mod)
+function add(ref: HTMLRef, mod: string) {
+  ref.current.classList.add(ref.current.classList[0] + mod)
 }
 
+function removeEl(ref: HTMLElement, mod: string) {
+  ref.classList.remove(ref.classList[0] + mod)
+}
+
+function addEl(ref: HTMLElement, mod: string) {
+  ref.classList.add(ref.classList[0] + mod)
+}
 function setLocation(path: string) {
   window.history.pushState(path, path, path)
 }
@@ -17,49 +24,39 @@ function getInitialPage() {
 }
 
 function setEnter(ref: DivRef, delay: number) {
-  const block = ref.current
-
-  remove(block.classList, "--none")
+  remove(ref, "--none")
 
   setTimeout(() => {
-    add(block.classList, "--enter")
-    
-    setTimeout(() => add(block.classList, "--show"), delay)
+    add(ref, "--enter")
+    setTimeout(() => add(ref, "--show"), delay)
   }, 10)
 }
 
-function setExit(blockRef: DivRef, delay: number, func: () => void) {
-  const block = blockRef.current
-
-  remove(block.classList, "--show")
-  remove(block.classList, "--enter")
+function setExit(ref: DivRef, delay: number, func: () => void) {
+  remove(ref, "--show")
+  remove(ref, "--enter")
 
   setTimeout(() => {
-    add(block.classList, "--none")
+    add(ref, "--none")
     func()
   }, delay)
 }
 
-function setTransEnter(blockRef: DivRef, delay: number, func: () => void) {
-  const block = blockRef.current
-
-  add(block.classList, "--trans-enter")
-  
+function setTransEnter(ref: DivRef, delay: number, func: () => void) {
+  add(ref, "--trans-enter")
   setTimeout(func, delay)
 }
 
-function setTransExit(blockRef: DivRef, delay: number) {
-  const block = blockRef.current
-
-  const name = block.classList[0] + "--trans-enter"
-  const isTrans = block.classList.contains(name)
+function setTransExit(ref: DivRef, delay: number) {
+  const name = ref.current.classList[0] + "--trans-enter"
+  const isTrans = ref.current.classList.contains(name)
 
   if(isTrans) {
-    setTimeout(() => add(block.classList, "--trans-exit"), 5)
+    setTimeout(() => add(ref, "--trans-exit"), 5)
 
     setTimeout(() => {
-      remove(block.classList, "--trans-exit")
-      remove(block.classList, "--trans-enter")
+      remove(ref, "--trans-exit")
+      remove(ref, "--trans-enter")
     }, delay)
   }
 }
@@ -78,64 +75,14 @@ function getIndex(source: number[], number: number): number {
   return index === -1 ? 0 : index
 }
 
-function getKeyframe(prop: KeyframeType): Keyframe[] {
-  const {
-    isEnter, block, parent, pad, 
-    endPad, padAux, radius, keyAmount
-  } = prop
-
-  const innerWidth = window.innerWidth
-  const innerHeight = window.innerHeight
-
-  const parentTop = parent ? parent.offsetTop : 0
-  
-  const scroll = window.scrollY
-  const topNum = block.offsetTop - scroll + parentTop
-
-  const top = `${topNum}px`
-  const left = `${block.offsetLeft}px`
-  const bottom = `${topNum + block.offsetHeight - padAux[0]}px`
-  const right = `${block.offsetLeft + block.offsetWidth - padAux[1]}px`
-  const width = `${block.offsetWidth - padAux[1]}px`
-  const height = `${block.offsetHeight - padAux[0]}px`
-
-  const endWidth = `${innerWidth - padAux[3]}px`
-  const endHeight = `${innerHeight - padAux[2]}px`
-
-  const keys: Keyframe[] = [
-    {
-      top, left, bottom, right, width, height, 
-      paddingTop: pad[0], paddingLeft: pad[1], 
-      paddingBottom: pad[2], paddingRight: pad[3],
-      borderRadius: radius[0]
-    },
-    {
-      top, left, bottom, right, width, height,
-      paddingTop: pad[0], paddingLeft: pad[1], 
-      paddingBottom: pad[2], paddingRight: pad[3],
-      borderRadius: radius[1]
-    },
-    {
-      top: `0px`, left: `0px`, bottom: `0px`, right: `0px`,
-      borderRadius: radius[1], width: endWidth, height: endHeight,
-      paddingTop: endPad[0], paddingLeft: endPad[1], 
-      paddingBottom: endPad[2], paddingRight: endPad[3],
-    }
-  ] 
-
-  if(keyAmount === 3)
-    return isEnter ? keys : [keys[2], keys[1], keys[0]]
-  else
-    return isEnter ? [keys[0], keys[2]] : [keys[2], keys[0]] 
-}
-
 export{
   remove,
   add,
+  removeEl,
+  addEl,
   setLocation,
   getIndex,
   getShowClass,
-  getKeyframe,
   setEnter,
   setExit,
   setTransEnter,
