@@ -87,6 +87,20 @@ button .block-dropdown, a .block-dropdown,
   text-align: left;
   margin-bottom: 40px;
 }
+.button-nav .icon .middle {
+  opacity: 1;
+  transition: opacity 0.35s;
+}
+.button-nav .icon .top {
+  transform: rotate(0deg) translateX(0px);
+  transform-origin: top left;
+  transition: transform 0.35s;
+}
+.button-nav .icon .bottom {
+  transform: rotate(0deg)  translateX(0px);
+  transform-origin: bottom left;
+  transition: transform 0.35s;
+}
 
 .button-nav--hover{
   height: 350px;
@@ -102,6 +116,20 @@ button .block-dropdown, a .block-dropdown,
 .button-nav--hover .block-dropdown--show {
   opacity: 1;
   transition: all 0.35s;
+}
+.button-nav--hover .icon .middle {
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.button-nav--hover .icon .top {
+  transform: rotate(45deg) translateX(5px);
+  transform-origin: top left;
+  transition: transform 0.35s;
+}
+.button-nav--hover .icon .bottom {
+  transform: rotate(-45deg)  translateX(5px);
+  transform-origin: bottom left;
+  transition: transform 0.35s;
 }
 
 .block-button {
