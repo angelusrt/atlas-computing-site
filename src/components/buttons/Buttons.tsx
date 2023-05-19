@@ -21,6 +21,7 @@ type ButtonType = {
   text ?: string,
   children ?: any,
   func ?: any,
+  onClick ?: () => void
 } 
 
 const Button = (prop: ButtonType) => (
@@ -29,6 +30,7 @@ const Button = (prop: ButtonType) => (
     ref={prop.blockRef} 
     className={prop.name || ""} 
     aria-label={prop.ariaLabel || prop.text}
+    onClick={prop.onClick}
     {...prop.func}
   >
     {prop.text && <H2 name="text-bold-small">{prop.text}</H2>}
@@ -63,10 +65,7 @@ type BlockButtonType = {
 }
 
 const BlockButton = (prop: BlockButtonType) => (
-  <Block 
-    name={"block-button"} 
-    func={{onClick: prop.func}}
-  >
+  <Block name={"block-button"} func={{onClick: prop.func}}>
     <H2>{prop.text}</H2>
   </Block>
 )

@@ -1,13 +1,15 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { H1, H2 } from "../../components/texts/Texts"
-import data from "../../firstPage.json"
+import { langContext } from "../layout"
+import data from "../../data/firstPage.json"
 import "./Atlas.css"
 
-const atlas = data.atlas
-
 const Atlas = ({isMobile}: {isMobile: boolean}) => {
+  const {lang} = useContext(langContext)
+  const atlas = data[lang].atlas
+
   const isVideoPlaying = useRef(true)
   const videoRef = useRef<HTMLVideoElement>(null!)
 

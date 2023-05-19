@@ -1,11 +1,12 @@
 "use client"
 
-import {useRef } from "react"
+import {useContext, useRef } from "react"
 import { Button } from "../../components/buttons/Buttons"
 import { H1, P } from "../../components/texts/Texts"
 import {add, remove} from "../../functions/utils"
 import { bodyStyle } from "../../functions/types"
-import data from "../../firstPage.json"
+import { langContext } from "../layout"
+import data from "../../data/firstPage.json"
 import "./About.css"
 
 function getStyles(block: HTMLDivElement): string {
@@ -17,10 +18,11 @@ function getStyles(block: HTMLDivElement): string {
   `
 }
 
-const about = data.about
-const values = data.about.values
-
 const About = () => {
+  const {lang} = useContext(langContext)
+  const about = data[lang].about
+  const values = data[lang].about.values
+  
   const index = useRef(0)
 
   const ref = useRef<HTMLDivElement>(null!)
@@ -89,13 +91,13 @@ const About = () => {
                 isIcon 
                 name="button-white" 
                 ariaLabel="Voltar" 
-                func={{onClick: () => expandOut("previous")}}
+                onClick={() => expandOut("previous")}
               />
               <Button 
                 isIcon 
                 name="button-white" 
                 ariaLabel="Próximo" 
-                func={{onClick: () => expandOut("next")}}
+                onClick={() => expandOut("next")}
               />
             </div>
           </div>

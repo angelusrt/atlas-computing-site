@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { H1, H2 } from "../../../components/texts/Texts"
 import { DivRef } from "../../../functions/types"
+import { langContext } from "../../layout"
 import "./Analytics.css"
 
 type HeaderDataType = {title: string, subtitle: string}
@@ -15,16 +16,14 @@ type DataType = {
 
 type AnalyticsType = {
   blockRef: DivRef,
-  language: string,
   userId: number | null,
   decrement: () => void,
 }
 
 const name = "analytics analytics--none"
 
-const Analytics = (prop: AnalyticsType) => {
-  const {blockRef, language, userId, decrement} = prop
-  
+const Analytics = ({blockRef, userId, decrement}: AnalyticsType) => {
+  const {lang} = useContext(langContext)
   const [data, setData] = useState<DataType>()
 
   async function getAnalytics() {
@@ -36,7 +35,7 @@ const Analytics = (prop: AnalyticsType) => {
       mode: "cors",
     }
 
-    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/analytics/${userId}/${language}`, getHeader)
+    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/analytics/${userId}/${lang}`, getHeader)
       .then(res => res.json())
       .then((data: DataType) => setData(data))
       .catch(err => console.log(err))

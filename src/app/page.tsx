@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { Block } from "../components/blocks/Blocks"
-import { Link, NavButton } from "../components/buttons/Buttons"
+import { BlockButton, Button, Link, NavButton } from "../components/buttons/Buttons"
+import { langContext } from "./layout"
 
 import About from "./(about)/About"
 import Atlas from "./(atlas)/Atlas"
@@ -11,11 +12,12 @@ import Footer from "./(footer)/Footer"
 import Projects from "./(projects)/Projects"
 import World from "./(world)/World"
 
-import firstData from "./../firstPage.json"
+import firstData from "./../data/firstPage.json"
 
 const Presenting = () => {
+  const {lang, setLang} = useContext(langContext)
   const[isMobile, setIsMobile] = useState(true)
-  
+
   const navRef = useRef<HTMLButtonElement>(null!)
   
   useEffect(() => {
@@ -44,19 +46,23 @@ const Presenting = () => {
   }, [isMobile])
 
   return (
-    <Block name="section first-page">
-      <Atlas isMobile={isMobile}/>
-      <Discover/>
-      <Projects isMobile={isMobile}/>
-      <About/>
-      <World/>
-      <Footer/>
-      <NavButton blockRef={navRef} isMobile={isMobile}>
-        {firstData.index.map((e, i) =>
-          <Link key={i} isNewTab={false} href={e.href} text={e.text}/>
-        )}
-      </NavButton>
-    </Block>
+      <Block name="section first-page">
+        <Atlas isMobile={isMobile}/>
+        <Discover/>
+        <Projects isMobile={isMobile}/>
+        <About/>
+        <World/>
+        <Footer/>
+        <NavButton blockRef={navRef} isMobile={isMobile}>
+          {firstData[lang].index.map((e, i) =>
+            <Link key={i} isNewTab={false} href={e.href} text={e.text}/>
+          )}
+          <div className="language">
+            <BlockButton text="pt" func={() => setLang("pt")}/>
+            <BlockButton text="en" func={() => setLang("en")}/>
+          </div>
+        </NavButton>
+      </Block>
   )
 }
 

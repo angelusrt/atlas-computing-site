@@ -1,0 +1,249 @@
+{
+  "pt": {
+    
+    "index": [
+      {"text": "Introdução", "href": "#introduction"},
+      {"text": "Atenção", "href": "#atention"},
+      {"text": "Criação", "href": "#creation"},
+      {"text": "Comparação", "href": "#comparison"}
+    ],
+    "atlas2": {
+      "subtitle": ["EM", "CONSTRUÇÃO"],
+      "buttons": ["Continuar", "Voltar"]
+    },
+    "intro": {
+      "buttons": ["Continuar", "Voltar"],
+      "itens": [
+        {
+          "tag": "atention",
+          "theme": "block-white",
+          "iconName": "triangle",
+          "title": "Atenção",
+          "subtitle": "A seguir você realizará um conjunto de testes em relação a sua experiência e dados.",
+          "body": "É recomendado o uso de dados ficticios."
+        },
+        {
+          "tag": "creation",
+          "theme": "block-black",
+          "iconName": "Prism",
+          "title": "Criação",
+          "subtitle": "Experimente em tempo real a criação de estruturas de dados.",
+          "body": "A seguir coletaremos alguns dados seus."
+        },
+        {
+          "tag": "comparison",
+          "theme": "block-white",
+          "iconName": "bricks",
+          "title": "Comparação",
+          "subtitle": "Veja os dados formados a partir do banco de dados.",
+          "body": "Suas respostas serão comparadas com as outras da rede."
+        }
+      ]
+    },
+    "forms": {
+      "inputs": [
+        {
+          "text": "Primeiro Nome",
+          "name": "name",
+          "type": "text"
+        }
+      ],
+      "selections": [
+        {
+          "text": "Continente",
+          "name": "continent",
+          "options": [
+            {"text": "America do sul", "name": "SouthAmerica"},
+            {"text": "America do norte", "name": "NorthAmerica"},
+            {"text": "Europa", "name": "Europe"},
+            {"text": "Asia", "name": "Asia"},
+            {"text": "Oceania", "name": "Oceania"},
+            {"text": "Africa", "name": "Africa"}
+          ]
+        },
+        {
+          "text": "Animal Favorito",
+          "name": "favAnimal",
+          "options": [
+            {"text": "Cachorro", "name": "Dog"},
+            {"text": "Gato", "name": "Cat"},
+            {"text": "Leão", "name": "Lion"},
+            {"text": "Lobo", "name": "Wolf"},
+            {"text": "Urso", "name": "Bear"},
+            {"text": "Cavalo", "name": "Horse"},
+            {"text": "Porco", "name": "Pig"},
+            {"text": "Vaca", "name": "Cow"} 
+          ]
+        },
+        {
+          "text": "Hoje",
+          "name": "mood",
+          "options": [
+            {"text": "Muito bom", "name": "VeryGood"},
+            {"text": "Bom", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Ruim", "name": "Bad"},
+            {"text": "Muito Ruim", "name": "VeryBad"}
+          ]
+        },
+        {
+          "text": "Mudanças Climáticas",
+          "name": "globalWarming",
+          "options": [
+            {"text": "Muito bom", "name": "VeryGood"},
+            {"text": "Bom", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Ruim", "name": "Bad"},
+            {"text": "Muito Ruim", "name": "VeryBad"}
+          ]
+        },
+        {
+          "text": "Globalismo",
+          "name": "globalism",
+          "options": [
+            {"text": "Muito bom", "name": "VeryGood"},
+            {"text": "Bom", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Ruim", "name": "Bad"},
+            {"text": "Muito Ruim", "name": "VeryBad"}
+          ]
+        }
+      ],
+      "infos": [
+        {
+          "title": "Identidade",
+          "subtitle": "Parte 1 de 2",
+          "body": "Conte-nos um pouco sobre você"
+        },
+        {
+          "title": "Sensação",
+          "subtitle": "Parte 2 de 2",
+          "body": "Como você se sente em relação a esses temas?"
+        } 
+      ]
+    }
+  },
+  "en": {
+    "index": [
+      {"text": "Introduction", "href": "#introduction"},
+      {"text": "Atention", "href": "#atention"},
+      {"text": "Creation", "href": "#creation"},
+      {"text": "Comparison", "href": "#comparison"}
+    ],
+    "atlas2": {
+      "subtitle": ["IN", "CONSTRUCTION"],
+      "buttons": ["Continue", "Go back"]
+    },
+    "intro": {
+      "buttons": ["Continue", "Go back"],
+      "itens": [
+        {
+          "tag": "atention",
+          "theme": "block-white",
+          "iconName": "triangle",
+          "title": "Atention",
+          "subtitle": "Following, you realize a battery of tests in relationship with your experience and data.",
+          "body": "It is recommended to use ficticious data."
+        },
+        {
+          "tag": "creation",
+          "theme": "block-black",
+          "iconName": "Prism",
+          "title": "Creation",
+          "subtitle": "Experience in real time the creation of data structures.",
+          "body": "Following, we will collect your data."
+        },
+        {
+          "tag": "comparison",
+          "theme": "block-white",
+          "iconName": "bricks",
+          "title": "Comparação",
+          "subtitle": "See the data formed by the database.",
+          "body": "Your answer will be compared with all of the other users."
+        }
+      ]
+    },
+    "forms": {
+      "inputs": [
+        {
+          "text": "First Name",
+          "name": "name",
+          "type": "text"
+        }
+      ],
+      "selections": [
+        {
+          "text": "Continent",
+          "name": "continent",
+          "options": [
+            {"text": "South America", "name": "SouthAmerica"},
+            {"text": "North America", "name": "NorthAmerica"},
+            {"text": "Europe", "name": "Europe"},
+            {"text": "Asia", "name": "Asia"},
+            {"text": "Oceania", "name": "Oceania"},
+            {"text": "Africa", "name": "Africa"}
+          ]
+        },
+        {
+          "text": "Favorite Animal",
+          "name": "favAnimal",
+          "options": [
+            {"text": "Dog", "name": "Dog"},
+            {"text": "Cat", "name": "Cat"},
+            {"text": "Lion", "name": "Lion"},
+            {"text": "Wolf", "name": "Wolf"},
+            {"text": "Bear", "name": "Bear"},
+            {"text": "Horse", "name": "Horse"},
+            {"text": "Pig", "name": "Pig"},
+            {"text": "Cow", "name": "Cow"} 
+          ]
+        },
+        {
+          "text": "Today",
+          "name": "mood",
+          "options": [
+            {"text": "Very Good", "name": "VeryGood"},
+            {"text": "Good", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Bad", "name": "Bad"},
+            {"text": "Very Bad", "name": "VeryBad"}
+          ]
+        },
+        {
+          "text": "Climate Change",
+          "name": "globalWarming",
+          "options": [
+            {"text": "Very Good", "name": "VeryGood"},
+            {"text": "Good", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Bad", "name": "Bad"},
+            {"text": "Very Bad", "name": "VeryBad"}
+          ]
+        },
+        {
+          "text": "Globalism",
+          "name": "globalism",
+          "options": [
+            {"text": "Very Good", "name": "VeryGood"},
+            {"text": "Good", "name": "Good"},
+            {"text": "Normal", "name": "Normal"},
+            {"text": "Bad", "name": "Bad"},
+            {"text": "Very Bad", "name": "VeryBad"}
+          ]
+        }
+      ],
+      "infos": [
+        {
+          "title": "Identity",
+          "subtitle": "Part 1 of 2",
+          "body": "Tell us a little about yourself."
+        },
+        {
+          "title": "Sensation",
+          "subtitle": "Part 2 of 2",
+          "body": "How do you feel about these topics?"
+        } 
+      ]
+    }
+  }
+}

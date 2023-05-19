@@ -1,0 +1,164 @@
+{
+  "pt": {
+    "index": [
+      {"text": "Introdução", "href": "#atlas"},
+      {"text": "Descubra", "href": "#discover"},
+      {"text": "Projetos", "href": "#projects"},
+      {"text": "Seu", "href": "#about"},
+      {"text": "Mundo", "href": "#world"}
+    ],
+    "atlas": {
+      "tag": "Intro",
+      "title": ["Atlas", "Computing"],
+      "subtitle": "DESCUBRA PROJETOS CAPAZES DE MELHORAR O SEU MUNDO."
+    },
+    "discover": {
+      "tag": "Descubra",
+      "info": [
+        {"title": "Localização", "subtitle": "Recife"}
+      ]
+    },
+    "projects": {
+      "tag": "Projetos",
+      "buttons": ["Ver mais", "Voltar"],
+      "itens": [
+        {
+          "icon": "ReadingFlow", 
+          "title": "Estética", 
+          "subtitle": "Interfaces visuais, artes e experiências reais", 
+          "body": "Criamos narrativas visuais que encorpam histórias individuais e inspiram mudanças."
+        },
+        {
+          "icon": "Database", 
+          "title": "Função", 
+          "subtitle": "Serviços, desenvolvimento e forma", 
+          "body": "Fazemos aplicações que automatizam processos e ofertam serviços."
+        },
+        {
+          "icon": "Network", 
+          "title": "Estrutura", 
+          "subtitle": "Distribuição, rede e razão", 
+          "body": "Modelamos banco de dados e realizamos testes a-b com foco em melhora iterativa."
+        }
+      ]
+    },
+    "about": {
+      "tag": "Seu",
+      "title": "Idealização",
+      "body": [
+        "Atlas Computing é um projeto criado em 2023 com a função de gerar impacto visual e transmitir objetividade atráves de sua linguagem. Inspirado nas obras de Ayn Rand procura ser moderno em sua essência dando preferência a formas primitivas e importantes."
+      ],
+      "values": {
+        "tag": "Valores",
+        "body": ["INOVAÇÃO", "SUSTENTABILIDADE", "DESENVOLVIMENTO"]
+      }
+    },
+    "world": {
+      "tag": "Mundo",
+      "title": "EM CONSTRUÇÃO"
+    },
+    "footer": {
+      "tag": "Footer",
+      "buttons": [
+        {
+          "title": "Blog",
+          "href": "https://blog.atlascomputing.com.br/"
+        },
+        {
+          "title": "Portfólio",
+          "href": "https://angelus.atlascomputing.com.br/"
+        },
+        {
+          "title": "Github",
+          "href": "https://github.com/angelusrt"
+        },
+        {
+          "title": "LinkedIn",
+          "href": "https://www.linkedin.com/in/angelus-t-a7659b141"
+        }
+      ],
+      "body": "Todos os direitos reservados a AtlasComputing"
+    }
+  },
+  "en": {
+    "index": [
+      {"text": "Introduction", "href": "#atlas"},
+      {"text": "Discover", "href": "#discover"},
+      {"text": "Projects", "href": "#projects"},
+      {"text": "Your", "href": "#about"},
+      {"text": "World", "href": "#world"}
+    ],
+    "atlas": {
+      "tag": "Intro",
+      "title": ["Atlas", "Computing"],
+      "subtitle": "DISCOVER PROJECTS CAPABLE OF ENHANCING YOUR WORLD."
+    },
+    "discover": {
+      "tag": "Discover",
+      "info": [
+        {"title": "Localization", "subtitle": "Recife"}
+      ]
+    },
+    "projects": {
+      "tag": "Projects",
+      "buttons": ["See more", "Go back"],
+      "itens": [
+        {
+          "icon": "ReadingFlow", 
+          "title": "Aesthetic", 
+          "subtitle": "Visual interfaces, arts and real experiences", 
+          "body": "We create visual narratives that embody individual histories and inspire change."
+        },
+        {
+          "icon": "Database", 
+          "title": "Function", 
+          "subtitle": "Services, development and form", 
+          "body": "We make applications that automatize processes and offer services."
+        },
+        {
+          "icon": "Network", 
+          "title": "Structure", 
+          "subtitle": "Distribution, network and reason", 
+          "body": "We model databases as well as a-b tests with the goal of iterative progress."
+        }
+      ]
+    },
+    "about": {
+      "tag": "Your",
+      "title": "Idealization",
+      "body": [
+        "Atlas Computing is a project created in 2023 with the function of generating visual impact and transmit objectivity through its language. Inspired in the works of Ayn Rand it pursues to be modern in your essence giving preference to primitive and important forms."
+      ],
+      "values": {
+        "tag": "Values",
+        "body": ["INNOVATION", "SUSTENTABILITY", "DEVELOPMENT"]
+      }
+    },
+    "world": {
+      "tag": "World",
+      "title": "IN CONSTRUCTION"
+    },
+    "footer": {
+      "tag": "Footer",
+      "buttons": [
+        {
+          "title": "Blog",
+          "href": "https://blog.atlascomputing.com.br/"
+        },
+        {
+          "title": "Portfolio",
+          "href": "https://angelus.atlascomputing.com.br/"
+        },
+        {
+          "title": "Github",
+          "href": "https://github.com/angelusrt"
+        },
+        {
+          "title": "LinkedIn",
+          "href": "https://www.linkedin.com/in/angelus-t-a7659b141"
+        }
+      ],
+      "body": "All rights reserved to AtlasComputing"
+    }   
+  }
+}

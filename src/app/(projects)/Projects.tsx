@@ -1,12 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 import { Button } from "../../components/buttons/Buttons"
 import { Icon } from "../../components/icons/Icons"
 import { H1, H2, P } from "../../components/texts/Texts"
 import { addEl, removeEl } from "../../functions/utils"
 import { bodyStyle } from "../../functions/types"
-import data from "../../firstPage.json"
+import { langContext } from "../layout"
+import data from "../../data/firstPage.json"
 import "./Projects.css"
 
 function getStyles(block: HTMLDivElement, isMobile: boolean): string {
@@ -22,9 +23,11 @@ function getStyles(block: HTMLDivElement, isMobile: boolean): string {
   ` 
 }
 
-const itens = data.projects.itens
-
 const Projects = ({isMobile}: {isMobile: boolean}) => {
+  const {lang} = useContext(langContext)
+  const itens = data[lang].projects.itens
+  const buttons = data[lang].projects.buttons
+
   const projectsRef = useRef<HTMLDivElement[]>([])
   const expandedRef = useRef<HTMLDivElement[]>([])
   const wrapperRef = useRef<HTMLDivElement[]>([])
@@ -53,18 +56,14 @@ const Projects = ({isMobile}: {isMobile: boolean}) => {
 
   return(
     <section id="projects" className="block-white">
-      <H1 name="title">{data.projects.tag}</H1>
+      <H1 name="title">{data[lang].projects.tag}</H1>
       <div className="wrapper-project">
         {itens.map((item, i) => 
           <div ref={el => projectsRef.current[i] = el as HTMLDivElement} key={i} className="project">
             <Icon name={item.icon}/>
             <H1 name="text-big">{item.title}</H1>
             <P name="text-thin-small">{item.subtitle}</P>
-            <Button  
-              name="button-white" 
-              text="Ver mais" 
-              func={{onClick: () => expandIn(i)}}
-            />
+            <Button name="button-white" text={buttons[0]} onClick={() => expandIn(i)}/>
           </div>
         )}
       </div>
@@ -75,12 +74,8 @@ const Projects = ({isMobile}: {isMobile: boolean}) => {
             <H1 name="text-big">{item.title}</H1>
             <P name="text-thin-small">{item.subtitle}</P>
             <P name="text-normal">{item.body}</P>
-            <Button 
-              name="button-white" 
-              text="Voltar" 
-              func={{onClick: () => expandOut(i)}}
-            >
-              <H2 name="text-bold-small">Ver mais</H2>
+            <Button name="button-white" text={buttons[1]} onClick={ () => expandOut(i)}>
+              <H2 name="text-bold-small">{buttons[0]}</H2>
             </Button>
           </div>
         </div>

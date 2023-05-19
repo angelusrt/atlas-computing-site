@@ -1,7 +1,11 @@
+"use client"
+
+import { useContext } from "react"
 import { Button } from "../../../components/buttons/Buttons"
 import { H1, H2 } from "../../../components/texts/Texts"
 import { setExit } from "../../../functions/utils"
-import data from "../../../secondPage.json"
+import { langContext } from "../../layout"
+import data from "../../../data/secondPage.json"
 import "./Intro.css"
 
 type IntroType = {
@@ -11,12 +15,12 @@ type IntroType = {
   increment: () => void
 }
 
-const intro = data.intro
-const name: string = "intro intro--none "
-
-const Intro = (prop: IntroType) => {
-  const {blockRef, index, decrement, increment} = prop
-
+const Intro = ({blockRef, index, decrement, increment}: IntroType) => {
+  const {lang} = useContext(langContext)
+  const intro = data[lang].intro.itens
+  const buttons = data[lang].intro.buttons
+  
+  const name: string = "intro intro--none "
   const isBlack = intro[index].theme === "block-black"
  
   return (
@@ -25,14 +29,14 @@ const Intro = (prop: IntroType) => {
       <H2 name="text-thin">{intro[index].subtitle}</H2>
       <H2 name="text-normal">{intro[index].body}</H2>
       <Button 
-        text="Continuar" 
+        text={buttons[0]}
         name={isBlack ? "button-white" : "button-black"}
-        func={{onClick: () => setExit(blockRef, 1000, increment)}}
+        onClick={() => setExit(blockRef, 1000, increment)}
       />
       <Button 
-        text="Voltar" 
+        text={buttons[1]} 
         name="button-transparent"
-        func={{onClick: () => setExit(blockRef, 1000, decrement)}}
+        onClick={() => setExit(blockRef, 1000, decrement)}
       />
     </section>
   )

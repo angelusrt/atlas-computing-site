@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { add, remove, setExit, setTransEnter, setTransExit } from "../../../functions/utils"
 import { DivRef, OptionsType } from "../../../functions/types"
 import { H1, H2 } from "../../../components/texts/Texts"
 import { Button } from "../../../components/buttons/Buttons"
-import data from "../../../secondPage.json"
+import { langContext } from "../../layout"
+import data from "../../../data/secondPage.json"
 import "./Forms.css"
 
 type FormsType = {
@@ -24,11 +25,11 @@ type SelectType = {
   item: {text: string, name: string, options: OptionsType},
 }
 
-const form = data.forms
 const name = "forms section block-black forms--none"
 
-const Forms = (prop: FormsType) => {
-  const {blockRef, userId, setUserId, increment, decrement} = prop
+const Forms = ({blockRef, userId, setUserId, increment, decrement}: FormsType) => {
+  const {lang} = useContext(langContext)
+  const form = data[lang].forms
   
   const [index, setIndex] = useState(0)
   const parentRef = useRef<HTMLFormElement>(null!)
@@ -86,8 +87,8 @@ const Forms = (prop: FormsType) => {
     <section ref={blockRef} className={name} id="forms">
       <div className="info">
         <div className="wrapper-button">
-          <Button isIcon name="button-transparent" ariaLabel="Voltar" func={{onClick: goBack}}/>
-          <Button isIcon name="button-transparent" ariaLabel="Continuar" func={{onClick: goForward}}/>
+          <Button isIcon name="button-transparent" ariaLabel="Voltar" onClick={goBack}/>
+          <Button isIcon name="button-transparent" ariaLabel="Continuar" onClick={goForward}/>
         </div>
         <H2 name="text-thin-small">{form.infos[index].subtitle}</H2>
         <H1 name="text-big">{form.infos[index].title}</H1>

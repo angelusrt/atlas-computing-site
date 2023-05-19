@@ -1,11 +1,17 @@
+"use client"
+
+import { useContext } from "react"
 import { Link } from "../../components/buttons/Buttons"
 import { H2 } from "../../components/texts/Texts"
-import data from "../../firstPage.json"
+import { langContext } from "../layout"
+import data from "../../data/firstPage.json"
 import "./Footer.css"
 
-const footer = data.footer 
 
 const Footer = () => {
+  const {lang} = useContext(langContext)
+  const footer = data[lang].footer 
+
   return(
     <footer id="footer" className="block-black"> 
       {footer.buttons.map((e, i) => 

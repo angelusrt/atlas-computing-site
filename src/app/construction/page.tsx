@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 import { add, setEnter, setExit } from "../../functions/utils"
 
@@ -13,13 +13,15 @@ import Atlas from "./(atlas)/Atlas"
 import Forms from "./(forms)/Forms"
 import Intro from "./(intro)/Intro"
 
-import secondData from "../../secondPage.json"
+import secondData from "../../data/secondPage.json"
+import { langContext } from "../layout"
 
 const pages = [1, 2, 4, 6]
 
 const construction = () => {
+  const {lang, setLang} = useContext(langContext)
+
   const[isMobile, setIsMobile] = useState(false)
-  const[language, setLanguage] = useState("pt-br")
   const[userId, setUserId] = useState<null | number>(null)
   
   const activeRef = useRef(1)
@@ -114,14 +116,17 @@ const construction = () => {
       />
       <Analytics
         blockRef={analyticsRef}
-        language={language}
         userId={userId}
         decrement={() => decrement(5)}
       />
       <NavButton blockRef={navRef} isMobile={isMobile}>
-        {secondData.index.map((e, i) => 
+        {secondData[lang].index.map((e, i) => 
           <BlockButton key={i} text={e.text} func={() => setPage(i)}/>
         )}
+        <div className="language">
+          <BlockButton text="pt" func={() => setLang("pt")}/>
+          <BlockButton text="en" func={() => setLang("en")}/>
+        </div>
       </NavButton>
     </Block>
   )

@@ -1,6 +1,18 @@
+"use client"
+
+import { createContext, useState } from "react"
+import { Button } from "../components/buttons/Buttons"
 import "./globals.css"
 
+type LangType = "pt" | "en"
+const langContext = createContext<{
+  lang: LangType, 
+  setLang: (s: LangType) => void
+}>({lang: "pt", setLang: null!})
+
 function RootLayout({children}: {children: React.ReactNode}){
+  const[lang, setLang] = useState<LangType>("pt")
+
   return (
     <html lang="en">
       <head>
@@ -25,10 +37,17 @@ function RootLayout({children}: {children: React.ReactNode}){
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"/>
       </head>
       <body>
-        {children}
+        <langContext.Provider value={{lang, setLang}}>
+          {/* <div className="language">
+            <Button name="button-transparent" text="pt" onClick={() => setLang("pt")}/>
+            <Button name="button-transparent" text="en" onClick={() => setLang("en")}/>
+          </div> */}
+          {children}
+        </langContext.Provider>
       </body>
     </html>
   )
 }
 
 export default RootLayout
+export {langContext}
