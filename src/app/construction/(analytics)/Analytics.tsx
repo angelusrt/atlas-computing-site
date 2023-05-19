@@ -4,14 +4,16 @@ import { useContext, useEffect, useState } from "react"
 import { H1, H2 } from "../../../components/texts/Texts"
 import { DivRef } from "../../../functions/types"
 import { langContext } from "../../layout"
+import { getBiggestAmount } from "../../../functions/utils"
+import data from "../../../data/secondPage.json"
 import "./Analytics.css"
 
-type HeaderDataType = {title: string, subtitle: string}
-type BodyDataType = {text: string, quantity: number} 
-
-type DataType = {
+type AnalysesType = {
   quantity: number,
-  data : {header: HeaderDataType, body: BodyDataType[]}[]
+  results : {
+    header: {title: string, subtitle: string}, 
+    body: {text: string, quantity: number}[]
+  }[]
 }
 
 type AnalyticsType = {
@@ -21,10 +23,11 @@ type AnalyticsType = {
 }
 
 const name = "analytics analytics--none"
-
 const Analytics = ({blockRef, userId, decrement}: AnalyticsType) => {
   const {lang} = useContext(langContext)
-  const [data, setData] = useState<DataType>()
+  const analytics = data[lang].analytics
+
+  const [analyses, setAnalyses] = useState<AnalysesType>()
 
   async function getAnalytics() {
     const getHeader: RequestInit = { 
@@ -37,7 +40,7 @@ const Analytics = ({blockRef, userId, decrement}: AnalyticsType) => {
 
     await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/analytics/${userId}/${lang}`, getHeader)
       .then(res => res.json())
-      .then((data: DataType) => setData(data))
+      .then((analyses: AnalysesType) => setAnalyses(analyses))
       .catch(err => console.log(err))
   }
 
@@ -45,53 +48,34 @@ const Analytics = ({blockRef, userId, decrement}: AnalyticsType) => {
 
   return (
     <section id="analytics" ref={blockRef} className={name}>
-      {data && data.quantity &&
+      {analyses != undefined && analyses.quantity &&
         <header>
-          <H1 name="text-big">Dados</H1>
-          <H2 name="text-thin-small">{data.quantity + ' analizados'}</H2>
+          <H1 name="text-big">{analytics.title}</H1>
+          <H2 name="text-thin-small">{analyses.quantity + analytics.subtitle}</H2>
         </header>
       }
-      {data && data.data.map((e, i) => 
-        <Card 
-          key={i}
-          quantity={data.quantity} 
-          header={e.header} 
-          body={e.body}
-          biggestQuantity={e.body.map(e => e.quantity).reduce(
-            (accum, curr) => curr > accum ? curr : accum
-          )}
-        />
+      {analyses != undefined && analyses.results.map((e, i) => 
+        <article key={i} className="analytic-card">
+          <div className="headers">
+            <H1 name="text-big">{e.header.title.toUpperCase()}</H1>
+            <H2 name="text-bold-small">{e.header.subtitle}</H2>
+          </div>
+          <div className="body">
+            {e.body.map(({quantity, text}, i) => 
+              <div className="body-element" key={i}>
+                <H1 name="text-bold-small">{text}</H1>
+                <div 
+                  className="graph" 
+                  style={{height: `${quantity/getBiggestAmount(e.body) * 250}px`}}
+                /> 
+                <H2 name="text-bold-small">{`${quantity}`}</H2>
+              </div>
+            )}
+          </div>
+        </article>
       )}
     </section>
   )
 }
-
-type CardType = {
-  header: HeaderDataType,
-  body: BodyDataType[],
-  quantity: number,
-  biggestQuantity: number
-}
-
-const Card = (prop: CardType) => (
-  <article className="analytic-card">
-    <div className="headers">
-      <H1 name="text-big">{prop.header.title.toUpperCase()}</H1>
-      <H2 name="text-bold-small">{prop.header.subtitle}</H2>
-    </div>
-    <div className="body">
-      {prop.body.map((e, i) => 
-        <div className="body-element" key={i}>
-          <H1 name="text-bold-small">{e.text}</H1>
-          <div 
-            className="graph" 
-            style={{height: `${e.quantity/prop.biggestQuantity * 250}px`}}
-          /> 
-          <H2 name="text-bold-small">{`${e.quantity}`}</H2>
-        </div>
-      )}
-    </div>
-  </article>
-)
 
 export default Analytics

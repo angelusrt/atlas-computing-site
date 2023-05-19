@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useState } from "react"
-import { Button } from "../components/buttons/Buttons"
 import "./globals.css"
 
 type LangType = "pt" | "en"
@@ -38,10 +37,6 @@ function RootLayout({children}: {children: React.ReactNode}){
       </head>
       <body>
         <langContext.Provider value={{lang, setLang}}>
-          {/* <div className="language">
-            <Button name="button-transparent" text="pt" onClick={() => setLang("pt")}/>
-            <Button name="button-transparent" text="en" onClick={() => setLang("en")}/>
-          </div> */}
           {children}
         </langContext.Provider>
       </body>

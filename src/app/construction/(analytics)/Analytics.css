@@ -27,6 +27,7 @@
 }
 .analytics .text-big{
   word-break: keep-all;
+  font-size: 40px;
 }
 .analytics .body{
   display: flex;

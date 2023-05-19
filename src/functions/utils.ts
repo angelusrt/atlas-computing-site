@@ -75,6 +75,11 @@ function getIndex(source: number[], number: number): number {
   return index === -1 ? 0 : index
 }
 
+function getBiggestAmount(body: {text: string, quantity: number}[]) {
+  return body.map(e => e.quantity).reduce((accum, curr) => curr > accum ? curr : accum)
+}
+
+
 export{
   remove,
   add,
@@ -87,5 +92,6 @@ export{
   setExit,
   setTransEnter,
   setTransExit,
-  getInitialPage
+  getInitialPage,
+  getBiggestAmount
 }

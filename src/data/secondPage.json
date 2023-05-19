@@ -1,6 +1,5 @@
 {
   "pt": {
-    
     "index": [
       {"text": "Introdução", "href": "#introduction"},
       {"text": "Atenção", "href": "#atention"},
@@ -121,6 +120,10 @@
           "body": "Como você se sente em relação a esses temas?"
         } 
       ]
+    },
+    "analytics": {
+      "title": "Dados",
+      "subtitle": " analizados"
     }
   },
   "en": {
@@ -244,6 +247,10 @@
           "body": "How do you feel about these topics?"
         } 
       ]
+    },
+    "analytics": {
+      "title": "Data",
+      "subtitle": " analized"
     }
   }
 }
