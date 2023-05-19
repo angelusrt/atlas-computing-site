@@ -119,8 +119,8 @@
     height: calc(100% - 100px - 4px);
   }
   .values-expand video{
-    height: 100vh;
-    bottom: -12.5vh;
+    height: 90vh;
+    bottom: -2vh;
     left: -25vh;
     right: -25vh;
     margin: 0 auto;
@@ -138,7 +138,7 @@
     height: calc(100% - 80px - 4px);
   }
   .values-expand video{
-    height: 150vh;
-    bottom: -25vh;
+    height: 120vh;
+    bottom: -2vh;
   }
 }
