@@ -196,9 +196,28 @@ nav .wrapper {
 
 .language .block-button{
   padding: 5px 10px;
-  border-width: 1px;
+  border-width: 2px;
   border-style: dashed;
 }
+
+
+.first-page .button-nav, .second-page .button-nav{
+  height: 55px;
+  width: 53px;
+  transition: height 0.35s, width 0.35s;
+}
+.first-page .button-nav--hover{
+  height: 430px;
+  width: 175px;
+  transition: height 0.35s, width 0.35s;
+}
+
+.second-page .button-nav--hover{
+  height: 380px;
+  width: 175px;
+  transition: height 0.35s, width 0.35s;
+}
+
 
 @media (min-width: 0px) {
   section {

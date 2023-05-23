@@ -12,7 +12,6 @@ type ButtonName = (
   'button-nav' | 'button-white' | 'button-black' | 'button-transparent'
 )
 
-
 type ButtonType = {
   name: ButtonName,
   isIcon ?: boolean,

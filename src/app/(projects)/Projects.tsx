@@ -10,20 +10,7 @@ import { langContext } from "../layout"
 import data from "../../data/firstPage.json"
 import "./Projects.css"
 
-function getStyles(block: HTMLDivElement, isMobile: boolean): string {
-  const paddingHorizontal = isMobile ? 40 : 80 
-  const paddingVertical = 80
-  const parentTop = document.getElementById('projects')?.offsetTop || 0
- 
-  return `
-    top: ${block.offsetTop - window.scrollY + parentTop}px;
-    left: ${block.offsetLeft}px;
-    width: ${block.offsetWidth - paddingHorizontal}px;
-    height: ${block.offsetHeight - paddingVertical}px;
-  ` 
-}
-
-const Projects = ({isMobile}: {isMobile: boolean}) => {
+const Projects = () => {
   const {lang} = useContext(langContext)
   const itens = data[lang].projects.itens
   const buttons = data[lang].projects.buttons
@@ -34,7 +21,12 @@ const Projects = ({isMobile}: {isMobile: boolean}) => {
   
   function expandIn(i: number) {
     const project = projectsRef.current[i]
-    wrapperRef.current[i].setAttribute('style', getStyles(project, isMobile))
+    const measures = project.getBoundingClientRect()
+
+    wrapperRef.current[i].setAttribute(
+      'style',
+      `transform: translateX(${measures.x}px) translateY(${measures.y}px);`
+    )
 
     const expanded = expandedRef.current[i]
     removeEl(expanded, "--none")
@@ -45,7 +37,6 @@ const Projects = ({isMobile}: {isMobile: boolean}) => {
   
   function expandOut(i: number) {
     const expanded = expandedRef.current[i]
-
     removeEl(expanded, "--show")  
     
     setTimeout(() => {
@@ -68,13 +59,17 @@ const Projects = ({isMobile}: {isMobile: boolean}) => {
         )}
       </div>
       {itens.map((item, i) => 
-        <div key={i} ref={el => expandedRef.current[i] = el as HTMLDivElement} className="project-expanded project-expanded--none">
+        <div 
+          key={i} 
+          ref={el => expandedRef.current[i] = el as HTMLDivElement} 
+          className="project-expanded project-expanded--none"
+        >
           <div ref={el => wrapperRef.current[i] = el as HTMLDivElement} className="wrapper">
             <Icon name={item.icon}/>
             <H1 name="text-big">{item.title}</H1>
             <P name="text-thin-small">{item.subtitle}</P>
             <P name="text-normal">{item.body}</P>
-            <Button name="button-white" text={buttons[1]} onClick={ () => expandOut(i)}>
+            <Button name="button-white" text={buttons[1]} onClick={() => expandOut(i)}>
               <H2 name="text-bold-small">{buttons[0]}</H2>
             </Button>
           </div>

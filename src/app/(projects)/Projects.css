@@ -11,7 +11,6 @@
 .project .button-white{
   height: 65px;
   width: 200px;
-  margin-top: 20px;
   padding: 10px 40px;
   border: 2px dashed var(--black);
 }
@@ -22,6 +21,7 @@
 }
 .project .text-thin-small{
   min-height: 65px;
+  margin-bottom: 20px;
 }
 .project .icon{
   overflow: auto;
@@ -47,13 +47,11 @@
   stroke-width: 15px;
   margin-bottom: 14px;
   width: 145px;
-  transition: margin 0.5s ease-in-out;
 }
 .project-expanded .button-white{
   width: 200px;
   height: 65px;
   padding: 10px 40px;
-  margin-top: 20px;
   border: 2px dashed var(--black);
 }
 .project-expanded .button-white :first-child{
@@ -72,12 +70,11 @@
   display: block;
   opacity: 0;
   height: 0;
-  transition: 
-    opacity 0.5s, 
-    height 0.5s;
+  transition: opacity 0s, height 0.5s;
 }
 .project-expanded .text-thin-small{
   min-height: 65px;
+  margin-bottom: 20px;
 }
 .project-expanded .text-bold-small{
   display: inline-block;
@@ -91,11 +88,7 @@
   background-color: var(--white);
   margin: 0;
   width: 250px;
-  transition: 
-    min-height 0.5s ease-in-out, 
-    width 0.5s ease-in-out, 
-    inset 0.5s ease-in-out, 
-    padding 0.5s ease-in-out;
+  transition: transform 0.5s, padding 0.5s;
 }
 
 .project-expanded--none{
@@ -108,38 +101,26 @@
   opacity: 1;
   transition: opacity 0.5s, background-color 0.2s;
 }
-.project-expanded--show .icon{
-  margin: 40px 0;
-  transition: margin 0.5s ease-in-out;
-}
 .project-expanded--show .text-normal{
   height: 150px;
   opacity: 1;
-  transition: 
-    opacity 0.5s 0.25s, 
-    height 0.5s;
+  transition: opacity 0.5s, height 0.5s;
 }
 .project-expanded--show .button-white :first-child{
   opacity: 1;
   width: 100px;
   height: 40px;
-  transition: 
-    opacity 0.25s 0.25s; 
+  transition: opacity 0.25s 0.25s; 
 }
 .project-expanded--show .button-white :last-child{
   opacity: 0.5;
   width: 0;
   height: 0;
-  transition: 
-    opacity 0.25s; 
+  transition: opacity 0.25s; 
 }
 .project-expanded--show .wrapper{
-  inset: 0 !important;
-  transition: 
-    min-height 0.5s, 
-    width 0.5s ease-in-out, 
-    inset 0.5s ease-in-out, 
-    padding 0.5s ease-in-out;
+  transform: translateX(0) translateY(0) !important;
+  transition: transform 0.5s, padding 0.5s;
 }
 
 @media (min-width: 0px) {
@@ -153,12 +134,10 @@
   }
 
   .project, .project-expanded .wrapper{
-    min-height: 300px;
     padding: 40px 20px;
   }
   .project-expanded--show .wrapper{
-    min-height: calc(100% - 120px);
-    padding: 20px 20px 100px 20px;
+    padding: 40px 20px 100px 20px;
     width: calc(100% - 40px) !important;
   }
 }
@@ -173,11 +152,9 @@
   }
 
   .project, .project-expanded .wrapper{
-    min-height: 300px;
     padding: 40px;
   }
   .project-expanded--show .wrapper{
-    min-height: calc(100% - 220px);
     padding: 80px 20% 140px 20%;
     width: calc(100% - 40%) !important;
   }

@@ -13,8 +13,9 @@ function removeEl(ref: HTMLElement, mod: string) {
 }
 
 function addEl(ref: HTMLElement, mod: string) {
-  ref.classList.add(ref.classList[0] + mod)
+  ref.classList.add(ref.classList[0] + mod) 
 }
+
 function setLocation(path: string) {
   window.history.pushState(path, path, path)
 }

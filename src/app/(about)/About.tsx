@@ -1,22 +1,13 @@
 "use client"
 
-import {useContext, useRef } from "react"
+import { useContext, useRef } from "react"
 import { Button } from "../../components/buttons/Buttons"
 import { H1, P } from "../../components/texts/Texts"
-import {add, remove} from "../../functions/utils"
+import { add, remove } from "../../functions/utils"
 import { bodyStyle } from "../../functions/types"
 import { langContext } from "../layout"
 import data from "../../data/firstPage.json"
 import "./About.css"
-
-function getStyles(block: HTMLDivElement): string {
-  const parentTop = document.getElementById('about')?.offsetTop || 0
-
-  return `
-    top: ${block.offsetTop - window.scrollY + parentTop}px;
-    left: ${block.offsetLeft}px;
-  `
-}
 
 const About = () => {
   const {lang} = useContext(langContext)
@@ -33,8 +24,11 @@ const About = () => {
   const videoRef = useRef<HTMLVideoElement>(null!)
 
   function expandIn() {      
-    const block = ref.current
-    wrapperRef.current.setAttribute('style', getStyles(block))
+    const metrics = ref.current.getBoundingClientRect()
+    wrapperRef.current.setAttribute(
+      'style', 
+      `transform: translateX(${metrics.x}px) translateY(${metrics.y}px);`
+    )
 
     remove(expandedRef, "--none")
     document.body.setAttribute("style", bodyStyle[1])
@@ -56,8 +50,11 @@ const About = () => {
       return undefined
     }
     else {  
-      const block = ref.current
-      wrapperRef.current.setAttribute('style', getStyles(block))
+      const metrics = ref.current.getBoundingClientRect()
+      wrapperRef.current.setAttribute(
+        'style', 
+        `transform: translateX(${metrics.x}px) translateY(${metrics.y}px);`
+      )
 
       remove(expandedRef, "--show")
   

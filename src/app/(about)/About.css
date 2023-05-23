@@ -32,7 +32,8 @@
   display: flex;
   flex-direction: column;
   transition: 
-    inset 0.25s 0.25s,
+    /* inset 0.25s 0.25s, */
+    transform 0.25s 0.25s,
     width 0.25s 0.25s,
     height 0.25s 0.25s,
     padding 0.25s 0.25s,
@@ -84,11 +85,13 @@
   transition: background-color 0.25s;    
 }
 .values-expand--show .wrapper{
-  inset: 0 !important;
+  /* inset: 0 !important; */
   border-color: transparent;
   border-radius: 0;
+  transform: translateX(0) translateY(0) !important;
   transition: 
-    inset 0.25s 0.25s,
+    /* inset 0.25s 0.25s, */
+    transform 0.25s 0.25s,
     width 0.25s 0.25s,
     height 0.25s 0.25s,
     padding 0.25s 0.25s,
