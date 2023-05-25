@@ -38,7 +38,7 @@ const Atlas = ({isMobile}: {isMobile: boolean}) => {
         <H1 name="title-big">Atlas</H1>
         <H1 name="title-big">Computing</H1>
         <div className="wrapper-video">
-          <video ref={videoRef} id="video-globe" src="/globe.webm" muted loop autoPlay/>
+          <video ref={videoRef} id="video-globe" src="/globe.mp4" muted loop autoPlay/>
         </div>
         <H2 name="subtitle-big">{atlas.subtitle}</H2>
       </div>

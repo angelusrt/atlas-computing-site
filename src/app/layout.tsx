@@ -23,10 +23,22 @@ function RootLayout({children}: {children: React.ReactNode}){
         <meta name="color-scheme" content="only light"/>
         <meta name="description" content="Onde o futuro se constrói"/>
         
-        <link rel="icon" href="/favicon.ico" />
-
-        <link rel="apple-touch-icon" href="/logo192.png" />
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel="apple-touch-icon" href="/globe40.png" />
         <link rel="manifest" href="/manifest.json" />
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://www.atlascomputing.com.br/"/>
+        <meta property="og:site_name" content="AtlasComputing"/>
+        <meta property="og:title" content="Atlas Computing"/>
+        <meta property="og:description" content="Onde o futuro se constrói."/>
+        <meta property="og:image" content="https://storage.googleapis.com/atlascomputing-images/Atlas.png"/>
+
+        <meta property="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:url" content="https://www.atlascomputing.com.br/"/>
+        <meta property="twitter:title" content="Atlas Computing"/>
+        <meta property="twitter:description" content="Onde o futuro se constrói."/>
+        <meta property="twitter:image" content="https://storage.googleapis.com/atlascomputing-images/Atlas.png"/>
 
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
